@@ -1,1 +1,6 @@
-fkjdsfalk
+package consumers;
+
+public abstract class energyConsumers{
+
+}
+

@@ -1,1 +1,5 @@
-fkjdsfalk
+package main;
+
+public class main{
+
+}
