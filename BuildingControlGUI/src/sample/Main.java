@@ -17,7 +17,19 @@ public class Main extends Application {
     }
 
 
+
     public static void main(String[] args) {
         launch(args);
     }
 }
+
+/*
+Tasks to do:
+-Kesava- Main menu (energy consumers)
+-Sam- Sub menu (control/simulation)
+-Aleem- Options menu (control/monitor/historical data)
+-Create GUI for main menu
+-Add buttons using scene builder
+-Use a red coloured theme: dark red border, with light red background and red transparent button.
+-Could add a image of a building as the background
+ */
