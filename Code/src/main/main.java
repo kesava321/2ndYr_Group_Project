@@ -20,7 +20,7 @@ public class main{
 
 -Please select an option: 1)Control
                           2)Monitor
-                          2)Simulation
+                          3)Historical Data
 
 Deadline: The above has to be completed by the end of this week, as we only have two weeks left.
           Also now that OSC and ACE deadline has gone please do as much coding as you can.
