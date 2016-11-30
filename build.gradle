@@ -3,6 +3,7 @@ apply plugin: 'application'
 
 mainClassName = 'main.CAB'
 version = '0.0.1'
+org.gradle.daemon=true
 
 
 task makeJar(type: Jar) {
