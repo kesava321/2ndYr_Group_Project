@@ -11,7 +11,7 @@
         <buttons>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                <Button layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" />
+                <Button styleClass="menu__button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" />
                 <Button layoutX="143.0" layoutY="197.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="109.0" text="Heating" />
                </children>
             </AnchorPane>

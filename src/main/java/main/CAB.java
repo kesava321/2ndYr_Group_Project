@@ -19,7 +19,9 @@ public class CAB extends Application{
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Scene scene = new Scene(root, 600, 600);
+        scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
 
 //        BorderPane root = new BorderPane();
