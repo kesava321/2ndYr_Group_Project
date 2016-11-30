@@ -20,7 +20,7 @@ public class CAB extends Application{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "sample.fxml"));
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root, 600, 600);
-        scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
 
