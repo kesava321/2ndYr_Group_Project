@@ -1,4 +1,8 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.menu__bgr{
+    -fx-background-image: url(menu_bgr.jpg);
+}
+
 .menu__button{
     -fx-padding: 15;
     -fx-font-size:30;

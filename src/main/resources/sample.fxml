@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: FF5555;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="MainMenu.css" styleClass="menu__bgr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                <Button layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" style="-fx-background-color: #b22222;" text="Electricity" textFill="WHITE">
+                <Button styleClass="menu_button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" style="-fx-background-color: #b22222;" text="Electricity" textFill="WHITE">
                      <effect>
                         <Glow />
                      </effect>
