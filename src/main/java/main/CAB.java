@@ -6,7 +6,29 @@ import energyConsumers.Heating;
 import energyConsumers.Light;
 import simulation.*;
 
-class CAB{
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
+
+public class CAB extends Application{
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "sample.fxml"));
+        primaryStage.setTitle("Building Control Systems");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
+
+//        BorderPane root = new BorderPane();
+//        Scene scene = new Scene(root,600,600);
+//        primaryStage.setTitle("Building Control System");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+    }
+
     public static void main(String[] args)
     {
         control.test();
@@ -19,5 +41,18 @@ class CAB{
         person.test();
         room.test();
         simulation.test();
+
+        launch(args);
     }
 }
+
+/*
+Tasks to do:
+-Kesava- Main menu (energy consumers)
+-Sam- Sub menu (control/simulation)
+-Aleem- Options menu (control/monitor/historical data)
+-Create GUI for main menu
+-Add buttons using scene builder
+-Use a red coloured theme: dark red border, with light red background and red transparent button.
+-Could add a image of a building as the background
+ */
