@@ -32,6 +32,7 @@ public class CAB extends Application{
         anotherStage.setTitle("Building Control Systems");
         anotherStage.setScene(new Scene(sroot, 600, 400));
 
+
         anotherStage.show();
 
 //        BorderPane root = new BorderPane();
