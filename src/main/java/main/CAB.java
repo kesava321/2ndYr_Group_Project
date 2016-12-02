@@ -17,12 +17,22 @@ import javafx.stage.Stage;
 public class CAB extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        Stage anotherStage = new Stage();
+
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "MainMenu.fxml"));
 
         primaryStage.setTitle("Building Control Systems");
         primaryStage.setScene(new Scene(root, 600, 400));
 
         primaryStage.show();
+
+        Parent sroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlSimulation.fxml"));
+
+        anotherStage.setTitle("Building Control Systems");
+        anotherStage.setScene(new Scene(sroot, 600, 400));
+
+        anotherStage.show();
 
 //        BorderPane root = new BorderPane();
 //        Scene scene = new Scene(root,600,600);
