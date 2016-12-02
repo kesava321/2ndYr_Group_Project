@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?xml-stylesheet href="ControlOptions.css" type="text/css"?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="410.0" styleClass="menu__bgr" stylesheets="MainMenu.css" xmlns="http://javafx.com/javafx/8.0.71">
    <children>
       <GridPane layoutX="105.0" layoutY="88.0" prefHeight="225.0" prefWidth="200.0">
         <columnConstraints>
@@ -18,9 +18,9 @@
           <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass=".menu__button" text="Contorl" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass=".menu__button" text="Monitor" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass=".menu__button" text="Historical Data" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="menu__button" style="-fx-background-color: #b22222;" text="Contorl" textFill="WHITE"/>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="menu__button" style="-fx-background-color: #b22222;" text="Monitor" GridPane.rowIndex="1" textFill="WHITE"/>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="menu__button" style="-fx-background-color: #b22222;" text="Historical Data" GridPane.rowIndex="2" textFill="WHITE"/>
          </children>
       </GridPane>
    </children>
