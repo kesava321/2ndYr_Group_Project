@@ -18,22 +18,23 @@ public class CAB extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Stage anotherStage = new Stage();
+        Stage optionsStage = new Stage();
+        Stage simulationStage = new Stage();
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "MainMenu.fxml"));
-
         primaryStage.setTitle("Building Control Systems");
         primaryStage.setScene(new Scene(root, 600, 400));
-
         primaryStage.show();
 
         Parent sroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlSimulation.fxml"));
+        optionsStage.setTitle("Building Control Systems");
+        optionsStage.setScene(new Scene(sroot, 600, 400));
+        optionsStage.show();
 
-        anotherStage.setTitle("Building Control Systems");
-        anotherStage.setScene(new Scene(sroot, 600, 400));
-
-
-        anotherStage.show();
+        Parent troot = FXMLLoader.load(getClass().getClassLoader().getResource(  "Simulation.fxml"));
+        simulationStage.setTitle("Simulation Page");
+        simulationStage.setScene(new Scene(troot, 600, 400));
+        simulationStage.show();
 
 //        BorderPane root = new BorderPane();
 //        Scene scene = new Scene(root,600,600);
