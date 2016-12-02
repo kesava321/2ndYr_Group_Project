@@ -15,7 +15,6 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                 <Button styleClass="menu_button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" style="-fx-background-color: #b22222;" text="Electricity" textFill="WHITE">>
-               
                      <effect>
                         <Glow />
                      </effect>
@@ -31,11 +30,11 @@
                      </font></Button>
 
 
-                <Button styleClass="menu__button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" />
-                <Button layoutX="143.0" layoutY="197.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="109.0" text="Heating" />
+                <!--<Button styleClass="menu__button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" />-->
+                <!--<Button layoutX="143.0" layoutY="197.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="109.0" text="Heating" />-->
 
-                <Button styleClass="menu__button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" />
-                <Button layoutX="143.0" layoutY="197.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="109.0" text="Heating" />
+                <!--<Button styleClass="menu__button" layoutX="138.0" layoutY="62.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" />-->
+                <!--<Button layoutX="143.0" layoutY="197.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="109.0" text="Heating" />-->
 
                </children>
             </AnchorPane>
