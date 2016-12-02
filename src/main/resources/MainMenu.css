@@ -1,6 +1,7 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .menu__bgr{
     -fx-background-image: url(menu_bgr.jpg);
+    -fx-opacity: 0.7;
 }
 
 .menu__button{

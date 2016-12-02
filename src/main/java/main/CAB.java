@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class CAB extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "MainMenu.fxml"));
 
         primaryStage.setTitle("Building Control Systems");
         primaryStage.setScene(new Scene(root, 600, 400));
