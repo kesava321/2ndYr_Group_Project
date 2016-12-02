@@ -18,6 +18,7 @@ public class CAB extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "sample.fxml"));
+<<<<<<< HEAD
 
         primaryStage.setTitle("Building Control Systems");
         primaryStage.setScene(new Scene(root, 600, 400));
@@ -25,11 +26,15 @@ public class CAB extends Application{
         //scene.getStylesheets().add(getClass().getResource("MainMenu.css").toExternalForm());
         //primaryStage.setScene(scene);
 
+=======
+        primaryStage.setTitle("Building Control Systems");
+        primaryStage.setScene(new Scene(root, 600, 400));
+>>>>>>> dev
         primaryStage.show();
 
 //        BorderPane root = new BorderPane();
 //        Scene scene = new Scene(root,600,600);
-//        primaryStage.setTitle("Hello World");
+//        primaryStage.setTitle("Building Control System");
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
     }
