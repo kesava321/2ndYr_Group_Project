@@ -37,7 +37,7 @@ public class CAB extends Application{
         simulationStage.show();
 
         Parent oroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlOptions.fxml"));
-        simulationStage.setTitle("Simulation Page");
+        simulationStage.setTitle("Control Options Page");
         simulationStage.setScene(new Scene(oroot, 600, 400));
         simulationStage.show();
 
