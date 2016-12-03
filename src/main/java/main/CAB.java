@@ -36,6 +36,11 @@ public class CAB extends Application{
         simulationStage.setScene(new Scene(troot, 600, 400));
         simulationStage.show();
 
+        Parent oroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlOptions.fxml"));
+        simulationStage.setTitle("Simulation Page");
+        simulationStage.setScene(new Scene(oroot, 600, 400));
+        simulationStage.show();
+
 //        BorderPane root = new BorderPane();
 //        Scene scene = new Scene(root,600,600);
 //        primaryStage.setTitle("Building Control System");
