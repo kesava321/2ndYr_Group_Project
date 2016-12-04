@@ -15,18 +15,42 @@ import javafx.stage.Stage;
 
 
 public class CAB extends Application{
+
+    public static final String ControlConsumerID = "ControlConsumer";
+    public static final String ControlConsumerPath = "ControlConsumer.fxml";
+    public static final String ControlOptionsID = "ControlOptions";
+    public static final String ControlOptionsPath = "ControlOptions.fxml";
+    public static final String ControlSimulationID = "ControlSimulation";
+    public static final String ControlSimulationPath = "ControlSimulation.fxml";
+    public static final String ControlWindowID = "ControlWindow";
+    public static final String ControlWindowPath = "ControlWindow.fxml";
+    public static final String HistoricalDataID = "HistoricalData";
+    public static final String HistoricalDataPath = "HistoricalData.fxml";
+    public static final String HistoricalDataWindowID = "HistoricalDataWindow";
+    public static final String HistoricalDataWindowPath = "HistoricalDataWindow.fxml";
+    public static final String MainMenuID = "MainMenu";
+    public static final String MainMenuPath = "MainMenu.fxml";
+    public static final String MonitorConsumerID = "MonitorConsumer";
+    public static final String MonitorConsumerPath = "MonitorConsumer.fxml";
+    public static final String MonitorWindowID = "MonitorWindow";
+    public static final String MonitorWindowPath = "MonitorWindow.fxml";
+    public static final String SimulationID = "Simulation";
+    public static final String SimulationPath = "Simulation.fxml";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Stage optionsStage = new Stage();
-        Stage simulationStage = new Stage();
+        /*Stage optionsStage = new Stage();
+        Stage simulationStage = new Stage();*/
+
+
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(  "MainMenu.fxml"));
         primaryStage.setTitle("Building Control Systems");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
-        Parent sroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlSimulation.fxml"));
+        /*Parent sroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlSimulation.fxml"));
         optionsStage.setTitle("Building Control Systems");
         optionsStage.setScene(new Scene(sroot, 600, 400));
         optionsStage.show();
@@ -39,7 +63,7 @@ public class CAB extends Application{
         Parent oroot = FXMLLoader.load(getClass().getClassLoader().getResource(  "ControlOptions.fxml"));
         simulationStage.setTitle("Control Options Page");
         simulationStage.setScene(new Scene(oroot, 600, 400));
-        simulationStage.show();
+        simulationStage.show();*/
 
 //        BorderPane root = new BorderPane();
 //        Scene scene = new Scene(root,600,600);
