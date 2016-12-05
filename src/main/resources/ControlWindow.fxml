@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e77070;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="213.0" layoutY="31.0" prefHeight="26.0" prefWidth="174.0" text="Control Electricity">
+      <Label layoutX="211.0" layoutY="36.0" text="Monitor Electricity ">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="206.0" layoutY="172.0" text="Buttons Limit electricity Usage" />
-      <Label layoutX="208.0" layoutY="339.0" text="Dials display electricity Usage" />
-      <ComboBox layoutX="337.0" layoutY="97.0" prefWidth="150.0" promptText="Select Corridor:" />
-      <ComboBox layoutX="108.0" layoutY="97.0" prefWidth="150.0" promptText="Select Room:" />
-      <Circle fill="#189d20" layoutX="300.0" layoutY="252.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#189d20" layoutX="412.0" layoutY="252.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#189d20" layoutX="183.0" layoutY="252.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="133.0" layoutY="104.0" text="Current Usage (Watts):" />
+      <Label layoutX="133.0" layoutY="130.0" text="Previous Usage (Watts):" />
+      <Label layoutX="345.0" layoutY="104.0" text="Energy Saved:" />
+      <Label layoutX="133.0" layoutY="172.0" text="Room Layout:" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189d20" height="182.0" layoutX="131.0" layoutY="199.0" stroke="BLACK" strokeType="INSIDE" width="327.0" />
    </children>
 </AnchorPane>
