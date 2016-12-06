@@ -27,7 +27,7 @@ public class ControlOptions implements ScreenViewController
     {
         try
         {
-            root = FXMLLoader.load(getClass().getResource("/resources/ControlOptions.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/ControlOptions.fxml"));
         } catch (IOException e)
         {
             e.printStackTrace();
