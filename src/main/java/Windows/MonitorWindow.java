@@ -5,8 +5,11 @@ package Windows;
  */
 public class MonitorWindow implements ScreenViewController
 {
-    public void setScreen(ScreensController screenpage)
-    {
 
+    ScreensController myController;
+
+    public void setScreenParent(ScreensController screenpage)
+    {
+        myController = screenpage;
     }
 }

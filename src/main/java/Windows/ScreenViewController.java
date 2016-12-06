@@ -5,5 +5,5 @@ package Windows;
  */
 public interface ScreenViewController
 {
-    void setScreen(ScreensController screenpage);
+    void setScreenParent(ScreensController screenPage);
 }

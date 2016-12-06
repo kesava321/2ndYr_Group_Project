@@ -8,8 +8,10 @@ import javafx.stage.Screen;
 public class ControlSimulation implements ScreenViewController
 {
 
-    public void setScreen(ScreensController screenpage)
-    {
+    ScreensController myController;
 
+    public void setScreenParent(ScreensController screenpage)
+    {
+        myController = screenpage;
     }
 }

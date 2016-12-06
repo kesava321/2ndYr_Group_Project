@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -19,7 +18,7 @@ public class ScreensController extends StackPane
     {
         super();
     }
-    public void addScreens(String id, Node screen)
+    public void addScreen(String id, Node screen)
     {
         screens.put(id,screen);
     }
@@ -28,18 +27,19 @@ public class ScreensController extends StackPane
         return screens.get(id);
     }
 
-    public void loadFXML(String id, String path)
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-            Parent loadFXML = (Parent) loader.load();
-            ScreenViewController screencontroller = ((ScreenViewController) loader.getController());
-            screencontroller.setScreen(this);
-            addScreens(id,loadFXML);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
+    public boolean loadFXML(String name, String resource) {
+        try {
+            System.out.println("R " +getClass().getClassLoader().getResource(resource));
+            FXMLLoader myLoader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenu.fxml"));
+            Parent loadScreen = myLoader.load();
+            ScreenViewController myScreenControler = myLoader.getController();
+            myScreenControler.setScreenParent(this);
+            addScreen(name, loadScreen);
+            System.out.println("WORKED");
+            return true;
+        }catch(Exception e) {
+            System.out.println("FUCK "+e.getMessage());
+            return false;
         }
     }
     public void setScreen(String id)
@@ -48,11 +48,12 @@ public class ScreensController extends StackPane
         {
             if(!getChildren().isEmpty()) //if there is more than one screen
             {
-
+                getChildren().remove(0);
+                getChildren().add(0, screens.get(id));
             }
             else
             {
-                getChildren().add(screens.get(id));
+                getChildren().add(0,screens.get(id));
             }
         }
         else

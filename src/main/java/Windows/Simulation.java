@@ -8,7 +8,7 @@ public class Simulation implements ScreenViewController
 
     ScreensController controller;
 
-    public void setScreen(ScreensController screenpage)
+    public void setScreenParent(ScreensController screenpage)
     {
         controller = screenpage;
     }

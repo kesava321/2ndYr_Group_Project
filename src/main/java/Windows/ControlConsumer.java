@@ -10,9 +10,12 @@ import java.util.ResourceBundle;
  */
 public class ControlConsumer implements ScreenViewController
 {
-    public void setScreen(ScreensController x)
-    {
 
+    ScreensController myController;
+
+    public void setScreenParent(ScreensController x)
+    {
+        myController = x;
     }
 
 }
