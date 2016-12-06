@@ -1,7 +1,7 @@
 package main;
 
 import Windows.ControlOptions;
-import Windows.ScreensController;
+import DEL.ScreensController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,33 +22,29 @@ public class CAB extends Application implements Initializable{
 
     @FXML
     private Button ElectricityButton;
+    @FXML
+    private Button HeatingButton;
+    @FXML
+    private Button GasButton;
+    @FXML
+    private Button WaterButton;
+
+
+    public static int ELECTRICITY = 1;
+    public static int HEATING = 2;
+    public static int GAS = 3;
+    public static int WATER = 4;
 
     public static Parent root;
-
-    public static final String MAIN_SCREEN = "main";
-    public static final String MAIN_FXML = "/MainMenu.fxml";
-    public static final String CONTROL_OPTIONS_SCREEN = "controlOptions";
-    public static final String CONTROL_OPTIONS_FXML = "/ControlOptions.fxml";
-
-
+    Stage window;
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-
-        ScreensController mainContainer = new ScreensController();
-        mainContainer.loadFXML(CAB.MAIN_SCREEN,CAB.MAIN_FXML);
-        mainContainer.loadFXML(CAB.CONTROL_OPTIONS_SCREEN,CAB.CONTROL_OPTIONS_FXML);
-        mainContainer.setScreen(MAIN_SCREEN);
-        Group root = new Group();
-        root.getChildren().addAll(mainContainer);
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        /*root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
-        primaryStage.setTitle("Building Control Systems");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();*/
+        window = primaryStage;
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
+        window.setTitle("Building Control Systems");
+        window.setScene(new Scene(root, 600, 400));
+        window.show();
     }
 
     public static void main(String[] args)
@@ -64,9 +60,39 @@ public class CAB extends Application implements Initializable{
 
             @Override
             public void handle(ActionEvent event) {
-                    ControlOptions control = new ControlOptions();
-                    control.start();
+                ControlOptions control = new ControlOptions(ELECTRICITY);
+                control.start();
+                Stage stage = (Stage) ElectricityButton.getScene().getWindow();
+                stage.close();
             }
         });
+        assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
+        HeatingButton.setOnAction(event ->
+        {
+            ControlOptions control = new ControlOptions(HEATING);
+            control.start();
+            Stage stage = (Stage) HeatingButton.getScene().getWindow();
+            stage.close();
+        });
+        assert GasButton != null : "fx:id=\"GasButton\" was not injected: check your FXML file 'simple.fxml'.";
+        GasButton.setOnAction(event ->
+        {
+            ControlOptions control = new ControlOptions(GAS);
+            control.start();
+            Stage stage = (Stage) GasButton.getScene().getWindow();
+            stage.close();
+        });
+        assert WaterButton != null : "fx:id=\"WaterButton\" was not injected: check your FXML file 'simple.fxml'.";
+        WaterButton.setOnAction(event ->
+        {
+            ControlOptions control = new ControlOptions(WATER);
+            control.start();
+            Stage stage = (Stage) WaterButton.getScene().getWindow();
+            stage.close();
+        });
+
+
+
+
     }
 }
