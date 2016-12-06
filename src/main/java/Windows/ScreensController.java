@@ -38,7 +38,7 @@ public class ScreensController extends StackPane
             System.out.println("WORKED");
             return true;
         }catch(Exception e) {
-            System.out.println("FUCK "+e.getMessage());
+            System.out.println("opps "+e.getMessage());
             return false;
         }
     }
