@@ -30,7 +30,7 @@ public class ScreensController extends StackPane
     public boolean loadFXML(String name, String resource) {
         try {
             System.out.println("R " +getClass().getClassLoader().getResource(resource));
-            FXMLLoader myLoader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenu.fxml"));
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
             Parent loadScreen = myLoader.load();
             ScreenViewController myScreenControler = myLoader.getController();
             myScreenControler.setScreenParent(this);
