@@ -1,11 +1,11 @@
 package Windows;
 
+import DEL.ScreenViewController;
+import DEL.ScreensController;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +18,12 @@ public class ControlOptions implements ScreenViewController
     Stage window = new Stage();
     //GridPane grid = new GridPane();
     private static Parent root;
+
+    public ControlOptions(int utility)
+    {
+
+    }
+
     @Override
     public void setScreenParent(ScreensController screenPage)
     {

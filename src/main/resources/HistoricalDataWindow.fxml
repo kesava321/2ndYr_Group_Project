@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e77070;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e77070;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="226.0" layoutY="36.0" text="Historical Data">
          <font>
@@ -14,9 +16,15 @@
          </font>
       </Label>
       <Label layoutX="128.0" layoutY="91.0" text="Select Time and Date:" />
-      <Label layoutX="128.0" layoutY="168.0" text="Results Shown Here:" />
-      <Label layoutX="131.0" layoutY="219.0" text="Graph:" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189d20" height="131.0" layoutX="131.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="329.0" />
+      <Label layoutX="128.0" layoutY="167.0" text="Data" />
       <DatePicker layoutX="128.0" layoutY="117.0" />
+      <BarChart layoutX="112.0" layoutY="184.0" prefHeight="200.0" prefWidth="344.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

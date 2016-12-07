@@ -1,6 +1,7 @@
 package Windows;
 
-import javafx.stage.Screen;
+import DEL.ScreenViewController;
+import DEL.ScreensController;
 
 /**
  * Created by daniel on 04/12/2016.

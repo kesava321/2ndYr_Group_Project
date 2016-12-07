@@ -1,9 +1,7 @@
 package Windows;
 
-import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import DEL.ScreenViewController;
+import DEL.ScreensController;
 
 /**
  * Created by daniel on 04/12/2016.

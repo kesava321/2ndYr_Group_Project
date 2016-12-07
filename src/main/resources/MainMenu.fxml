@@ -7,20 +7,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
+<?import java.net.URL?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="menu__bgr" stylesheets="MainMenu.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CAB">
     <left>
         <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Button layoutX="138.0" layoutY="68.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" style="-fx-background-color: #b22222;" styleClass="menu_button" text="Electricity" textFill="WHITE" fx:id="ElectricityButton">>
+                        <Button styleClass="menu__button" layoutX="138.0" layoutY="68.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="112.0" text="Electricity" textFill="WHITE" fx:id="ElectricityButton">>
                             <effect>
                                 <Glow />
                             </effect>
                             <font>
                                 <Font name="System Bold Italic" size="18.0" />
                             </font></Button>
-                        <Button layoutX="140.0" layoutY="217.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="110.0" style="-fx-background-color: #b22222;" text="Heating" textFill="WHITE">
+                        <Button layoutX="140.0" layoutY="217.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="110.0" style="-fx-background-color: #b22222;" text="Heating" textFill="WHITE" fx:id="HeatingButton">>
                             <effect>
                                 <Glow />
                             </effect>
@@ -47,7 +48,7 @@
                     <children>
                         <BorderPane layoutX="-145.0" layoutY="21.0" prefHeight="200.0" prefWidth="200.0">
                             <center>
-                                <Button mnemonicParsing="false" prefHeight="107.0" prefWidth="113.0" style="-fx-background-color: #b22222;" text="Water" textFill="WHITE" BorderPane.alignment="CENTER">
+                                <Button mnemonicParsing="false" prefHeight="107.0" prefWidth="113.0" style="-fx-background-color: #b22222;" text="Water" textFill="WHITE" BorderPane.alignment="CENTER" fx:id="WaterButton">
                                     <effect>
                                         <Glow />
                                     </effect>
@@ -56,7 +57,7 @@
                                     </font></Button>
                             </center>
                         </BorderPane>
-                        <Button layoutX="-100.0" layoutY="217.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="113.0" style="-fx-background-color: #b22222;" text="Gas" textFill="WHITE">
+                        <Button layoutX="-100.0" layoutY="217.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="113.0" style="-fx-background-color: #b22222;" text="Gas" textFill="WHITE" fx:id="GasButton">
                             <effect>
                                 <Glow />
                             </effect>

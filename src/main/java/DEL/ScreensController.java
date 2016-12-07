@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,8 +30,8 @@ public class ScreensController extends StackPane
     public boolean loadFXML(String name, String resource) {
         try {
             System.out.println("R " +getClass().getClassLoader().getResource(resource));
-            FXMLLoader myLoader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenu.fxml"));
-            Parent loadScreen = myLoader.load();
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
+            Parent loadScreen =(Parent) myLoader.load();
             ScreenViewController myScreenControler = myLoader.getController();
             myScreenControler.setScreenParent(this);
             addScreen(name, loadScreen);
