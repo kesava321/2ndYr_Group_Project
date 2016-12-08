@@ -15,7 +15,8 @@ public class Heating extends energyConsumers
     }
     public Heating(double temp, double power)
     {
-
+        setPowerRating(power);
+        setTemperature(temp);
     }
 
     public double getTemperature()
