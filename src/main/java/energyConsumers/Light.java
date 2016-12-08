@@ -5,8 +5,25 @@ package energyConsumers;
  */
 public class Light extends energyConsumers
 {
-    public static void test()
+    private Boolean lightState;
+
+    public Light()
     {
-        System.out.println("light Class extends energyConsumers");
+        setLightState(false);
+    }
+
+    public Light(Boolean state)
+    {
+        setLightState(state);
+    }
+
+    public Boolean getLightState()
+    {
+        return lightState;
+    }
+
+    public void setLightState(Boolean lightState)
+    {
+        this.lightState = lightState;
     }
 }
