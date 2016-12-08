@@ -6,20 +6,17 @@ package energyConsumers;
 public class Heating extends energyConsumers
 {
     private double temperature;
-
+    private double powerRating; //Watts
 
     public Heating()
     {
         setTemperature(0.0);
+        setPowerRating(10000);
     }
-    public Heating(double temp)
+    public Heating(double temp, double power)
     {
-        if(temp >40.0)
-            setTemperature(40);
-        else if(temp >0.0)
-            setTemperature(temp);
-        else
-            setTemperature(0);
+        setPowerRating(power);
+        setTemperature(temp);
     }
 
     public double getTemperature()
@@ -29,6 +26,24 @@ public class Heating extends energyConsumers
 
     public void setTemperature(double temperature)
     {
-        this.temperature = temperature;
+        if(temperature >40.0)
+            this.temperature = 40;
+        else if(temperature >0.0)
+            this.temperature = temperature;
+        else
+            this.temperature = 0;
+    }
+
+    public double getPowerRating()
+    {
+        return powerRating;
+    }
+
+    public void setPowerRating(double powerRating)
+    {
+        if(powerRating<0)
+            this.powerRating = 0;
+        else
+            this.powerRating = powerRating;
     }
 }
