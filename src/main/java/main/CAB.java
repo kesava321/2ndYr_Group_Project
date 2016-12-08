@@ -68,8 +68,13 @@ public class CAB extends Application implements Initializable{
         {
             heatings[y] = new Heating(25,heatingPowerRating);
         }
-        int time= 60; //mins
-        System.out.println();
+        int time= 40; //mins
+        int totalPower =0;
+        for(int z = 0; z<lightsNum; z++)
+            totalPower+=lights[z].powerComsumption(time,lights[z].getPowerrating());
+        for(int a = 0; a<heatingNum; a++)
+            totalPower+=heatings[a].powerComsumption(time,heatings[a].getPowerRating());
+        System.out.println(totalPower);
     }
 
     @Override

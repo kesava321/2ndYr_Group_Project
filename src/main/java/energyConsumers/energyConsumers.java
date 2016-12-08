@@ -1,10 +1,10 @@
 package energyConsumers;
 
-public abstract class energyConsumers
+public class energyConsumers
 {
-    public static void test()
+    public double powerComsumption(int mins, double powerRating)
     {
-        System.out.println("energyConsumers Class");
+        return (powerRating/60) * mins;
     }
 }
 
