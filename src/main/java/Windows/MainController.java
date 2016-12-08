@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import main.CAB;
 
+
 import java.awt.event.MouseEvent;
 
 
@@ -25,7 +26,7 @@ public class MainController
     {
         this.application = application;
     }
-
+/*
 
     ElectrictyButton.setOnAction(new EventHandler<ActionEvent>() {
     public void handle(ActionEvent e) {
@@ -52,4 +53,5 @@ ElectrictyButton.addEventHandler(MouseEvent.MOUSE_EXITED,
         ElectrictyButton.setEffect(null);
     }
 }
+*/
 }
