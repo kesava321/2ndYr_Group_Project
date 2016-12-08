@@ -3,10 +3,26 @@ One Drive - https://onedrive.live.com/?authkey=%21ABbCRRn0aPrp7Ds&id=D1D49AAB68B
 
 Trello - https://trello.com/b/pdfVxHh4/controling-adaptable-buildings
 
+<br>
+
 Supervisor - Peer-Olaf Sieber
+
+<br>
 
 Team Leader - Kesava
 
+<br>
+
 Git Master - Matt 
 
+<br>
+
+GUI Designers;<br>
+Sam<br>
+Kesava
+<br><br>
+Programmers<br>
+Matt<br>
+Dan<br>
+Rai
 </font>
