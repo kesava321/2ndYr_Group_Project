@@ -1,10 +1,19 @@
 package energyConsumers;
 
-public abstract class energyConsumers
+public class energyConsumers
 {
-    public static void test()
+    public double powerComsumption(int mins, double powerRating)
     {
-        System.out.println("energyConsumers Class");
+        return (powerRating/60) * mins;
+    }
+
+    public double calculateCost(double powerConsumption, double costPerKwH){
+        return (powerConsumption/1000)*costPerKwH;
+    }
+
+    public double estimatedEmissions(double kwh){
+        double emissions = 0.527;
+        return kwh * emissions;
     }
 }
 
