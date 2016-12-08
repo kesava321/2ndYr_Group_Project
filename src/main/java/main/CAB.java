@@ -2,6 +2,8 @@ package main;
 
 import Windows.ControlOptions;
 import DEL.ScreensController;
+import energyConsumers.Heating;
+import energyConsumers.Light;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,7 +18,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class CAB extends Application implements Initializable{
 
@@ -50,16 +54,34 @@ public class CAB extends Application implements Initializable{
     public static void main(String[] args)
     {
         launch(args);
+        int lightsNum = 6;
+        int lightPowerRating = 100;
+        Light[] lights = new Light[lightsNum];
+        for(int x = 0; x<lightsNum; x++)
+        {
+            lights[x] = new Light(false,lightPowerRating);
+        }
+        int heatingNum = 2;
+        int heatingPowerRating = 1000;
+        Heating[] heatings = new Heating[heatingNum];
+        for(int y = 0; y<heatingNum; y++)
+        {
+            heatings[y] = new Heating(25,heatingPowerRating);
+        }
+        int time= 60; //mins
+        System.out.println();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         assert ElectricityButton != null : "fx:id=\"ElectricityButton\" was not injected: check your FXML file 'simple.fxml'.";
-        ElectricityButton.setOnAction(new EventHandler<ActionEvent>() {
+        ElectricityButton.setOnAction(new EventHandler<ActionEvent>()
+        {
 
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event)
+            {
                 ControlOptions control = new ControlOptions(ELECTRICITY);
                 control.start();
                 Stage stage = (Stage) ElectricityButton.getScene().getWindow();
@@ -91,8 +113,7 @@ public class CAB extends Application implements Initializable{
             stage.close();
         });
 
-
-
-
     }
+
+
 }
