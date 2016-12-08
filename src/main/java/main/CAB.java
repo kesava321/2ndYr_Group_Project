@@ -76,7 +76,7 @@ public class CAB extends Application implements Initializable{
             totalPower+=heatings[a].powerComsumption(time,heatings[a].getPowerRating());
         System.out.println(totalPower);
         System.out.println(lights[1].calculateCost(totalPower, 0.13));
-
+        System.out.println(lights[1].estimatedEmissions(totalPower/1000));
     }
 
     @Override
