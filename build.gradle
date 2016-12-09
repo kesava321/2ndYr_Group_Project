@@ -14,9 +14,30 @@ task makeJar(type: Jar) {
     }
 }
 
+repositories {
+    maven { url 'http://repo1.maven.org/maven2' }
+}
+
+dependencies {
+    testCompile 'junit:junit:[4,)'
+}
+
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
 test {
-    useJUnit{
-        includeCatagories 'org.gradle.junit.*'
+    include 'src/test/**'
+    testLogging {
+        // Show that tests are run in the command-line output
+        events 'started', 'passed'
     }
 }
 

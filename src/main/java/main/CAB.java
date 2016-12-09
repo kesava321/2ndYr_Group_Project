@@ -2,6 +2,7 @@ package main;
 
 import Windows.ControlOptions;
 import DEL.ScreensController;
+import Windows.form;
 import energyConsumers.Heating;
 import energyConsumers.Light;
 import javafx.event.ActionEvent;
@@ -69,12 +70,12 @@ public class CAB extends Application implements Initializable{
             heatings[y] = new Heating(25,heatingPowerRating);
         }
         int time= 60; //mins
-        int totalPower =0;
+        double totalPower =0;
         for(int z = 0; z<lightsNum; z++)
             totalPower+=lights[z].powerComsumption(time,lights[z].getPowerrating());
         for(int a = 0; a<heatingNum; a++)
             totalPower+=heatings[a].powerComsumption(time,heatings[a].getPowerRating());
-        System.out.println(totalPower);
+        System.out.println(totalPower/1000);
         System.out.println(lights[1].calculateCost(totalPower, 0.13));
         System.out.println(lights[1].estimatedEmissions(totalPower/1000));
     }
@@ -83,16 +84,15 @@ public class CAB extends Application implements Initializable{
     public void initialize(URL location, ResourceBundle resources)
     {
         assert ElectricityButton != null : "fx:id=\"ElectricityButton\" was not injected: check your FXML file 'simple.fxml'.";
-        ElectricityButton.setOnAction(new EventHandler<ActionEvent>()
+        ElectricityButton.setOnAction(event ->
         {
-
-            @Override
-            public void handle(ActionEvent event)
+            form f = new form();
+            try
             {
-                ControlOptions control = new ControlOptions(ELECTRICITY);
-                control.start();
-                Stage stage = (Stage) ElectricityButton.getScene().getWindow();
-                stage.close();
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
             }
         });
         assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
