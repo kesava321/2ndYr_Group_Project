@@ -72,8 +72,17 @@ public class HeatingTest {
     }
 
     @Test
-    public void getPowerRating() throws Exception {
+    public void getPowerRatingDefaultConstrutor() throws Exception {
+        Heating heater = new Heating();
+        double x = heater.getPowerRating();
+        assertEquals(10000, x, 0.0);
+    }
 
+    @Test
+    public void getPowerRatingDefaultConstrutor() throws Exception {
+        Heating heater = new Heating();
+        double x = heater.getPowerRating();
+        assertEquals(10000, x, 0.0);
     }
 
     @Test
