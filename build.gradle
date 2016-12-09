@@ -14,12 +14,6 @@ task makeJar(type: Jar) {
     }
 }
 
-test {
-    useJUnit{
-        includeCatagories 'org.gradle.junit.*'
-    }
-}
-
 clean.doLast{
     println "Removed Build Folder"
 }

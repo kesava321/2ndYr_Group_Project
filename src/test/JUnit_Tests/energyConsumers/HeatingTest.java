@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by User on 09-Dec-16.
+ * Created by Matt on 09-Dec-16.
  */
 public class HeatingTest {
     @Before
