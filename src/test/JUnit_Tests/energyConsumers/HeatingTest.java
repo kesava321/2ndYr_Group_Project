@@ -72,6 +72,7 @@ public class HeatingTest {
     }
 
     @Test
+    /** testing getting using default constructor */
     public void getPowerRatingDefaultConstrutor() throws Exception {
         Heating heater = new Heating();
         double x = heater.getPowerRating();
@@ -79,15 +80,28 @@ public class HeatingTest {
     }
 
     @Test
-    public void getPowerRatingDefaultConstrutor() throws Exception {
-        Heating heater = new Heating();
+    /** testing getter using user defined constructor */
+    public void getPowerRatingConstrutor() throws Exception {
+        Heating heater = new Heating(20, 200);
         double x = heater.getPowerRating();
-        assertEquals(10000, x, 0.0);
+        assertEquals(200, x, 0.0);
     }
 
     @Test
-    public void setPowerRating() throws Exception {
-
+    /** sets the power rating to a valid number */
+    public void setPowerRating__VALID() throws Exception {
+        Heating heater = new Heating();
+        heater.setPowerRating(5000);  //should reduce to 40
+        double x = heater.getPowerRating();
+        assertEquals(5000, x, 0.0);
     }
 
+    @Test
+    /** sets the power rating to an invalid value (negative) */
+    public void setPowerRating__INVALID() throws Exception {
+        Heating heater = new Heating();
+        heater.setPowerRating(-40);  //should reduce to 40
+        double x = heater.getPowerRating();
+        assertEquals(0, x, 0.0);
+    }
 }
