@@ -14,6 +14,36 @@ task makeJar(type: Jar) {
     }
 }
 
+<<<<<<< HEAD
+repositories {
+    maven { url 'http://repo1.maven.org/maven2' }
+}
+
+dependencies {
+    testCompile 'junit:junit:[4,)'
+}
+
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+test {
+    include 'src/test/**'
+    testLogging {
+        // Show that tests are run in the command-line output
+        events 'started', 'passed'
+    }
+}
+
+=======
+>>>>>>> a5761e0c53bb398d77d96ca2ca3b1b1c30c47649
 clean.doLast{
     println "Removed Build Folder"
 }
