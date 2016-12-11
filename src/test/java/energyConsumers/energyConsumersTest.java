@@ -10,19 +10,25 @@ import static org.junit.Assert.*;
 public class energyConsumersTest {
     @Test
     public void powerConsumption() throws Exception {
-        Light lights = new Light(true, 4000);
+        Light lights = new Light(true, 400);
         double x = lights.powerConsumption(90, lights.getPowerrating());
-        assertEquals(6000,x,0.0);
+        assertEquals(600,x,0.0);
     }
 
     @Test
     public void calculateCost() throws Exception {
-
+        Light lights = new Light(true, 400);
+        double x = lights.powerConsumption(90, lights.getPowerrating());
+        double y = lights.calculateCost(x, 2);
+        assertEquals(1200,y,0.0);
     }
 
     @Test
     public void estimatedEmissions() throws Exception {
-
+        Light lights = new Light(true, 400);
+        double x = lights.powerConsumption(90, lights.getPowerrating());
+        double y = lights.estimatedEmissions(x);
+        assertEquals(1200,y,0.0);
     }
 
 }
