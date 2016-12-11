@@ -1,6 +1,6 @@
+package energyConsumers;
+
 import energyConsumers.Heating;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
@@ -10,15 +10,6 @@ import static org.junit.Assert.*;
  * Created by Matt on 09-Dec-16.
  */
 public class HeatingTest {
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
 
     @Test
     /** A test for the desfault constructor */
