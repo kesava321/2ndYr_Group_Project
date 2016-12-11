@@ -15,7 +15,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
+import controlDB.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -54,6 +54,8 @@ public class CAB extends Application implements Initializable{
 
     public static void main(String[] args)
     {
+        ControlDB cd = new ControlDB();//
+        cd.ControlDB();//
         launch(args);
         int lightsNum = 6;
         int lightPowerRating = 100;

@@ -1,7 +1,13 @@
+DROP DATABASE IF EXISTS DataInput;
+
+CREATE DATABASE DataInput;
+
+USE DataInput;
+
 DROP TABLE IF EXISTS EnergyComsumer;
 
 CREATE TABLE EnergyComsumer(
-    eID INT NOT NULL,
+  eID INT AUTO_INCREMENT,
 	eDate Date NOT NULL,
 	eTime Time NOT NULL,
 	Global_active_power FLOAT,
@@ -16,4 +22,4 @@ CREATE TABLE EnergyComsumer(
 );
 
 INSERT INTO EnergyComsumer(eID, eDate, eTime, Global_active_power, Global_reactive_power, Voltage, Global_intensity, Sub_metering_1, Sub_metering_2, Sub_metering_3) 
-            VALUES ( 1, "2006-12-16", "17:24:00",4.216, 0.418, 234.840, 18.400, 0.000, 1.000,17.000 );
+            VALUES ( 1, "2006-12-16", "17:24:00",4.216, 0.418, 234.840, 18.400, 0.000, 1.000, 17.000 );
