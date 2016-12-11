@@ -68,9 +68,9 @@ public class CAB extends Application implements Initializable{
         int time= 60; //mins
         double totalPower =0;
         for(int z = 0; z<lightsNum; z++)
-            totalPower+=lights[z].powerComsumption(time,lights[z].getPowerrating());
+            totalPower+=lights[z].powerConsumption(time,lights[z].getPowerrating());
         for(int a = 0; a<heatingNum; a++)
-            totalPower+=heatings[a].powerComsumption(time,heatings[a].getPowerRating());
+            totalPower+=heatings[a].powerConsumption(time,heatings[a].getPowerRating());
         System.out.println(totalPower/1000);
         System.out.println(lights[1].calculateCost(totalPower, 0.13));
         System.out.println(lights[1].estimatedEmissions(totalPower/1000));
