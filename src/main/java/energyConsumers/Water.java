@@ -5,30 +5,43 @@ package energyConsumers;
  */
     public class Water extends energyConsumers
     {
-        private Boolean WaterState; //Hot/Cold
-        private double PowerRating; //Watts
+        private Boolean WaterState; //Hot or Cold
+        private double powerRating; //Watts
+        //Number of taps
+        //Number of toilets
+        //Number of kitchens
+        //Number of showers
 
-
-
-    public Water()
+        public Water()
     {
         setWaterState(false);
         setPowerRating(50.0);
     }
 
-    public Water(Boolean state, double PowerRating)
+    public Water(Boolean state, double powerRating)
     {
         setWaterState(state);
-        setPowerRating(PowerRating);
+        setPowerRating(powerRating);
     }
+        public Boolean getWaterState() {return WaterState;}
 
 
     public void setWaterState(boolean waterState) {
         this.WaterState = waterState;
     }
 
-    public void setPowerRating(double PowerRating) {
-        this.PowerRating = PowerRating;
+        public double getPowerRating() {return powerRating;}
+
+    public void setPowerRating(double powerRating) {
+        this.powerRating = powerRating;
+
+        if(WaterState=false) //If water is hot apply powerrating of 50.0
+            this.powerRating = powerRating;
+        else
+            this.powerRating = 35.0; //If water is cold apply powerrating of 35.0
     }
+
 }
- 
+
+
+
