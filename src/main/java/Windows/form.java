@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import javax.xml.soap.Text;
+import java.text.DecimalFormat;
 
 /**
  * Created by daniel on 09/12/2016.
@@ -26,6 +27,9 @@ public class form
     int totalHeatingPower;
     double price;
     double pollution;
+
+    private static DecimalFormat df2 = new DecimalFormat(".##");
+
     public void start() throws Exception
     {
         Label lightNum = new Label("Number of Lights");
@@ -84,17 +88,18 @@ public class form
                 lights[x] = new Light(false,Integer.parseInt(lightPowerRatingField.getText()));
                 totalLightPower+=lights[x].getPowerrating();
             }
-            System.out.println("Total Power from lights " + totalLightPower);
+            System.out.println("Total Power from lights " + totalLightPower + "W");
             Heating[] heatings = new Heating[Integer.parseInt(heatingNumField.getText())];
             for(int y = 0; y<Integer.parseInt(heatingNumField.getText());y++)
             {
                 heatings[y] = new Heating(Integer.parseInt(tempField.getText()),Integer.parseInt(heatingPowerRatingField.getText()));
                 totalHeatingPower+=Integer.parseInt(heatingPowerRatingField.getText());
             }
-            System.out.println("Total Power from Heating "+ totalHeatingPower);
+            System.out.println("Total Power from Heating "+ totalHeatingPower+ "W");
             price = lights[1].calculateCost(totalLightPower+totalHeatingPower,Double.parseDouble(costField.getText()));
             System.out.println("Cost per " + Integer.parseInt(timeField.getText()) + " minutes is " + price);
-            System.out.println("Estimated elisions are " + lights[1].estimatedEmissions(totalHeatingPower+totalLightPower)+"g");
+            double polution = (totalHeatingPower+totalLightPower)/1000;
+            System.out.println("Estimated elisions are " + df2.format(lights[1].estimatedEmissions(polution))+"g");
         });
         Scene scene = new Scene(grid);
         window.setScene(scene);

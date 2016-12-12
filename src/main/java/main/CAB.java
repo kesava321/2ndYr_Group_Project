@@ -49,7 +49,7 @@ public class CAB extends Application implements Initializable{
     public static void main(String[] args)
     {
         ControlDB cd = new ControlDB();//
-        cd.ControlDB();//
+        //cd.ControlDB();//
         launch(args);
         int lightsNum = 6;
         int lightPowerRating = 100;
