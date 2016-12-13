@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class HeatingTest {
 
     @Test
-    /** A test for the desfault constructor */
+    /** A test for the default constructor */
     public void getTemperatureDefaultConst() throws Exception {
         Heating heater = new Heating();
         double x = heater.getTemperature();
