@@ -13,9 +13,9 @@ package energyConsumers;
             setWaterIntake(50.0);
         }
 
-        public Water(Boolean state, double powerRating){
+        public Water(Boolean state, double intake){
             setWaterState(state);
-            setPowerRating(powerRating);
+            setWaterIntake(intake);
         }
 
         public Boolean getWaterState() {

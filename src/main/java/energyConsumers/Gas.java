@@ -6,16 +6,16 @@ package energyConsumers;
 public class Gas extends energyConsumers {
 
     private Boolean GasState;
-    private double powerRating; //Watts
+    private double gasUsage; //m3
 
     public Gas(){
         setGasState(false);
-        setPowerRating(70.0);
+        setGasUsage(70.0);
     }
 
     public Gas(Boolean state, double powerRating) {
         setGasState(state);
-        setPowerRating(powerRating);
+        setGasUsage(powerRating);
     }
 
     public Boolean getGasState() {
@@ -26,19 +26,15 @@ public class Gas extends energyConsumers {
         this.GasState = gasState;
     }
 
-    public double getPowerRating() {
-        return powerRating;
+    public double getGasUsage() {
+        return gasUsage;
     }
 
-    public void setPowerRating(double powerRating) {
-        if(powerRating>0) {
-            this.powerRating = powerRating;
+    public void setGasUsage(double gasUsage) {
+        if(gasUsage>0) {
+            this.gasUsage = gasUsage;
         }else {
-            this.powerRating = 0;
+            this.gasUsage = 0;
         }
-    }
-
-    public double getPowerrating() {
-        return powerRating;
     }
 }

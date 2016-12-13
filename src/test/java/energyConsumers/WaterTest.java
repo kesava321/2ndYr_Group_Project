@@ -19,12 +19,12 @@ public class WaterTest {
     }
 
     @Test
-    public void getPowerRating() throws Exception {
+    public void getWaterIntake() throws Exception {
 
     }
 
     @Test
-    public void setPowerRating() throws Exception {
+    public void setWaterIntake() throws Exception {
 
     }
 
