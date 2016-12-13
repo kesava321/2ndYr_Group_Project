@@ -23,11 +23,23 @@ public class Gas extends energyConsumers {
         setPowerRating(powerRating);
     }
 
+    public Boolean getGasState() {return GasState;}
+
     public void setGasState(boolean gasState) {
         this.GasState = gasState;
     }
+    public double getPowerRating() {return powerRating;}
 
     public void setPowerRating(double powerRating) {
         this.powerRating = powerRating;
+
+        if(powerRating>0)
+            this.powerRating = powerRating;
+        else
+            this.powerRating = 0;
+    }
+
+    public double getPowerrating() {
+        return powerRating;
     }
 }
