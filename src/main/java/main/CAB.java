@@ -1,7 +1,7 @@
 package main;
 
 import Windows.ControlOptions;
-import Windows.form;
+import Windows.*;
 import energyConsumers.Heating;
 import energyConsumers.Light;
 import javafx.fxml.FXML;
