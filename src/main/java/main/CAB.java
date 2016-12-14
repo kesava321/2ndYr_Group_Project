@@ -94,26 +94,38 @@ public class CAB extends Application implements Initializable{
         assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
         HeatingButton.setOnAction(event ->
         {
-            ControlOptions control = new ControlOptions(HEATING);
-            control.start();
-            Stage stage = (Stage) HeatingButton.getScene().getWindow();
-            stage.close();
+            form f = new form();
+            try
+            {
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
         assert GasButton != null : "fx:id=\"GasButton\" was not injected: check your FXML file 'simple.fxml'.";
         GasButton.setOnAction(event ->
         {
-            ControlOptions control = new ControlOptions(GAS);
-            control.start();
-            Stage stage = (Stage) GasButton.getScene().getWindow();
-            stage.close();
+            form f = new form();
+            try
+            {
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
         assert WaterButton != null : "fx:id=\"WaterButton\" was not injected: check your FXML file 'simple.fxml'.";
         WaterButton.setOnAction(event ->
         {
-            ControlOptions control = new ControlOptions(WATER);
-            control.start();
-            Stage stage = (Stage) WaterButton.getScene().getWindow();
-            stage.close();
+            form f = new form();
+            try
+            {
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
 
     }
