@@ -1,26 +1,21 @@
 package main;
 
 import Windows.ControlOptions;
-import DEL.ScreensController;
+import Windows.form;
 import energyConsumers.Heating;
 import energyConsumers.Light;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
+import controlDB.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class CAB extends Application implements Initializable{
 
@@ -53,6 +48,8 @@ public class CAB extends Application implements Initializable{
 
     public static void main(String[] args)
     {
+        ControlDB cd = new ControlDB();//
+        //cd.ControlDB();//
         launch(args);
         int lightsNum = 6;
         int lightPowerRating = 100;
@@ -69,12 +66,12 @@ public class CAB extends Application implements Initializable{
             heatings[y] = new Heating(25,heatingPowerRating);
         }
         int time= 60; //mins
-        int totalPower =0;
+        double totalPower =0;
         for(int z = 0; z<lightsNum; z++)
-            totalPower+=lights[z].powerComsumption(time,lights[z].getPowerrating());
+            totalPower+=lights[z].powerConsumption(time,lights[z].getPowerrating());
         for(int a = 0; a<heatingNum; a++)
-            totalPower+=heatings[a].powerComsumption(time,heatings[a].getPowerRating());
-        System.out.println(totalPower);
+            totalPower+=heatings[a].powerConsumption(time,heatings[a].getPowerRating());
+        System.out.println(totalPower/1000);
         System.out.println(lights[1].calculateCost(totalPower, 0.13));
         System.out.println(lights[1].estimatedEmissions(totalPower/1000));
     }
@@ -83,41 +80,52 @@ public class CAB extends Application implements Initializable{
     public void initialize(URL location, ResourceBundle resources)
     {
         assert ElectricityButton != null : "fx:id=\"ElectricityButton\" was not injected: check your FXML file 'simple.fxml'.";
-        ElectricityButton.setOnAction(new EventHandler<ActionEvent>()
+        ElectricityButton.setOnAction(event ->
         {
-
-            @Override
-            public void handle(ActionEvent event)
+            form f = new form();
+            try
             {
-                ControlOptions control = new ControlOptions(ELECTRICITY);
-                control.start();
-                Stage stage = (Stage) ElectricityButton.getScene().getWindow();
-                stage.close();
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
             }
         });
         assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
         HeatingButton.setOnAction(event ->
         {
-            ControlOptions control = new ControlOptions(HEATING);
-            control.start();
-            Stage stage = (Stage) HeatingButton.getScene().getWindow();
-            stage.close();
+            form f = new form();
+            try
+            {
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
         assert GasButton != null : "fx:id=\"GasButton\" was not injected: check your FXML file 'simple.fxml'.";
         GasButton.setOnAction(event ->
         {
-            ControlOptions control = new ControlOptions(GAS);
-            control.start();
-            Stage stage = (Stage) GasButton.getScene().getWindow();
-            stage.close();
+            form f = new form();
+            try
+            {
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
         assert WaterButton != null : "fx:id=\"WaterButton\" was not injected: check your FXML file 'simple.fxml'.";
         WaterButton.setOnAction(event ->
         {
-            ControlOptions control = new ControlOptions(WATER);
-            control.start();
-            Stage stage = (Stage) WaterButton.getScene().getWindow();
-            stage.close();
+            form f = new form();
+            try
+            {
+                f.start();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         });
 
     }

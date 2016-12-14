@@ -14,6 +14,10 @@ task makeJar(type: Jar) {
     }
 }
 
+repositories {
+    maven { url 'http://repo1.maven.org/maven2' }
+}
+
 clean.doLast{
     println "Removed Build Folder"
 }
