@@ -8,8 +8,8 @@ package energyConsumers;
  */
     public class Water extends energyConsumers
     {
-        private Boolean WaterState; //Hot or Cold
-        private double waterIntake; //Watts
+        private Boolean WaterState; //on or off
+        private double waterIntake; //liters
 
         public Water(){
             setWaterState(false);
