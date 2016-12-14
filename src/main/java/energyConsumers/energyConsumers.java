@@ -12,11 +12,20 @@ package energyConsumers;
 
 public class energyConsumers
 {
+    /**
+     * @param mins runtime of an appliance
+     * @param powerRating watts of an applliance
+     * @return watt hours
+     */
     public double powerConsumption(int mins, double powerRating)
     {
         return (powerRating/60) * mins;
     }
 
+    /**
+     * @param powerConsumption watt hours of an appliance
+     * @return kilowatt hours
+     */
     public double calculateCost(double powerConsumption, double costPerKwH){
         return (powerConsumption/1000)*costPerKwH;
     }
