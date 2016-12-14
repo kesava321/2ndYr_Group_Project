@@ -1,6 +1,9 @@
 package energyConsumers;
 
-/**
+/** The Gas constructors either allow the user to set a GasState and
+ * GasUsage or a GasState and GasUsage is set itself. setGasState
+ * ensures that GasState cannot be less than 0 by resetting any
+ * GasState made below 0 to 0.
  * Created by Kesava on 13/12/2016.
  */
 public class Gas extends energyConsumers {
