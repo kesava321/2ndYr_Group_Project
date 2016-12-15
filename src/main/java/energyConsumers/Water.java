@@ -9,7 +9,7 @@ package energyConsumers;
     public class Water extends energyConsumers
     {
         private Boolean WaterState; //on or off
-        private double waterIntake; //liters
+        private double waterIntake; //liters per min
 
         public Water(){
             setWaterState(false);
@@ -35,11 +35,10 @@ package energyConsumers;
 
         public void setWaterIntake(double intake) {
             this.waterIntake = intake;
-            if (WaterState = false) {
-                this.waterIntake = intake;
-            } else {
+            if(intake<0)
                 this.waterIntake = 35.0;
-            }
+            else
+                this.waterIntake = intake;
         }
 }
 

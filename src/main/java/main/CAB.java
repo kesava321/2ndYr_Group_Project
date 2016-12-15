@@ -118,10 +118,10 @@ public class CAB extends Application implements Initializable{
         assert WaterButton != null : "fx:id=\"WaterButton\" was not injected: check your FXML file 'simple.fxml'.";
         WaterButton.setOnAction(event ->
         {
-            form f = new form();
+            FormWater water = new FormWater();
             try
             {
-                f.start();
+                water.start();
             } catch (Exception e)
             {
                 e.printStackTrace();
