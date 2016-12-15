@@ -51,29 +51,6 @@ public class CAB extends Application implements Initializable{
         ControlDB cd = new ControlDB();//
         //cd.ControlDB();//
         launch(args);
-        int lightsNum = 6;
-        int lightPowerRating = 100;
-        Light[] lights = new Light[lightsNum];
-        for(int x = 0; x<lightsNum; x++)
-        {
-            lights[x] = new Light(false,lightPowerRating);
-        }
-        int heatingNum = 2;
-        int heatingPowerRating = 1000;
-        Heating[] heatings = new Heating[heatingNum];
-        for(int y = 0; y<heatingNum; y++)
-        {
-            heatings[y] = new Heating(25,heatingPowerRating);
-        }
-        int time= 60; //mins
-        double totalPower =0;
-        for(int z = 0; z<lightsNum; z++)
-            totalPower+=lights[z].powerConsumption(time,lights[z].getPowerrating());
-        for(int a = 0; a<heatingNum; a++)
-            totalPower+=heatings[a].powerConsumption(time,heatings[a].getPowerRating());
-        System.out.println(totalPower/1000);
-        System.out.println(lights[1].calculateCost(totalPower, 0.13));
-        System.out.println(lights[1].estimatedEmissions(totalPower/1000));
     }
 
     @Override
