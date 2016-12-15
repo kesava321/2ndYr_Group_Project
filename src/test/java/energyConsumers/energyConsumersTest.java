@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by User on 11-Dec-16.
+ * Created by Matt on 11-Dec-16.
  */
 public class energyConsumersTest {
     @Test

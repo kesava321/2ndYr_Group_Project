@@ -97,7 +97,7 @@ public class form
             }
             System.out.println("Total Power from Heating "+ totalHeatingPower+ "W");
             price = lights[1].calculateCost(totalLightPower+totalHeatingPower,Double.parseDouble(costField.getText()));
-            System.out.println("Cost per " + Integer.parseInt(timeField.getText()) + " minutes is " + price);
+            System.out.println("Cost per " + Integer.parseInt(timeField.getText()) + " minutes is " + df2.format(price));
             double polution = (totalHeatingPower+totalLightPower)/1000;
             System.out.println("Estimated elisions are " + df2.format(lights[1].estimatedEmissions(polution))+"g");
         });

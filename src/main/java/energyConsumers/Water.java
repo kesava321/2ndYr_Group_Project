@@ -1,12 +1,15 @@
 package energyConsumers;
 
-/**
+/** The water constructors either allow the user to set a WaterState and
+ * WaterIntake or a WaterState and WaterIntake is set itself. setWaterState
+ * ensures that WaterState cannot be less than 0 by resetting any
+ * WaterState made false.
  * Created by Kesava on 12/12/2016.
  */
     public class Water extends energyConsumers
     {
-        private Boolean WaterState; //Hot or Cold
-        private double waterIntake; //Watts
+        private Boolean WaterState; //on or off
+        private double waterIntake; //liters per min
 
         public Water(){
             setWaterState(false);
@@ -32,11 +35,10 @@ package energyConsumers;
 
         public void setWaterIntake(double intake) {
             this.waterIntake = intake;
-            if (WaterState = false) { //If water is hot apply powerrating of 50.0
+            if(intake<0)
+                this.waterIntake = 35.0;
+            else
                 this.waterIntake = intake;
-            } else {
-                this.waterIntake = 35.0; //If water is cold apply powerrating of 35.0
-            }
         }
 }
 
