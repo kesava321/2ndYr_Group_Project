@@ -39,7 +39,8 @@ public class CAB extends Application implements Initializable{
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        splash.Splash();
+        splash spashScreen = new splash();
+        spashScreen.Splash();
 
         window = primaryStage;
         root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
