@@ -20,7 +20,7 @@ public class energyConsumersTest {
         Light lights = new Light(true, 400);
         double x = lights.powerConsumption(90, lights.getPowerrating());
         double y = lights.calculateCost(x, 2);
-        assertEquals(1200,y,0.0);
+        assertEquals(1.2,y,0.0);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class energyConsumersTest {
         Light lights = new Light(true, 400);
         double x = lights.powerConsumption(90, lights.getPowerrating());
         double y = lights.estimatedEmissions(x);
-        assertEquals(1200,y,0.0);
+        assertEquals(316.2,y,0.0);
     }
 
 }
