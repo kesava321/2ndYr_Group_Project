@@ -1,5 +1,6 @@
 package main;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -28,7 +29,7 @@ public class splash {
         text1.setFill(Color.CHOCOLATE);
         text1.setFont(Font.font(java.awt.Font.SERIF, 25));
         root.setCenter(text1);
-
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
         window.setScene(scene);
         window.show();
         try {
