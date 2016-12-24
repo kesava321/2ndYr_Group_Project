@@ -85,7 +85,7 @@ public class CAB extends Application implements Initializable{
         assert GasButton != null : "fx:id=\"GasButton\" was not injected: check your FXML file 'simple.fxml'.";
         GasButton.setOnAction(event ->
         {
-            form f = new form();
+            CreateRoom f = new CreateRoom();
             try
             {
                 f.start();
@@ -108,6 +108,4 @@ public class CAB extends Application implements Initializable{
         });
 
     }
-
-
 }
