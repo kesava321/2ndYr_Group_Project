@@ -77,7 +77,7 @@ public class CAB extends Application implements Initializable{
         assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
         HeatingButton.setOnAction(event ->
         {
-            Test f = new Test();
+            form f = new form();
             try
             {
                 f.start();
