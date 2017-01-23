@@ -1,6 +1,7 @@
 package Windows;
-
 import energyConsumers.Light;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -19,6 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.ArrayList;
 
@@ -32,7 +34,9 @@ public class CreateRoom
     public ArrayList<Light> lights = new ArrayList<Light>();
     BorderPane borderPane = new BorderPane();
     private Pane canvas = new Pane();
-
+    private int count = 0;
+    private int currentSelected =0;
+    LightPreferences lightPreferences = new LightPreferences();
     double orgSceneX, orgSceneY;
 
     private ToolBar toolbar = new ToolBar(
@@ -53,30 +57,27 @@ public class CreateRoom
         borderPane.setLeft(accordion);
     }
 
-    private void buildPreferences()
-    {
-        Accordion accordion = new Accordion();
-        Pane pane;
-        LightPreferences pref = new LightPreferences();
-        pane = pref.getView();
-        borderPane.setRight(pane);
-
-    }
-
     private ImageView drawLight()
     {
+        int id = count;
         Image image = new Image("Images/bulb.png",50,50,false,false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
+            Object o = event.getSource();
+            ImageView i = (ImageView) o;
+            i.requestFocus();
+            currentSelected = id;
+            double powerRating = lights.get(id).getPowerrating();
+            int lighState = BooleanUtils.toInteger(lights.get(id).getLightState());
+            lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
+            lightPreferences.stateCombo.getSelectionModel().select(lighState);
             orgSceneX = event.getSceneX();
             orgSceneY = event.getSceneY();
         });
         imageView.setOnMouseDragged(event ->
         {
-            System.out.println("1st" + canvas.getHeight() + " " + canvas.getWidth());
-            System.out.println(event.getSceneX() + " " + event.getSceneY());
             if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
             {
                 double offsetX = event.getSceneX() - orgSceneX;
@@ -98,10 +99,11 @@ public class CreateRoom
         BorderPane.setMargin(list, new Insets(12,12,12,12));
         borderPane.setTop(toolbar);
         build();
-        buildPreferences();
+        lights.add(new Light(true,100));
         ImageView image = drawLight();
         canvas.getChildren().add(image);
         borderPane.setCenter(canvas);
+        borderPane.setRight(lightPreferences.init());
         Scene scene = new Scene(borderPane,800,600);
         window.setScene(scene);
         window.show();
@@ -109,22 +111,32 @@ public class CreateRoom
 
     class LightPreferences
     {
-        public Pane getView()
+        Pane pane = new Pane();
+        Label state = new Label("Light State");
+        ComboBox stateCombo = new ComboBox();
+        Label powerRating = new Label("Power Rating");
+        TextField powerRatingField = new TextField();
+        GridPane grid = new GridPane();
+        public Pane init()
         {
-            Pane pane = new Pane();
-            Label state = new Label("Light State");
-            ComboBox stateCombo = new ComboBox();
-            stateCombo.getItems().addAll("On","Off");
-            Label powerRating = new Label("Power Rating");
-            TextField powerRatingField = new TextField();
-            GridPane grid = new GridPane();
+            stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+            {
+                boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
+                System.out.println(currentSelected + " " + state);
+                lights.get(currentSelected).setLightState(state);
+                System.out.println(lights.get(currentSelected).getLightState());
+            });
+            powerRatingField.textProperty().addListener((observable, oldValue, newValue) -> {
+                lights.get(currentSelected).setPowerrating(Double.parseDouble(newValue));
+            });
+            stateCombo.getItems().addAll("Off","On");
             grid.setConstraints(state,0,0);
             grid.setConstraints(stateCombo,1,0);
             grid.setConstraints(powerRating,0,1);
             grid.setConstraints(powerRatingField,1,1);
             grid.getChildren().addAll(state,stateCombo,powerRating,powerRatingField);
             pane.getChildren().add(grid);
-            return null;
+            return pane;
         }
     }
 
@@ -135,8 +147,12 @@ public class CreateRoom
         {
             Pane p = new Pane();
             Button button = new Button("LED Bulb"); //probs should change to image view at a later date
-        button.setOnMouseClicked(event ->
-                lights.add(new Light(false,100)));
+            button.setOnMouseClicked(event ->{
+                count++;
+                ImageView image = drawLight();
+                canvas.getChildren().add(image);
+                lights.add(new Light(true,100));
+            });
             VBox vBox = new VBox(5);
             vBox.getChildren().addAll(button);
             p.getChildren().addAll(vBox);

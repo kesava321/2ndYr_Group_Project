@@ -17,6 +17,11 @@ task makeJar(type: Jar) {
 repositories {
     maven { url 'http://repo1.maven.org/maven2' }
 }
+dependencies{
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+
+}
 
 clean.doLast{
     println "Removed Build Folder"
