@@ -2,6 +2,7 @@ package Windows;
 
 import energyConsumers.Light;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -50,7 +51,6 @@ public class CreateRoom
         accordion.getPanes().add(tiledPane);
         accordion.setExpandedPane(tiledPane);
         borderPane.setLeft(accordion);
-        //return root;
     }
 
     private void buildPreferences()
@@ -63,25 +63,6 @@ public class CreateRoom
 
     }
 
-    private Circle createCircle(double x, double y, double r, Color color) {
-        Circle circle = new Circle(x, y, r, color);
-        circle.setCursor(Cursor.HAND);
-        /*circle.setOnMousePressed((t) -> {
-            System.out.println("PRESSED");
-            orgSceneY = t.getSceneY();
-            orgSceneX = t.getSceneX();
-
-            Circle c = (Circle) (t.getSource());
-            c.toFront();
-        });*/
-        circle.setOnMouseDragged((t) -> {
-            System.out.println(t.getSceneX() + " " + t.getSceneY());
-            Circle c = (Circle) (t.getSource());
-            c.setCenterX(t.getSceneX());
-            c.setCenterY(t.getSceneY());
-        });
-        return circle;
-    }
     private ImageView drawLight()
     {
         Image image = new Image("Images/bulb.png",50,50,false,false);
@@ -94,8 +75,9 @@ public class CreateRoom
         });
         imageView.setOnMouseDragged(event ->
         {
-                System.out.println(event.getX() + " " + event.getSceneY());
-            if(event.getSceneX() >0 && event.getSceneX() < canvas.getMaxWidth() && event.getSceneY() > 0 && event.getSceneY() < canvas.getMaxHeight())
+            System.out.println("1st" + canvas.getHeight() + " " + canvas.getWidth());
+            System.out.println(event.getSceneX() + " " + event.getSceneY());
+            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
             {
                 double offsetX = event.getSceneX() - orgSceneX;
                 double offsetY = event.getSceneY() - orgSceneY;
