@@ -21,8 +21,8 @@ public class Test
         circle.setCursor(Cursor.HAND);
 
         circle.setOnMousePressed((t) -> {
-            orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
+            orgSceneX = t.getSceneX();
 
             Circle c = (Circle) (t.getSource());
             c.toFront();

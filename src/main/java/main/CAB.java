@@ -4,6 +4,8 @@ import Windows.ControlOptions;
 import Windows.*;
 import energyConsumers.Heating;
 import energyConsumers.Light;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import controlDB.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -74,7 +77,7 @@ public class CAB extends Application implements Initializable{
         assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
         HeatingButton.setOnAction(event ->
         {
-            form f = new form();
+            Test f = new Test();
             try
             {
                 f.start();
