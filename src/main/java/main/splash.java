@@ -29,7 +29,7 @@ public class splash {
         text1.setFill(Color.CHOCOLATE);
         text1.setFont(Font.font(java.awt.Font.SERIF, 25));
         root.setCenter(text1);
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("splash.fxml"));
         window.setScene(scene);
         window.show();
         try {
