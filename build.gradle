@@ -5,8 +5,6 @@ mainClassName = 'main.CAB'
 version = '0.0.1'
 //org.gradle.daemon=true
 
-applicationDefaultJvmArgs = ["-Dprism.vsync=false"]
-
 task makeJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Controlling Adaptable Buildings',
@@ -22,6 +20,12 @@ dependencies{
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
 
+}
+
+subprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Dprism.vsync=false"
+    }
 }
 
 clean.doLast{

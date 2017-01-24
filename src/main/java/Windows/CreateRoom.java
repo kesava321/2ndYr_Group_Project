@@ -15,10 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -65,9 +61,6 @@ public class CreateRoom
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
-            Object o = event.getSource();
-            ImageView i = (ImageView) o;
-            i.requestFocus();
             currentSelected = id;
             double powerRating = lights.get(id).getPowerrating();
             int lighState = BooleanUtils.toInteger(lights.get(id).getLightState());
