@@ -1,20 +1,11 @@
 package main;
 
-import DEL.FormWater;
-import DEL.form;
-import Windows.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.application.Application;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import controlDB.*;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CAB extends Application{
 
@@ -41,7 +32,7 @@ public class CAB extends Application{
         splash splashScreen = new splash();
         splashScreen.Splash();
 
-        CreateRoom room = new CreateRoom();
+        mainMenu room = new mainMenu();
         room.start();
 
     }
