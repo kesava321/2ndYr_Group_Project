@@ -23,13 +23,9 @@ public class splash {
 
         window.setTitle("Building Control Systems");
         BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 300, 200);
-
-        Text text1 = new Text(25, 25, "Mr. Robot Presents");
-        text1.setFill(Color.CHOCOLATE);
-        text1.setFont(Font.font(java.awt.Font.SERIF, 25));
-        root.setCenter(text1);
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("splash.fxml"));
+        Scene scene = new Scene(root, 800, 600);
+        root.setStyle("-fx-background-image: url(menu_bgr.jpg);-fx-background-size: 800, 600;-fx-background-repeat: no-repeat;");
+        //root = FXMLLoader.load(getClass().getClassLoader().getResource("splash.fxml"));
         window.setScene(scene);
         window.show();
         try {
