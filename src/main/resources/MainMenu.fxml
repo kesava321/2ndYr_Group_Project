@@ -2,24 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="menu__bgr" stylesheets="MainMenu.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CAB">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="menu__bgr" stylesheets="MainMenu.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.mainMenu">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-                  <Button fx:id="GasButton" mnemonicParsing="false" prefHeight="102.0" prefWidth="242.0" style="-fx-background-color: #0f0;" text="Control and Simulate" textFill="WHITE">
-                      <effect>
-                  <InnerShadow choke="0.16" height="90.19" radius="45.0875" width="92.16">
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </InnerShadow>
-                      </effect>
+                  <Button fx:id="ControlSimulate" mnemonicParsing="false" prefHeight="102.0" prefWidth="242.0" style="-fx-background-color: #0f0;" text="Control and Simulate" textFill="WHITE">
                       <font>
                           <Font name="System Bold Italic" size="18.0" />
                       </font>
@@ -27,14 +18,7 @@
                   <Insets bottom="30.0" top="30.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="GasButton1" mnemonicParsing="false" prefHeight="102.0" prefWidth="242.0" style="-fx-background-color: #00ff00;" text="Settings" textFill="WHITE">
-               <effect>
-                  <InnerShadow height="115.88" radius="53.4875" width="100.07">
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </InnerShadow>
-               </effect>
+            <Button fx:id="Settings" mnemonicParsing="false" prefHeight="102.0" prefWidth="242.0" style="-fx-background-color: #00ff00;" text="Settings" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
