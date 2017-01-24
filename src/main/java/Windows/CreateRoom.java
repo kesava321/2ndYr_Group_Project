@@ -29,10 +29,14 @@ public class CreateRoom
     private Stage window = new Stage();
     public ArrayList<Light> lights = new ArrayList<Light>();
     BorderPane borderPane = new BorderPane();
+    private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
     private int count = 0;
+    private int heatCount = 0;
+    private int currentHeatingSelected =0;
     private int currentSelected =0;
     LightPreferences lightPreferences = new LightPreferences();
+    HeatPreferences heatPreferences = new HeatPreferences();
     double orgSceneX, orgSceneY;
 
     private ToolBar toolbar = new ToolBar(
@@ -47,7 +51,7 @@ public class CreateRoom
         TitledPane tiledPane;
         Lights light = new Lights();
         pane = light.getView();
-        tiledPane = new TitledPane("General1", pane);
+        tiledPane = new TitledPane("Electric", pane);
         accordion.getPanes().add(tiledPane);
         accordion.setExpandedPane(tiledPane);
         borderPane.setLeft(accordion);
@@ -61,6 +65,8 @@ public class CreateRoom
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
+            prefPane.getChildren().add(lightPreferences.init());
+            prefPane = lightPreferences.pane;
             currentSelected = id;
             double powerRating = lights.get(id).getPowerrating();
             int lighState = BooleanUtils.toInteger(lights.get(id).getLightState());
@@ -85,6 +91,36 @@ public class CreateRoom
         });
         return imageView;
     }
+
+    private ImageView drawHeater()
+    {
+        int id = heatCount;
+        Image image = new Image("Images/heating.png",50,50,false,false);
+        ImageView imageView = new ImageView(image);
+        imageView.setCursor(Cursor.HAND);
+        imageView.setOnMousePressed(event ->
+        {
+            orgSceneX = event.getSceneX();
+            orgSceneY = event.getSceneY();
+        });
+        imageView.setOnMouseDragged(event ->
+        {
+            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                i.setX(i.getX() + offsetX);
+                i.setY(i.getY() + offsetY);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+        });
+        return imageView;
+
+    }
+
     public void start() throws Exception
     {
         ListView list = new ListView();
@@ -93,10 +129,8 @@ public class CreateRoom
         borderPane.setTop(toolbar);
         build();
         lights.add(new Light(true,100));
-        ImageView image = drawLight();
-        canvas.getChildren().add(image);
         borderPane.setCenter(canvas);
-        borderPane.setRight(lightPreferences.init());
+        borderPane.setRight(prefPane);
         Scene scene = new Scene(borderPane,800,600);
         window.setScene(scene);
         window.show();
@@ -133,6 +167,26 @@ public class CreateRoom
         }
     }
 
+    class HeatPreferences
+    {
+        Pane pane = new Pane();
+        Label temp = new Label("Temperature");
+        TextField tempField = new TextField();
+        Label powerRating = new Label("Power Rating");
+        TextField powerRatingField = new TextField();
+        GridPane grid = new GridPane();
+        public Pane init()
+        {
+            grid.setConstraints(temp,0,0);
+            grid.setConstraints(tempField,1,0);
+            grid.setConstraints(powerRating,0,1);
+            grid.setConstraints(powerRatingField,1,1);
+            grid.getChildren().addAll(temp,tempField,powerRating,powerRatingField);
+            pane.getChildren().add(grid);
+            return pane;
+        }
+
+    }
     class Lights
     {
 
@@ -140,6 +194,14 @@ public class CreateRoom
         {
             Pane p = new Pane();
             Button button = new Button("LED Bulb"); //probs should change to image view at a later date
+            Button heatingButton = new Button("Heating");
+            heatingButton.setOnMouseClicked(event->
+            {
+                heatCount++;
+                ImageView image = drawHeater();
+                canvas.getChildren().add(image);
+                //add to array list
+            });
             button.setOnMouseClicked(event ->{
                 count++;
                 ImageView image = drawLight();
@@ -147,7 +209,7 @@ public class CreateRoom
                 lights.add(new Light(true,100));
             });
             VBox vBox = new VBox(5);
-            vBox.getChildren().addAll(button);
+            vBox.getChildren().addAll(button,heatingButton);
             p.getChildren().addAll(vBox);
             return p;
         }
