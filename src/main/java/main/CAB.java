@@ -38,8 +38,8 @@ public class CAB extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        splash spashScreen = new splash();
-        spashScreen.Splash();
+        splash splashScreen = new splash();
+        splashScreen.Splash();
 
         CreateRoom room = new CreateRoom();
         room.start();
