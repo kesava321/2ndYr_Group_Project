@@ -40,4 +40,16 @@ public class Gas extends energyConsumers {
             this.gasUsage = 0;
         }
     }
+
+    @Override
+    public double powerConsumption(int mins, double powerRating)
+    {
+        return 0;
+    }
+
+    @Override
+    public double estimatedEmissions(double kwh)
+    {
+        return 0;
+    }
 }

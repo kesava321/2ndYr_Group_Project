@@ -44,4 +44,16 @@ public class Light extends energyConsumers
     public double getPowerrating() {
         return powerrating;
     }
+
+    @Override
+    public double powerConsumption(int mins, double powerRating)
+    {
+        return (powerRating/60) * mins;
+    }
+
+    @Override
+    public double estimatedEmissions(double kwh)
+    {
+        return 0;
+    }
 }

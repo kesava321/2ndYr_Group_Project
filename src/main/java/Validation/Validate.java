@@ -9,12 +9,12 @@ public class Validate
 {
 
     /**
-     * Validates if input is a doulbe
-     * @param input
-     * @return
+     * Validates if input string is a double using a RegEx
+     * @param input string
+     * @return true if string is a double and false if otherwise
      */
-    public boolean vDouble(String input)
+    public static boolean vDouble(String input)
     {
-        return Pattern.matches("^[0-9]re?.[0-9]$", input);
+        return Pattern.matches("[0-9]+(.[0-9][0-9])?", input);
     }
 }

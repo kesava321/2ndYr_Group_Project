@@ -10,17 +10,14 @@ package energyConsumers;
  * on a variable kilowatt hours.
  */
 
-public class energyConsumers
+public abstract class energyConsumers
 {
     /**
      * @param mins runtime of an appliance
      * @param powerRating watts of an applliance
      * @return watt hours
      */
-    public double powerConsumption(int mins, double powerRating)
-    {
-        return (powerRating/60) * mins;
-    }
+    abstract public double powerConsumption(int mins, double powerRating);
 
     /**
      * @param powerConsumption watt hours of an appliance
@@ -30,10 +27,7 @@ public class energyConsumers
         return (powerConsumption/1000)*costPerKwH;
     }
 
-    public double estimatedEmissions(double kwh){
-        double emissions = 0.527;
-        return kwh * emissions;
-    }
+    abstract public double estimatedEmissions(double kwh);
 }
 
 

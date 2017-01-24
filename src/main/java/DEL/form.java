@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import energyConsumers.Heating;
 import energyConsumers.Light;

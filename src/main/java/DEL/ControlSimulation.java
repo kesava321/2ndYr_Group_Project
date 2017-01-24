@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import DEL.ScreenViewController;
 import DEL.ScreensController;
@@ -6,7 +6,7 @@ import DEL.ScreensController;
 /**
  * Created by daniel on 04/12/2016.
  */
-public class ControlWindow implements ScreenViewController
+public class ControlSimulation implements ScreenViewController
 {
 
     ScreensController myController;

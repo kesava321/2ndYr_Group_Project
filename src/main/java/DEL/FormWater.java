@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import energyConsumers.Water;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

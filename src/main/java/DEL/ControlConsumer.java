@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import DEL.ScreenViewController;
 import DEL.ScreensController;

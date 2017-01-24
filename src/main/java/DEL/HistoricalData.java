@@ -1,4 +1,4 @@
-package Windows;
+package DEL;
 
 import DEL.ScreenViewController;
 import DEL.ScreensController;
@@ -6,13 +6,13 @@ import DEL.ScreensController;
 /**
  * Created by daniel on 04/12/2016.
  */
-public class Simulation implements ScreenViewController
+public class HistoricalData implements ScreenViewController
 {
 
-    ScreensController controller;
+    ScreensController myController;
 
     public void setScreenParent(ScreensController screenpage)
     {
-        controller = screenpage;
+        myController = screenpage;
     }
 }
