@@ -78,6 +78,7 @@ public class CreateRoom
             currentSelected = id;
             double powerRating = lights.get(id).getPowerrating();
             int lighState = BooleanUtils.toInteger(lights.get(id).getLightState());
+            System.out.println(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
             lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
             lightPreferences.stateCombo.getSelectionModel().select(lighState);
             orgSceneX = event.getSceneX();
@@ -136,9 +137,7 @@ public class CreateRoom
         BorderPane.setMargin(list, new Insets(12,12,12,12));
         borderPane.setTop(toolbar);
         build();
-        LightPreferences lightpreferences = new LightPreferences();
-        HeatPreferences heatpreferences = new HeatPreferences();
-        prefPane.getChildren().addAll(lightpreferences.init(),heatpreferences.init());
+        prefPane.getChildren().add(lightPreferences.init());
         lights.add(new Light(true,100));
         borderPane.setCenter(canvas);
         borderPane.setRight(prefPane);
