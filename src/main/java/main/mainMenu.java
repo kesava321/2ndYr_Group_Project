@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -45,27 +46,25 @@ public class mainMenu implements Initializable
         window.show();
     }
 
-    public void controlClick(){
-        System.out.print("Load Controller");
-        CreateRoom room = new CreateRoom();
-        try {
-            window.hide();
-            room.start();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
     public static void settingsClicked(){
         System.out.print("Load Settings");
     }
-
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert ControlSimulate != null;
-        ControlSimulate.setOnAction(event -> controlClick());
+        ControlSimulate.setOnAction(event ->
+        {
+            System.out.print("Load Controller");
+            CreateRoom room = new CreateRoom();
+            try {
+                room.start();
+                ((Node)(event.getSource())).getScene().getWindow().hide();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
 
         assert Settings != null;
         Settings.setOnAction(event -> settingsClicked());
