@@ -20,4 +20,10 @@ public class ValidateTest
         assertEquals(Validate.vDouble("1234s.00"),false);
     }
 
+    @Test
+    public void validateDouble_EMPTY()
+    {
+        assertEquals(Validate.vDouble(""),false);
+    }
+
 }

@@ -11,10 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -29,7 +26,7 @@ public class CreateRoom
     private Stage window = new Stage();
     public ArrayList<Light> lights = new ArrayList<Light>();
     BorderPane borderPane = new BorderPane();
-    private Pane prefPane = new Pane();
+    private StackPane prefPane = new StackPane();
     private Pane canvas = new Pane();
     private int count = 0;
     private int heatCount = 0;
@@ -57,6 +54,18 @@ public class CreateRoom
         borderPane.setLeft(accordion);
     }
 
+
+    private void controlPref(int controller)
+    {
+        switch(controller)
+        {
+            case 1:
+            {
+
+            }
+        }
+    }
+
     private ImageView drawLight()
     {
         int id = count;
@@ -65,8 +74,7 @@ public class CreateRoom
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
-            prefPane.getChildren().add(lightPreferences.init());
-            prefPane = lightPreferences.pane;
+            prefPane.toFront();
             currentSelected = id;
             double powerRating = lights.get(id).getPowerrating();
             int lighState = BooleanUtils.toInteger(lights.get(id).getLightState());
@@ -128,6 +136,9 @@ public class CreateRoom
         BorderPane.setMargin(list, new Insets(12,12,12,12));
         borderPane.setTop(toolbar);
         build();
+        LightPreferences lightpreferences = new LightPreferences();
+        HeatPreferences heatpreferences = new HeatPreferences();
+        prefPane.getChildren().addAll(lightpreferences.init(),heatpreferences.init());
         lights.add(new Light(true,100));
         borderPane.setCenter(canvas);
         borderPane.setRight(prefPane);
