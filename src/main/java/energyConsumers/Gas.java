@@ -19,15 +19,25 @@ public class Gas extends energyConsumers {
         return usage*11.187;
     }
 
+    /**
+     * gets the power consumption of energy consumer for given time in KWh
+     * @param mins runtime of an energy comsumer
+     * @return power consumption in KWh
+     */
     @Override
-    public double powerConsumption(int mins)
+    public double getConsumption(int mins)
     {
         return (toKwH(getUsage())/60)*mins;
     }
 
+    /**
+     * estimates emissions of energy consumer using its power consumption and a estimate for gas emmisions
+     * @param mins
+     * @return emmisions
+     */
     @Override
     public double estimatedEmissions(int mins)
     {
-        return powerConsumption(mins)* gasEmmisions;
+        return getConsumption(mins)* gasEmmisions;
     }
 }

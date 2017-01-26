@@ -19,13 +19,27 @@ public class ElectricHeating extends Electricity
         setTemperature(temp);
     }
 
+    /**
+     * Returns the temperature of the electric heater
+     * @return temperature
+     */
     public double getTemperature()
     {
         return temperature;
     }
 
+    /**
+     * Sets the temperature of the electric heater
+     * if temperature is > 40 the temp will be fixed at 40
+     * @param temperature
+     */
     public void setTemperature(double temperature)
     {
-        this.temperature = temperature;
+        if(temperature >40.0)
+            this.temperature = 40;
+        else if(temperature <0.0)
+            this.temperature = 0;
+        else
+            this.temperature = temperature;
     }
 }

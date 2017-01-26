@@ -15,17 +15,17 @@ public abstract class energyConsumers
     private boolean state;
     private double usage;
     /**
-     * @param mins runtime of an appliance
-     * @return watt hours
+     * @param mins runtime of an energy consumer
+     * @return KWh
      */
-    abstract public double powerConsumption(int mins);
+    abstract public double getConsumption(int mins);
 
     /**
      * @param powerConsumption watt hours of an appliance
      * @return kilowatt hours
      */
-    public double calculateCost(double powerConsumption, double costPerKwH){
-        return (powerConsumption/1000)*costPerKwH;
+    public double calculateCost(double powerConsumption, double cosePerUnit){
+        return (powerConsumption/1000)*cosePerUnit;
     }
 
     abstract public double estimatedEmissions(int mins);

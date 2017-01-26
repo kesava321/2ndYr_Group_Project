@@ -6,41 +6,34 @@ package energyConsumers;
  * WaterState made false.
  * Created by Kesava on 12/12/2016.
  */
-public class Water
+public class Water extends energyConsumers
 {
-    private Boolean WaterState; //on or off
-    private double waterIntake; //liters per min
+    //water usage per min
+
+    private final double waterEmmisions = 0.59; // gram per liter
 
     public Water(){
-        setWaterState(false);
-        setWaterIntake(50.0);
+        setState(false);
+        setUsage(50.0);
     }
 
     public Water(Boolean state, double intake){
-        setWaterState(state);
-        setWaterIntake(intake);
+        setState(state);
+        setUsage(intake);
     }
 
-    public Boolean getWaterState() {
-        return WaterState;
+
+    @Override
+    public double getConsumption(int mins)
+    {
+        return getUsage()*mins;
     }
 
-    public void setWaterState(boolean waterState) {
-        this.WaterState = waterState;
+    @Override
+    public double estimatedEmissions(int mins)
+    {
+        return getConsumption(mins)* waterEmmisions;
     }
-
-    public double getWaterIntake() {
-        return waterIntake;
-    }
-
-    public void setWaterIntake(double intake) {
-        this.waterIntake = intake;
-        if(intake<0)
-            this.waterIntake = 35.0;
-        else
-            this.waterIntake = intake;
-    }
-
 }
 
 

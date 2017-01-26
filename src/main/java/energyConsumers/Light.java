@@ -23,11 +23,20 @@ public class Light extends Electricity
         setCurrentPower(powerrating);
     }
 
+    /**
+     * returns the current power of the bulb accounting for if it is dimmed
+     * @return currentPower
+     */
     public double getCurrentPower()
     {
         return currentPower;
     }
 
+    /**
+     * sets the current power of the bulb allowing for dimming
+     * does not allow for the bulb to have a large power than powerRating
+     * @param currentPower
+     */
     public void setCurrentPower(double currentPower)
     {
         if(currentPower<=getUsage())

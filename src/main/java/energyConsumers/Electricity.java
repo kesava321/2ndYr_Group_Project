@@ -19,7 +19,7 @@ public class Electricity extends energyConsumers
     }
 
     @Override
-    public double powerConsumption(int mins)
+    public double getConsumption(int mins)
     {
         return (getUsage()/60)*mins;
     }
@@ -27,6 +27,6 @@ public class Electricity extends energyConsumers
     @Override
     public double estimatedEmissions(int mins)
     {
-        return powerConsumption(mins)* electricityEmmisions;
+        return getConsumption(mins)* electricityEmmisions;
     }
 }
