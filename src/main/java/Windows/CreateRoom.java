@@ -138,7 +138,7 @@ public class CreateRoom
         build();
         LightPreferences lightpreferences = new LightPreferences();
         HeatPreferences heatpreferences = new HeatPreferences();
-        prefPane.getChildren().addAll(lightpreferences.init(),heatpreferences.init());
+        prefPane.getChildren().addAll(lightpreferences.init());
         lights.add(new Light(true,100));
         borderPane.setCenter(canvas);
         borderPane.setRight(prefPane);
