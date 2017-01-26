@@ -1,6 +1,5 @@
 package DEL;
 
-import energyConsumers.Heating;
 import energyConsumers.Light;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -86,20 +85,20 @@ public class form
             for(int x = 0; x< Integer.parseInt(lightNumField.getText());x++)
             {
                 lights[x] = new Light(false,Integer.parseInt(lightPowerRatingField.getText()));
-                totalLightPower+=lights[x].getPowerrating();
+                totalLightPower+=lights[x].getUsage();
             }
             System.out.println("Total Power from lights " + totalLightPower + "W");
-            Heating[] heatings = new Heating[Integer.parseInt(heatingNumField.getText())];
+            //Heating[] heatings = new Heating[Integer.parseInt(heatingNumField.getText())];
             for(int y = 0; y<Integer.parseInt(heatingNumField.getText());y++)
             {
-                heatings[y] = new Heating(Integer.parseInt(tempField.getText()),Integer.parseInt(heatingPowerRatingField.getText()));
+              //  heatings[y] = new Heating(Integer.parseInt(tempField.getText()),Integer.parseInt(heatingPowerRatingField.getText()));
                 totalHeatingPower+=Integer.parseInt(heatingPowerRatingField.getText());
             }
             System.out.println("Total Power from Heating "+ totalHeatingPower+ "W");
             price = lights[1].calculateCost(totalLightPower+totalHeatingPower,Double.parseDouble(costField.getText()));
             System.out.println("Cost per " + Integer.parseInt(timeField.getText()) + " minutes is " + df2.format(price));
             double polution = (totalHeatingPower+totalLightPower)/1000;
-            System.out.println("Estimated elisions are " + df2.format(lights[1].estimatedEmissions(polution))+"g");
+            //System.out.println("Estimated elisions are " + df2.format(lights[1].estimatedEmissions(polution))+"g");
         });
         Scene scene = new Scene(grid);
         window.setScene(scene);

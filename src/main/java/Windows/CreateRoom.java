@@ -76,8 +76,8 @@ public class CreateRoom
         {
             prefPane.toFront();
             currentSelected = id;
-            double powerRating = lights.get(id).getPowerrating();
-            int lighState = BooleanUtils.toInteger(lights.get(id).getLightState());
+            double powerRating = lights.get(id).getUsage();
+            int lighState = BooleanUtils.toInteger(lights.get(id).getState());
             System.out.println(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
             lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
             lightPreferences.stateCombo.getSelectionModel().select(lighState);
@@ -160,11 +160,11 @@ public class CreateRoom
             {
                 boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
                 System.out.println(currentSelected + " " + state);
-                lights.get(currentSelected).setLightState(state);
-                System.out.println(lights.get(currentSelected).getLightState());
+                lights.get(currentSelected).setState(state);
+                System.out.println(lights.get(currentSelected).getState());
             });
             powerRatingField.textProperty().addListener((observable, oldValue, newValue) -> {
-                lights.get(currentSelected).setPowerrating(Double.parseDouble(newValue));
+                lights.get(currentSelected).setUsage(Double.parseDouble(newValue));
             });
             stateCombo.getItems().addAll("Off","On");
             grid.setConstraints(state,0,0);

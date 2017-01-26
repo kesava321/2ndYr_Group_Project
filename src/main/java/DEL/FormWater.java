@@ -64,7 +64,7 @@ public class FormWater
                 waterIntake+= waters[y].getWaterIntake();
             }
             System.out.println("Total water intake is " + waterIntake + " for " + Integer.parseInt(timeField.getText()) + " minutes");
-            System.out.println("Cost per " + Integer.parseInt(timeField.getText()) + " is " + df3.format(waters[0].calculateCost(Double.parseDouble(waterConsumptionField.getText()),Double.parseDouble(costField.getText()))));
+//            System.out.println("Cost per " + Integer.parseInt(timeField.getText()) + " is " + df3.format(waters[0].calculateCost(Double.parseDouble(waterConsumptionField.getText()),Double.parseDouble(costField.getText()))));
         });
 
 

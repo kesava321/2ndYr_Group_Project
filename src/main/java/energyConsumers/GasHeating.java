@@ -9,19 +9,17 @@ package energyConsumers;
  *
  * Created by daniel on 29/11/2016.
  */
-public class Heating extends energyConsumers
+public class GasHeating extends Gas
 {
     private double temperature;
-    private double powerRating; //Watts
-
-    public Heating()
+    public GasHeating()
     {
+        super(false,70.0);
         setTemperature(0.0);
-        setPowerRating(10000);
     }
-    public Heating(double temp, double power)
+    public GasHeating(double temp, double power,Boolean state)
     {
-        setPowerRating(power);
+        super(state,power);
         setTemperature(temp);
     }
 
@@ -34,34 +32,9 @@ public class Heating extends energyConsumers
     {
         if(temperature >40.0)
             this.temperature = 40;
-        else if(temperature >0.0)
-            this.temperature = temperature;
-        else
+        else if(temperature <0.0)
             this.temperature = 0;
-    }
-
-    public double getPowerRating()
-    {
-        return powerRating;
-    }
-
-    public void setPowerRating(double powerRating)
-    {
-        if(powerRating<0)
-            this.powerRating = 0;
         else
-            this.powerRating = powerRating;
-    }
-
-    @Override
-    public double powerConsumption(int mins, double powerRating)
-    {
-        return 0;
-    }
-
-    @Override
-    public double estimatedEmissions(double kwh)
-    {
-        return 0;
+            this.temperature = temperature;
     }
 }

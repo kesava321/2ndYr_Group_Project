@@ -28,7 +28,7 @@ public abstract class energyConsumers
         return (powerConsumption/1000)*costPerKwH;
     }
 
-    abstract public double estimatedEmissions(double usage);
+    abstract public double estimatedEmissions(int mins);
 
     /**
      * returns state of the energy consumer

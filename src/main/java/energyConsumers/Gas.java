@@ -2,6 +2,7 @@ package energyConsumers;
 
 public class Gas extends energyConsumers {
 
+    private final double gasEmmisions = 0.5533827; //per KwH
     //Usage m3
     public Gas(){
         setUsage(70.0);
@@ -25,8 +26,8 @@ public class Gas extends energyConsumers {
     }
 
     @Override
-    public double estimatedEmissions(double kwh)
+    public double estimatedEmissions(int mins)
     {
-        return 0;
+        return powerConsumption(mins)* gasEmmisions;
     }
 }

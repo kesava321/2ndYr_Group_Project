@@ -7,53 +7,30 @@ package energyConsumers;
  * Powerrating made below 0 to 0.
  * Created by daniel on 29/11/2016.
  */
-public class Light extends energyConsumers
+public class Light extends Electricity
 {
-    private Boolean lightState;
-    private double powerrating;
+    private double currentPower; //dimming bulb
 
     public Light()
     {
-        setLightState(false);
-        setPowerrating(60.0);
+        super(false,60.0);
+        setCurrentPower(60.0);
     }
 
     public Light(Boolean state, double powerrating)
     {
-        setLightState(state);
-        setPowerrating(powerrating);
+        super(state,powerrating);
+        setCurrentPower(powerrating);
     }
 
-    public Boolean getLightState()
+    public double getCurrentPower()
     {
-        return lightState;
+        return currentPower;
     }
 
-    public void setLightState(Boolean lightState)
+    public void setCurrentPower(double currentPower)
     {
-        this.lightState = lightState;
-    }
-
-    public void setPowerrating(double powerrating) {
-        if(powerrating>0)
-            this.powerrating = powerrating;
-        else
-            this.powerrating =0;
-    }
-
-    public double getPowerrating() {
-        return powerrating;
-    }
-
-    @Override
-    public double powerConsumption(int mins, double powerRating)
-    {
-        return (powerRating/60) * mins;
-    }
-
-    @Override
-    public double estimatedEmissions(double kwh)
-    {
-        return 0;
+        if(currentPower<=getUsage())
+            this.currentPower = currentPower;
     }
 }
