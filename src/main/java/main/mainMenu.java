@@ -34,24 +34,25 @@ public class mainMenu implements Initializable
     private Button ControlSimulate;
     @FXML
     private Button Settings;
-
+    private Stage window  = new Stage();
 
     public void start() throws Exception
     {
-        Stage window  = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
-        Scene scene = new Scene(root, 800, 600);
         window.setTitle("Building Control Systems");
+        Scene scene = new Scene(root, 800, 600);
         window.setScene(scene);
         window.show();
     }
 
-    public static void controlClick(){
+    public void controlClick(){
         System.out.print("Load Controller");
         CreateRoom room = new CreateRoom();
         try {
+            window.hide();
             room.start();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
