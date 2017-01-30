@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
-
 import java.util.ArrayList;
 
 /**
@@ -25,13 +24,16 @@ public class CreateRoom
 
     private Stage window = new Stage();
     public ArrayList<Light> lights = new ArrayList<Light>();
+    private ArrayList<Pane> prefs = new ArrayList<Pane>();
     BorderPane borderPane = new BorderPane();
-    private StackPane prefPane = new StackPane();
+    private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
     private int count = 0;
     private int heatCount = 0;
     private int currentHeatingSelected =0;
     private int currentSelected =0;
+    private Label infoLabel = new Label();
+    private FlowPane infoPane = new FlowPane();
     LightPreferences lightPreferences = new LightPreferences();
     HeatPreferences heatPreferences = new HeatPreferences();
     double orgSceneX, orgSceneY;
@@ -54,18 +56,6 @@ public class CreateRoom
         borderPane.setLeft(accordion);
     }
 
-
-    private void controlPref(int controller)
-    {
-        switch(controller)
-        {
-            case 1:
-            {
-
-            }
-        }
-    }
-
     private ImageView drawLight()
     {
         int id = count;
@@ -74,11 +64,9 @@ public class CreateRoom
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
-            prefPane.toFront();
             currentSelected = id;
             double powerRating = lights.get(id).getUsage();
             int lighState = BooleanUtils.toInteger(lights.get(id).getState());
-            System.out.println(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
             lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
             lightPreferences.stateCombo.getSelectionModel().select(lighState);
             orgSceneX = event.getSceneX();
@@ -130,6 +118,19 @@ public class CreateRoom
 
     }
 
+    public void update()
+    {
+        double power,emmisions;
+        power = emmisions = 0;
+        for(int x =0; x<lights.size();x++)
+        {
+            System.out.println(lights.size() + " " + lights.get(x).getConsumption(60)); //converts watts into KW
+            power+= lights.get(x).getConsumption(60);
+            emmisions+= lights.get(x).estimatedEmissions(60);
+        }
+        infoLabel.setText("Power: " + power/1000 + " KwH" + " Emmisions:" + emmisions/1000 + "Kg/co2");
+    }
+
     public void start() throws Exception
     {
         ListView list = new ListView();
@@ -138,10 +139,12 @@ public class CreateRoom
         borderPane.setTop(toolbar);
         build();
         prefPane.getChildren().add(lightPreferences.init());
-        lights.add(new Light(true,100));
         borderPane.setCenter(canvas);
         borderPane.setRight(prefPane);
+        infoPane.getChildren().add(infoLabel);
+        borderPane.setBottom(infoPane);
         Scene scene = new Scene(borderPane,800,600);
+        scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
         window.setScene(scene);
         window.show();
     }
@@ -159,12 +162,20 @@ public class CreateRoom
             stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
             {
                 boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
-                System.out.println(currentSelected + " " + state);
                 lights.get(currentSelected).setState(state);
-                System.out.println(lights.get(currentSelected).getState());
+
             });
-            powerRatingField.textProperty().addListener((observable, oldValue, newValue) -> {
-                lights.get(currentSelected).setUsage(Double.parseDouble(newValue));
+            powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                if(!Validation.Validate.vDouble(newValue))
+                    powerRatingField.getStyleClass().add("error");
+                else
+                {
+                    update();
+                    powerRatingField.getStyleClass().remove("error");
+                    lights.get(currentSelected).setUsage(Double.parseDouble(newValue));
+                    System.out.println("|"+ currentSelected + " " +  lights.get(currentSelected).getUsage());
+                }
             });
             stateCombo.getItems().addAll("Off","On");
             grid.setConstraints(state,0,0);
@@ -213,10 +224,11 @@ public class CreateRoom
                 //add to array list
             });
             button.setOnMouseClicked(event ->{
-                count++;
+                lights.add(new Light(true,100));
                 ImageView image = drawLight();
                 canvas.getChildren().add(image);
-                lights.add(new Light(true,100));
+                count++;
+                update();
             });
             VBox vBox = new VBox(5);
             vBox.getChildren().addAll(button,heatingButton);

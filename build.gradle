@@ -4,7 +4,8 @@ apply plugin: 'application'
 mainClassName = 'main.CAB'
 version = '0.0.1'
 //org.gradle.daemon=true
-    
+
+
 task makeJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Controlling Adaptable Buildings',
@@ -19,12 +20,14 @@ repositories {
 dependencies{
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    // https://mvnrepository.com/artifact/junit/junit
+    compile group: 'junit', name: 'junit', version: '4.12'
 
 }
 
 subprojects {
     tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Dprism.vsync=false"
+            options.compilerArgs << "-Dprism.vsync=false"
     }
 }
 

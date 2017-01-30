@@ -22,10 +22,11 @@ public abstract class energyConsumers
 
     /**
      * @param powerConsumption watt hours of an appliance
-     * @return kilowatt hours
+     * @param costPerUnit cost per unit for energy consumer
+     * @return cost
      */
-    public double calculateCost(double powerConsumption, double cosePerUnit){
-        return (powerConsumption/1000)*cosePerUnit;
+    public double calculateCost(double powerConsumption, double costPerUnit){
+        return (powerConsumption)*costPerUnit;
     }
 
     abstract public double estimatedEmissions(int mins);

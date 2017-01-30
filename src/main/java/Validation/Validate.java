@@ -15,6 +15,18 @@ public class Validate
      */
     public static boolean vDouble(String input)
     {
-        return Pattern.matches("[0-9]+(.[0-9][0-9])?", input);
+        return Pattern.matches("[0-9]+(.[0-9][0-9]?)?", input);
+    }
+
+
+
+    /**
+     * Validates input string is a double using a RegEx
+     * @param input string
+     * @return true if the string is a double and false if otherwise
+     */
+    public static boolean vInt(String input)
+    {
+        return Pattern.matches("[0-9]+",input);
     }
 }

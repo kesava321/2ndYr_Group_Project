@@ -49,7 +49,7 @@ public class mainMenu implements Initializable
     public static void settingsClicked(){
         System.out.print("Load Settings");
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert ControlSimulate != null;
