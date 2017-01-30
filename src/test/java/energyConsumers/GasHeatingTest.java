@@ -67,7 +67,7 @@ public class GasHeatingTest {
     public void getPowerRatingDefaultConstrutor() throws Exception {
         GasHeating heater = new GasHeating();
         double x = heater.getUsage();
-        assertEquals(10000, x, 0.0);
+        assertEquals(70, x, 0.0);
     }
 
     @Test
