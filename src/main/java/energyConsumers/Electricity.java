@@ -21,7 +21,7 @@ public class Electricity extends energyConsumers
     @Override
     public double getConsumption(int mins)
     {
-        return (getUsage()/60)*mins;
+        return ((getUsage()/60)*mins)/1000;
     }
 
     @Override
