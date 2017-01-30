@@ -1,12 +1,15 @@
+/*
 package energyConsumers;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by Matt on 13-Dec-16.
- */
+ *//*
+
 public class GasTest {
     @Test
     public void getGasState() throws Exception {
@@ -37,4 +40,4 @@ public class GasTest {
         double x = consumer.getGasUsage();
         assertEquals(x, 110, 0);
     }
-}
+}*/

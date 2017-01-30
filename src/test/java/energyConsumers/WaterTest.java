@@ -1,12 +1,15 @@
+/*
 package energyConsumers;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by Matt on 15-Dec-16.
- */
+ *//*
+
 public class WaterTest {
     @Test
     public void getWaterState() throws Exception {
@@ -38,4 +41,4 @@ public class WaterTest {
         assertEquals(x,75,0);
     }
 
-}
+}*/

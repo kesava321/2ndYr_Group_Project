@@ -1,18 +1,18 @@
 package energyConsumers;
 
-import energyConsumers.Heating;
+//import energyConsumers.Heating;
 import org.junit.Test;
 
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
+//import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 
 /**
  * Created by Matt on 09-Dec-16.
- */
+ *//*
 public class HeatingTest {
 
     @Test
-    /** A test for the default constructor */
+    *//** A test for the default constructor *//*
     public void getTemperatureDefaultConst() throws Exception {
         Heating heater = new Heating();
         double x = heater.getTemperature();
@@ -20,7 +20,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** A test for checking the constructor with values passed of 20 and 10000 */
+    *//** A test for checking the constructor with values passed of 20 and 10000 *//*
     public void getTemperatureTestingSetter__Temperature() throws Exception {
         Heating heater = new Heating(20, 10000);
         double x = heater.getTemperature();
@@ -28,7 +28,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** A test for checking the constructor with values passed of 20 and 10000 - POWER RATING */
+    *//** A test for checking the constructor with values passed of 20 and 10000 - POWER RATING *//*
     public void getTemperatureTestingSetter__PowerRating() throws Exception {
         Heating heater = new Heating(20, 10000);
         double x = heater.getPowerRating();
@@ -36,7 +36,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** Testing a valid tempature entry */
+    *//** Testing a valid tempature entry *//*
     public void setTemperature__VALID() throws Exception {
         Heating heater = new Heating();
         heater.setTemperature(20);
@@ -45,7 +45,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** Testing a invalid tempature entry -- Too high */
+    *//** Testing a invalid tempature entry -- Too high *//*
     public void setTemperature__INVALID_High() throws Exception {
         Heating heater = new Heating();
         heater.setTemperature(41);  //should reduce to 40
@@ -54,7 +54,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** Testing a valid tempature entry -- Too low */
+    *//** Testing a valid tempature entry -- Too low *//*
     public void setTemperature__INVALID_Low() throws Exception {
         Heating heater = new Heating();
         heater.setTemperature(-2);
@@ -63,7 +63,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** testing getting using default constructor */
+    *//** testing getting using default constructor *//*
     public void getPowerRatingDefaultConstrutor() throws Exception {
         Heating heater = new Heating();
         double x = heater.getPowerRating();
@@ -71,7 +71,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** testing getter using user defined constructor */
+    *//** testing getter using user defined constructor *//*
     public void getPowerRatingConstrutor() throws Exception {
         Heating heater = new Heating(20, 200);
         double x = heater.getPowerRating();
@@ -79,7 +79,7 @@ public class HeatingTest {
     }
 
     @Test
-    /** sets the power rating to a valid number */
+    *//** sets the power rating to a valid number *//*
     public void setPowerRating__VALID() throws Exception {
         Heating heater = new Heating();
         heater.setPowerRating(5000);  //should reduce to 40
@@ -88,11 +88,11 @@ public class HeatingTest {
     }
 
     @Test
-    /** sets the power rating to an invalid value (negative) */
+    *//** sets the power rating to an invalid value (negative) *//*
     public void setPowerRating__INVALID() throws Exception {
         Heating heater = new Heating();
         heater.setPowerRating(-40);  //should reduce to 40
         double x = heater.getPowerRating();
         assertEquals(0, x, 0.0);
     }
-}
+}*/

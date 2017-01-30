@@ -1,11 +1,14 @@
+/*
 package energyConsumers;
 
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by Matt on 11-Dec-16.
- */
+ *//*
+
 public class LightTest {
     @org.junit.Test
     public void getLightState__DEFAULTCONSTRUCTOR() throws Exception {
@@ -51,4 +54,4 @@ public class LightTest {
         assertEquals(x,500, 0.0);
     }
 
-}
+}*/

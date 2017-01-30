@@ -14,13 +14,13 @@ public class Light extends Electricity
     public Light()
     {
         super(false,60.0);
-        setCurrentPower(60.0);
+        //setCurrentPower(60.0);
     }
 
     public Light(Boolean state, double powerrating)
     {
         super(state,powerrating);
-        setCurrentPower(powerrating);
+       // setCurrentPower(powerrating);
     }
 
     /**
@@ -39,7 +39,15 @@ public class Light extends Electricity
      */
     public void setCurrentPower(double currentPower)
     {
-        if(currentPower<=getUsage())
-            this.currentPower = currentPower;
+        this.currentPower = currentPower;
+    }
+
+    /**
+     * Sets the maximum power the bulb can ues
+     * @param maxPower
+     */
+    public void setMaxPower(double maxPower)
+    {
+        setUsage(maxPower);
     }
 }

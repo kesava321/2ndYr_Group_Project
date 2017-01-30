@@ -1,12 +1,15 @@
+/*
 package energyConsumers;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by Matt on 11-Dec-16.
- */
+ *//*
+
 public class energyConsumersTest {
     @Test
     public void powerConsumption() throws Exception {
@@ -31,4 +34,4 @@ public class energyConsumersTest {
         assertEquals(316.2,y,0.0);
     }
 
-}
+}*/
