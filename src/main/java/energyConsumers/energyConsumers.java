@@ -12,22 +12,63 @@ package energyConsumers;
 
 public abstract class energyConsumers
 {
+    private boolean state;
+    private double usage;
     /**
-     * @param mins runtime of an appliance
-     * @param powerRating watts of an applliance
-     * @return watt hours
+     * @param mins runtime of an energy consumer
+     * @return KWh
      */
-    abstract public double powerConsumption(int mins, double powerRating);
+    abstract public double getConsumption(int mins);
 
     /**
      * @param powerConsumption watt hours of an appliance
-     * @return kilowatt hours
+     * @param costPerUnit cost per unit for energy consumer
+     * @return cost
      */
-    public double calculateCost(double powerConsumption, double costPerKwH){
-        return (powerConsumption/1000)*costPerKwH;
+    public double calculateCost(double powerConsumption, double costPerUnit){
+        return (powerConsumption)*costPerUnit;
     }
 
-    abstract public double estimatedEmissions(double kwh);
+    abstract public double estimatedEmissions(int mins);
+
+    /**
+     * returns state of the energy consumer
+     * @return state
+     */
+    public boolean getState()
+    {
+        return state;
+    }
+
+    /**
+     * sets state of state
+     * @param state
+     */
+    public void setState(boolean state)
+    {
+        this.state = state;
+    }
+
+    /**
+     * gets Usage information
+     * @return usage
+     */
+    public double getUsage()
+    {
+        return usage;
+    }
+
+    /**
+     * sets usage information whilst validating it is larger than 0
+     * @param usage
+     */
+    public void setUsage(double usage)
+    {
+        if(usage<0)
+            this.usage = 0;
+        else
+            this.usage = usage;
+    }
 }
 
 

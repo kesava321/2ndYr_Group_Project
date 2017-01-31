@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -34,37 +35,36 @@ public class mainMenu implements Initializable
     private Button ControlSimulate;
     @FXML
     private Button Settings;
-
+    private Stage window  = new Stage();
 
     public void start() throws Exception
     {
-        Stage window  = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
-        Scene scene = new Scene(root, 800, 600);
         window.setTitle("Building Control Systems");
+        Scene scene = new Scene(root, 800, 600);
         window.setScene(scene);
         window.show();
-    }
-
-    public static void controlClick(){
-        System.out.print("Load Controller");
-        CreateRoom room = new CreateRoom();
-        try {
-            room.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static void settingsClicked(){
         System.out.print("Load Settings");
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         assert ControlSimulate != null;
-        ControlSimulate.setOnAction(event -> controlClick());
+        ControlSimulate.setOnAction(event ->
+        {
+            System.out.print("Load Controller");
+            CreateRoom room = new CreateRoom();
+            try {
+                room.start();
+                ((Node)(event.getSource())).getScene().getWindow().hide();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
 
         assert Settings != null;
         Settings.setOnAction(event -> settingsClicked());

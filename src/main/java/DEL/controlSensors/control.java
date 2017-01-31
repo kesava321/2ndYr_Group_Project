@@ -1,4 +1,4 @@
-package controlSensors;
+package DEL.controlSensors;
 
 public abstract class control
 {
