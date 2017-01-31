@@ -165,6 +165,9 @@ public class CreateRoom
                 System.out.println(lights.get(currentSelected).getLightState());
             });
             powerRatingField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if ( newValue.isEmpty() ){
+                    newValue = "0";
+                }
                 lights.get(currentSelected).setPowerrating(Double.parseDouble(newValue));
             });
             stateCombo.getItems().addAll("Off","On");
