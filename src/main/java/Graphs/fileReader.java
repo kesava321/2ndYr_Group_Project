@@ -48,4 +48,17 @@ public class fileReader {
                 }
 
 
-                }
+            // close file stream
+            br.close();
+        }
+
+            // handle exceptions
+            catch (FileNotFoundException fnfe)
+            {
+                System.out.println("file not found");
+            }
+
+            catch (IOException ioe)
+            {
+                ioe.printStackTrace();
+            }
