@@ -8,16 +8,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class fileReader {
 
-    public class FileFunctions {
+
+    public class fileFunctions {
 
         public static void main(String[] args) {
             // create ArrayList to store the energyData objects
             List<energyData> energyConsumer = new ArrayList<>();
             try {
                 // create a Buffered Reader object instance with a FileReader
-                BufferedReader br = new BufferedReader(new fileReader("energyData.txt"));
+                BufferedReader br = new BufferedReader(new FileReader("energyData.txt"));
 
                 // read the first line from the text file
                 String fileRead = br.readLine();
@@ -62,3 +62,16 @@ public class fileReader {
             {
                 ioe.printStackTrace();
             }
+
+            // display energyData
+            for (energyData each : energyConsumer)
+            {
+                System.out.println("*****************");
+                System.out.println(each);
+                System.out.println();
+                System.out.printf("Total value = %8.2f %n", each.getTotal());
+            }
+
+        }
+
+    }
