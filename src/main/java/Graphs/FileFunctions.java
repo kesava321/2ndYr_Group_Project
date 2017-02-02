@@ -1,4 +1,4 @@
-package main;
+package Graphs;
 
 /**
  * Created by Kesava on 30/01/2017.
