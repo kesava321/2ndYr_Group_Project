@@ -6,7 +6,9 @@ import java.sql.* ;
 
 
 /**
- * Created by appie on 2016/12/10.
+ * This is database control class based on Mysql,
+ * Before use this class, user should have a Mysql server run on their machine.
+ * Created by Rui on 2016/12/10.
  */
 public class ControlDB {
 	   static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
