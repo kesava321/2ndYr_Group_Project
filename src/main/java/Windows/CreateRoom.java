@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +39,7 @@ public class CreateRoom
     LightPreferences lightPreferences = new LightPreferences();
     HeatPreferences heatPreferences = new HeatPreferences();
     double orgSceneX, orgSceneY;
-
+    private static DecimalFormat df2 = new DecimalFormat("####0.##");
     private ToolBar toolbar = new ToolBar(
             new Button("Mouse"),
             new Button("Pen")
@@ -115,7 +117,6 @@ public class CreateRoom
             }
         });
         return imageView;
-
     }
 
     public void update()
@@ -125,10 +126,13 @@ public class CreateRoom
         for(int x =0; x<lights.size();x++)
         {
             System.out.println(lights.size() + " " + lights.get(x).getConsumption(60)); //converts watts into KW
-            power+= lights.get(x).getConsumption(60);
-            emmisions+= lights.get(x).estimatedEmissions(60);
+            if(lights.get(x).getState())
+            {
+                power += lights.get(x).getConsumption(60);
+                emmisions += lights.get(x).estimatedEmissions(60);
+            }
         }
-        infoLabel.setText("Power: " + power/1000 + " KwH" + " Emmisions:" + emmisions/1000 + "Kg/co2");
+        infoLabel.setText("Power: " + df2.format(power) + " KwH" + " Emmisions:" + df2.format(emmisions) + "Kg/co2");
     }
 
     public void start() throws Exception
@@ -138,8 +142,8 @@ public class CreateRoom
         BorderPane.setMargin(list, new Insets(12,12,12,12));
         borderPane.setTop(toolbar);
         build();
-        prefPane.getChildren().add(lightPreferences.init());
         borderPane.setCenter(canvas);
+        prefPane.getChildren().add(lightPreferences.init());
         borderPane.setRight(prefPane);
         infoPane.getChildren().add(infoLabel);
         borderPane.setBottom(infoPane);
@@ -163,6 +167,7 @@ public class CreateRoom
             {
                 boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
                 lights.get(currentSelected).setState(state);
+                update();
 
             });
             powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
@@ -171,10 +176,10 @@ public class CreateRoom
                     powerRatingField.getStyleClass().add("error");
                 else
                 {
-                    update();
                     powerRatingField.getStyleClass().remove("error");
                     lights.get(currentSelected).setUsage(Double.parseDouble(newValue));
                     System.out.println("|"+ currentSelected + " " +  lights.get(currentSelected).getUsage());
+                    update();
                 }
             });
             stateCombo.getItems().addAll("Off","On");
