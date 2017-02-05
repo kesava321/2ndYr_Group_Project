@@ -3,6 +3,7 @@ import energyConsumers.ElectricHeating;
 import energyConsumers.Light;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -12,13 +13,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
+
+import java.util.LinkedList;
 
 /**
  * Created by daniel on 24/12/2016.
@@ -29,6 +34,7 @@ public class CreateRoom
     private Stage window = new Stage();
     public ArrayList<Light> lights = new ArrayList<Light>();
     public ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
+    Boolean penState = false;
     BorderPane borderPane = new BorderPane();
     private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
@@ -42,10 +48,16 @@ public class CreateRoom
     HeatPreferences heatPreferences = new HeatPreferences();
     double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
-    private ToolBar toolbar = new ToolBar(
-            new Button("Mouse"),
-            new Button("Pen")
-    );
+
+    //Room coords
+    LinkedList<Double> pointsX = new LinkedList<Double>();
+    LinkedList<Double> pointsY = new LinkedList<Double>();
+    LinkedList<Line> lines = new LinkedList<Line>();
+    Circle currentClick = new Circle();
+
+    Button mouse = new Button("Mouse");
+    Button pen = new Button("Pen");
+    private ToolBar toolbar = new ToolBar();
 
     private void build()
     {
@@ -159,6 +171,9 @@ public class CreateRoom
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
+        mouse.setOnMouseClicked(e -> penState = false);
+        pen.setOnMouseClicked(e -> penState = true);
+        toolbar.getItems().addAll(mouse,pen);
         borderPane.setTop(toolbar);
         build();
         borderPane.setCenter(canvas);
@@ -166,12 +181,43 @@ public class CreateRoom
         prefPane.getChildren().add(heatPreferences.init());
         heatPreferences.setVisible(false);
         borderPane.setRight(prefPane);
+
+        borderPane.getChildren().add(currentClick);
+        canvas.setOnMouseClicked(event ->
+        {
+            if(penState)
+            {
+                pointsX.add(event.getSceneX());
+                pointsY.add(event.getSceneY());
+                currentClick.setCenterX(event.getSceneX());
+                currentClick.setCenterY(event.getSceneY());
+                currentClick.setRadius(4.0f);
+                drawLine();
+            }
+        });
+
+
         infoPane.getChildren().add(infoLabel);
         borderPane.setBottom(infoPane);
         Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
         window.setScene(scene);
         window.show();
+    }
+
+    public void drawLine(){
+        System.out.println(penState);
+        if (pointsX.size()<1){
+            return;
+        }
+        else {
+            for (int i = 0; i < pointsX.size() - 1; i++) {
+                Line temp = new Line(pointsX.get(i), pointsY.get(i), pointsX.get(i + 1), pointsY.get(i + 1));
+               // temp.draw();
+                lines.add(temp);
+                borderPane.getChildren().add(temp);
+            }
+        }
     }
 
     class LightPreferences
@@ -302,6 +348,10 @@ public class CreateRoom
             p.getChildren().addAll(vBox);
             return p;
         }
+
+    }
+
+    class drawRoom{
 
     }
 }
