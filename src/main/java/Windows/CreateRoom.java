@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
@@ -46,6 +47,7 @@ public class CreateRoom
     LinkedList<Double> pointsX = new LinkedList<Double>();
     LinkedList<Double> pointsY = new LinkedList<Double>();
     LinkedList<Line> lines = new LinkedList<Line>();
+    Circle currentClick = new Circle();
 
     private ToolBar toolbar = new ToolBar(
             new Button("Mouse"),
@@ -150,11 +152,16 @@ public class CreateRoom
         borderPane.setCenter(canvas);
         borderPane.setRight(prefPane);
 
+        borderPane.getChildren().add(currentClick);
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 pointsX.add(event.getSceneX());
                 pointsY.add(event.getSceneY());
+                currentClick.setCenterX(event.getSceneX());
+                currentClick.setCenterY(event.getSceneY());
+                currentClick.setRadius(4.0f);
+
                 drawLine();
             }
         });
