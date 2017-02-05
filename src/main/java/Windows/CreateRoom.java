@@ -2,6 +2,7 @@ package Windows;
 import energyConsumers.Light;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -11,10 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by daniel on 24/12/2016.
@@ -37,6 +41,11 @@ public class CreateRoom
     LightPreferences lightPreferences = new LightPreferences();
     HeatPreferences heatPreferences = new HeatPreferences();
     double orgSceneX, orgSceneY;
+
+    //Room coords
+    LinkedList<Double> pointsX = new LinkedList<Double>();
+    LinkedList<Double> pointsY = new LinkedList<Double>();
+    LinkedList<Line> lines = new LinkedList<Line>();
 
     private ToolBar toolbar = new ToolBar(
             new Button("Mouse"),
@@ -140,12 +149,37 @@ public class CreateRoom
         build();
         borderPane.setCenter(canvas);
         borderPane.setRight(prefPane);
+
+        canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pointsX.add(event.getSceneX());
+                pointsY.add(event.getSceneY());
+                drawLine();
+            }
+        });
+
+
         infoPane.getChildren().add(infoLabel);
         borderPane.setBottom(infoPane);
         Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
         window.setScene(scene);
         window.show();
+    }
+
+    public void drawLine(){
+        if (pointsX.size()<1){
+            return;
+        }
+        else {
+            for (int i = 0; i < pointsX.size() - 1; i++) {
+                Line temp = new Line(pointsX.get(i), pointsY.get(i), pointsX.get(i + 1), pointsY.get(i + 1));
+               // temp.draw();
+                lines.add(temp);
+                borderPane.getChildren().add(temp);
+            }
+        }
     }
 
     class LightPreferences
@@ -222,6 +256,10 @@ public class CreateRoom
             p.getChildren().addAll(vBox);
             return p;
         }
+
+    }
+
+    class drawRoom{
 
     }
 }
