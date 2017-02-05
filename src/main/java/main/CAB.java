@@ -39,7 +39,7 @@ public class CAB extends Application{
 
     public static void main(String[] args)
     {
-        ControlDB cd = new ControlDB();//
+        ControlSqlite cd = new ControlSqlite();//
         //cd.ControlDB();//
         launch(args);
     }
