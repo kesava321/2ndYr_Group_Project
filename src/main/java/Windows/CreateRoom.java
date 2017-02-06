@@ -266,7 +266,7 @@ public class CreateRoom
 
     class HeatPreferences
     {
-        Label state = new Label("Light State");
+        Label state = new Label("Heater State");
         ComboBox stateCombo = new ComboBox();
         Pane pane = new Pane();
         Label temp = new Label("Temperature");

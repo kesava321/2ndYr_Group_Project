@@ -13,18 +13,21 @@ public class ControlSqlite {
     public ControlSqlite(){
         Connection c = null;
         Statement stmt = null;
+        String sql = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/test.db");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE COMPANY " +
-                    "(ID INT PRIMARY KEY     NOT NULL," +
-                    " NAME           TEXT    NOT NULL, " +
-                    " AGE            INT     NOT NULL, " +
-                    " ADDRESS        CHAR(50), " +
-                    " SALARY         REAL)";
+            sql = "CREATE TABLE if not exists DataInput " +
+                    "(ID      INT PRIMARY KEY NOT NULL,"+
+                    " Consumer        CHAR(50)   NOT NULL," +
+                    " TimePriod      INT    NOT NULL, " +
+                    " PowerRating    FLOAT     NOT NULL, " +
+                    " Location        CHAR(50) NOT NULL, " +
+                    " EstimatedEmissions DOUBLE NOT NULL" +
+                    " TotalNumber     Int)";
             stmt.executeUpdate(sql);
             System.out.println("Table created successfully");
             stmt.close();
