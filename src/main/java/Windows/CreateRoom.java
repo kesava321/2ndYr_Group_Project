@@ -228,6 +228,7 @@ public class CreateRoom
             Pane p = new Pane();
             Button button = new Button("LED Bulb"); //probs should change to image view at a later date
             Button heatingButton = new Button("Heating");
+            Button clearCanvas = new Button("Delete Room");
             heatingButton.setOnMouseClicked(event->
             {
                 ImageView image = drawHeater();
@@ -243,15 +244,23 @@ public class CreateRoom
                 count++;
                 update();
             });
+            clearCanvas.setOnMouseClicked(event ->{
+                System.out.print("Hit");
+                borderPane.getChildren().removeAll(lines);
+                borderPane.getChildren().remove(currentClick);
+                while (!pointsX.isEmpty()) {
+                    pointsX.removeFirst();
+                    pointsY.removeFirst();
+                    lines.removeFirst();
+                }
+            });
+
             VBox vBox = new VBox(5);
-            vBox.getChildren().addAll(button,heatingButton);
+            vBox.getChildren().addAll(button,heatingButton, clearCanvas);
             p.getChildren().addAll(vBox);
             return p;
         }
 
     }
-
-    class drawRoom{
-
-    }
+    
 }
