@@ -32,17 +32,17 @@ public class CreateRoom
 {
 
     private Stage window = new Stage();
-    public ArrayList<Light> lights = new ArrayList<Light>();
-    public ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
+    public static ArrayList<Light> lights = new ArrayList<Light>();
+    public static ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
     Boolean penState = false;
     BorderPane borderPane = new BorderPane();
     private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
     private int count = 0;
     private int heatCount = 0;
-    private int currentHeatingSelected =0;
-    private int currentSelected =0;
-    private Label infoLabel = new Label();
+    public static int currentHeatingSelected =0;
+    public static int currentSelected =0;
+    private static Label infoLabel = new Label();
     private FlowPane infoPane = new FlowPane();
     LightPreferences lightPreferences = new LightPreferences();
     HeatPreferences heatPreferences = new HeatPreferences();
@@ -142,7 +142,7 @@ public class CreateRoom
         return imageView;
     }
 
-    public void update()
+    public static void update()
     {
         double power,emmisions;
         power = emmisions = 0;
@@ -220,106 +220,6 @@ public class CreateRoom
         }
     }
 
-    class LightPreferences
-    {
-        Pane pane = new Pane();
-        Label state = new Label("Light State");
-        ComboBox stateCombo = new ComboBox();
-        Label powerRating = new Label("Power Rating");
-        TextField powerRatingField = new TextField();
-        GridPane grid = new GridPane();
-        public void setVisible(boolean visible)
-        {
-            pane.setVisible(visible);
-        }
-        public Pane init()
-        {
-            stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-            {
-                boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
-                lights.get(currentSelected).setState(state);
-                update();
-
-            });
-            powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
-            {
-                if(!Validation.Validate.vDouble(newValue))
-                    powerRatingField.getStyleClass().add("error");
-                else
-                {
-                    powerRatingField.getStyleClass().remove("error");
-                    lights.get(currentSelected).setUsage(Double.parseDouble(newValue));
-                    System.out.println("|"+ currentSelected + " " +  lights.get(currentSelected).getUsage());
-                    update();
-                }
-            });
-            stateCombo.getItems().addAll("Off","On");
-            grid.setConstraints(state,0,0);
-            grid.setConstraints(stateCombo,1,0);
-            grid.setConstraints(powerRating,0,1);
-            grid.setConstraints(powerRatingField,1,1);
-            grid.getChildren().addAll(state,stateCombo,powerRating,powerRatingField);
-            pane.getChildren().add(grid);
-            return pane;
-        }
-    }
-
-    class HeatPreferences
-    {
-        Label state = new Label("Heater State");
-        ComboBox stateCombo = new ComboBox();
-        Pane pane = new Pane();
-        Label temp = new Label("Temperature");
-        TextField tempField = new TextField();
-        Label powerRating = new Label("Power Rating");
-        TextField powerRatingField = new TextField();
-        GridPane grid = new GridPane();
-        public void setVisible(boolean visible)
-        {
-            pane.setVisible(visible);
-        }
-        public Pane init()
-        {
-            stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-            {
-                electricHeatings.get(currentHeatingSelected).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
-                update();
-            });
-            powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
-            {
-                if(!Validation.Validate.vDouble(newValue))
-                    powerRatingField.getStyleClass().add("error");
-                else
-                {
-                    powerRatingField.getStyleClass().remove("error");
-                    electricHeatings.get(currentHeatingSelected).setUsage(Double.parseDouble(newValue));
-                    update();
-                }
-            });
-            tempField.textProperty().addListener((observable, oldValue, newValue) ->
-            {
-                if(!Validation.Validate.vDouble(newValue))
-                    tempField.getStyleClass().add("error");
-                else
-                {
-                    tempField.getStyleClass().remove("error");
-                    electricHeatings.get(currentHeatingSelected).setTemperature(Double.parseDouble(newValue));
-                    update();
-                }
-            });
-            stateCombo.getItems().addAll("Off","On");
-            grid.setConstraints(state,0,0);
-            grid.setConstraints(stateCombo,1,0);
-            grid.setConstraints(temp,0,1);
-            grid.setConstraints(tempField,1,1);
-            grid.setConstraints(powerRating,0,2);
-            grid.setConstraints(powerRatingField,1,2);
-            grid.getChildren().addAll(state,stateCombo,temp,tempField,powerRating,powerRatingField);
-            pane.getChildren().add(grid);
-            return pane;
-        }
-
-    }
     class Lights
     {
 
