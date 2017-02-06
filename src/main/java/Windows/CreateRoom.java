@@ -362,8 +362,5 @@ public class CreateRoom
         }
 
     }
-
-    class drawRoom{
-
-    }
+    
 }
