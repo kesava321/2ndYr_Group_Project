@@ -1,5 +1,7 @@
 package graphs;
 
+//commented until library can be added to gradle
+/*
 import java.awt.Color;
 import java.awt.BasicStroke;
 import org.jfree.chart.ChartPanel;
@@ -14,6 +16,7 @@ import org.jfree.chart.plot.PlotOrientation;
 
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.ui.RefineryUtilities;
+
 
 class XYLineChart_AWT extends ApplicationFrame
 {
@@ -41,7 +44,9 @@ class XYLineChart_AWT extends ApplicationFrame
         plot.setRenderer( renderer );
         setContentPane( chartPanel );
     }
+}
 
+*/
 
     private XYDataset createDataset( )
     {

@@ -1,4 +1,5 @@
 package Windows;
+import energyConsumers.ElectricHeating;
 import energyConsumers.Light;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,7 +19,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 import java.util.LinkedList;
 
 /**
@@ -29,7 +33,8 @@ public class CreateRoom
 
     private Stage window = new Stage();
     public ArrayList<Light> lights = new ArrayList<Light>();
-    private ArrayList<Pane> prefs = new ArrayList<Pane>();
+    public ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
+    Boolean penState = false;
     BorderPane borderPane = new BorderPane();
     private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
@@ -42,6 +47,7 @@ public class CreateRoom
     LightPreferences lightPreferences = new LightPreferences();
     HeatPreferences heatPreferences = new HeatPreferences();
     double orgSceneX, orgSceneY;
+    private static DecimalFormat df2 = new DecimalFormat("####0.##");
 
     //Room coords
     LinkedList<Double> pointsX = new LinkedList<Double>();
@@ -49,10 +55,9 @@ public class CreateRoom
     LinkedList<Line> lines = new LinkedList<Line>();
     Circle currentClick = new Circle();
 
-    private ToolBar toolbar = new ToolBar(
-            new Button("Mouse"),
-            new Button("Pen")
-    );
+    Button mouse = new Button("Mouse");
+    Button pen = new Button("Pen");
+    private ToolBar toolbar = new ToolBar();
 
     private void build()
     {
@@ -75,6 +80,8 @@ public class CreateRoom
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
+            heatPreferences.setVisible(false);
+            lightPreferences.setVisible(true);
             currentSelected = id;
             double powerRating = lights.get(id).getUsage();
             int lighState = BooleanUtils.toInteger(lights.get(id).getState());
@@ -108,6 +115,13 @@ public class CreateRoom
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
+            currentHeatingSelected = id;
+            heatPreferences.setVisible(true);
+            lightPreferences.setVisible(false);
+            heatPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(electricHeatings.get(id).getState()));
+            heatPreferences.powerRatingField.setText(Double.toString(electricHeatings.get(id).getUsage()));
+            heatPreferences.tempField.setText(Double.toString(electricHeatings.get(id).getTemperature()));
+            System.out.println(electricHeatings.get(id).getUsage());
             orgSceneX = event.getSceneX();
             orgSceneY = event.getSceneY();
         });
@@ -126,7 +140,6 @@ public class CreateRoom
             }
         });
         return imageView;
-
     }
 
     public void update()
@@ -136,10 +149,21 @@ public class CreateRoom
         for(int x =0; x<lights.size();x++)
         {
             System.out.println(lights.size() + " " + lights.get(x).getConsumption(60)); //converts watts into KW
-            power+= lights.get(x).getConsumption(60);
-            emmisions+= lights.get(x).estimatedEmissions(60);
+            if(lights.get(x).getState())
+            {
+                power += lights.get(x).getConsumption(60);
+                emmisions += lights.get(x).estimatedEmissions(60);
+            }
         }
-        infoLabel.setText("Power: " + power/1000 + " KwH" + " Emmisions:" + emmisions/1000 + "Kg/co2");
+        for(int y = 0;y<electricHeatings.size();y++)
+        {
+            if(electricHeatings.get(y).getState())
+            {
+                power+= electricHeatings.get(y).getConsumption(60);
+                emmisions+=electricHeatings.get(y).estimatedEmissions(60);
+            }
+        }
+        infoLabel.setText("Power: " + df2.format(power) + " KwH" + " Emmisions:" + df2.format(emmisions) + "Kg/co2");
     }
 
     public void start() throws Exception
@@ -147,21 +171,27 @@ public class CreateRoom
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
+        mouse.setOnMouseClicked(e -> penState = false);
+        pen.setOnMouseClicked(e -> penState = true);
+        toolbar.getItems().addAll(mouse,pen);
         borderPane.setTop(toolbar);
         build();
         borderPane.setCenter(canvas);
+        prefPane.getChildren().add(lightPreferences.init());
+        prefPane.getChildren().add(heatPreferences.init());
+        heatPreferences.setVisible(false);
         borderPane.setRight(prefPane);
 
         borderPane.getChildren().add(currentClick);
-        canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        canvas.setOnMouseClicked(event ->
+        {
+            if(penState)
+            {
                 pointsX.add(event.getSceneX());
                 pointsY.add(event.getSceneY());
                 currentClick.setCenterX(event.getSceneX());
                 currentClick.setCenterY(event.getSceneY());
                 currentClick.setRadius(4.0f);
-
                 drawLine();
             }
         });
@@ -176,6 +206,7 @@ public class CreateRoom
     }
 
     public void drawLine(){
+        System.out.println(penState);
         if (pointsX.size()<1){
             return;
         }
@@ -197,13 +228,30 @@ public class CreateRoom
         Label powerRating = new Label("Power Rating");
         TextField powerRatingField = new TextField();
         GridPane grid = new GridPane();
+        public void setVisible(boolean visible)
+        {
+            pane.setVisible(visible);
+        }
         public Pane init()
         {
             stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
             {
                 boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
                 lights.get(currentSelected).setState(state);
+                update();
 
+            });
+            powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                if(!Validation.Validate.vDouble(newValue))
+                    powerRatingField.getStyleClass().add("error");
+                else
+                {
+                    powerRatingField.getStyleClass().remove("error");
+                    lights.get(currentSelected).setUsage(Double.parseDouble(newValue));
+                    System.out.println("|"+ currentSelected + " " +  lights.get(currentSelected).getUsage());
+                    update();
+                }
             });
             stateCombo.getItems().addAll("Off","On");
             grid.setConstraints(state,0,0);
@@ -218,19 +266,55 @@ public class CreateRoom
 
     class HeatPreferences
     {
+        Label state = new Label("Heater State");
+        ComboBox stateCombo = new ComboBox();
         Pane pane = new Pane();
         Label temp = new Label("Temperature");
         TextField tempField = new TextField();
         Label powerRating = new Label("Power Rating");
         TextField powerRatingField = new TextField();
         GridPane grid = new GridPane();
+        public void setVisible(boolean visible)
+        {
+            pane.setVisible(visible);
+        }
         public Pane init()
         {
-            grid.setConstraints(temp,0,0);
-            grid.setConstraints(tempField,1,0);
-            grid.setConstraints(powerRating,0,1);
-            grid.setConstraints(powerRatingField,1,1);
-            grid.getChildren().addAll(temp,tempField,powerRating,powerRatingField);
+            stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+            {
+                electricHeatings.get(currentHeatingSelected).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
+                update();
+            });
+            powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                if(!Validation.Validate.vDouble(newValue))
+                    powerRatingField.getStyleClass().add("error");
+                else
+                {
+                    powerRatingField.getStyleClass().remove("error");
+                    electricHeatings.get(currentHeatingSelected).setUsage(Double.parseDouble(newValue));
+                    update();
+                }
+            });
+            tempField.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                if(!Validation.Validate.vDouble(newValue))
+                    tempField.getStyleClass().add("error");
+                else
+                {
+                    tempField.getStyleClass().remove("error");
+                    electricHeatings.get(currentHeatingSelected).setTemperature(Double.parseDouble(newValue));
+                    update();
+                }
+            });
+            stateCombo.getItems().addAll("Off","On");
+            grid.setConstraints(state,0,0);
+            grid.setConstraints(stateCombo,1,0);
+            grid.setConstraints(temp,0,1);
+            grid.setConstraints(tempField,1,1);
+            grid.setConstraints(powerRating,0,2);
+            grid.setConstraints(powerRatingField,1,2);
+            grid.getChildren().addAll(state,stateCombo,temp,tempField,powerRating,powerRatingField);
             pane.getChildren().add(grid);
             return pane;
         }
@@ -246,10 +330,11 @@ public class CreateRoom
             Button heatingButton = new Button("Heating");
             heatingButton.setOnMouseClicked(event->
             {
-                heatCount++;
                 ImageView image = drawHeater();
                 canvas.getChildren().add(image);
-                //add to array list
+                electricHeatings.add(new ElectricHeating(true,1000,25));
+                System.out.println(electricHeatings.get(heatCount).getUsage());
+                heatCount++;
             });
             button.setOnMouseClicked(event ->{
                 lights.add(new Light(true,100));
