@@ -6,13 +6,15 @@ import java.sql.* ;
 
 
 /**
- * Created by appie on 2016/12/10.
+ * This is database control class based on Mysql,
+ * Before use this class, user should have a Mysql server run on their machine.
+ * Created by Rui on 2016/12/10.
  */
 public class ControlDB {
 	   static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/DataInput?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-	   //  Database credentials
+	   // Database credentials
 	   static final String USER = "root";
 	   static final String PASS = "";
 

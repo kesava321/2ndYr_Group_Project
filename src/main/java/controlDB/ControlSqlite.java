@@ -1,0 +1,44 @@
+package controlDB;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.* ;
+
+/**
+ * This is the database control class based on Sqlite.
+ * Before use this class, the Sqlite should be download on your machine.
+ * Created by Rui on 2017/2/1.
+ */
+public class ControlSqlite {
+    public ControlSqlite(){
+        Connection c = null;
+        Statement stmt = null;
+        String sql = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/test.db");
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            sql = "CREATE TABLE if not exists DataInput " +
+                    "(ID      INT PRIMARY KEY NOT NULL,"+
+                    " Consumer        CHAR(50)   NOT NULL," +
+                    " TimePriod      INT    NOT NULL, " +
+                    " PowerRating    FLOAT     NOT NULL, " +
+                    " Location        CHAR(50) NOT NULL, " +
+                    " EstimatedEmissions DOUBLE NOT NULL" +
+                    " TotalNumber     Int)";
+            stmt.executeUpdate(sql);
+            System.out.println("Table created successfully");
+            stmt.close();
+            c.close();
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(ClassNotFoundException e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+    }
+
+}

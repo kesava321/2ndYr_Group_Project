@@ -1,23 +1,13 @@
 package main;
 
-import Windows.ControlOptions;
-import Windows.*;
-import energyConsumers.Heating;
-import energyConsumers.Light;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.application.Application;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import controlDB.*;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class CAB extends Application implements Initializable{
+public class CAB extends Application{
 
     @FXML
     private Button ElectricityButton;
@@ -39,73 +29,18 @@ public class CAB extends Application implements Initializable{
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        window = primaryStage;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
-        window.setTitle("Building Control Systems");
-        window.setScene(new Scene(root, 600, 400));
-        window.show();
+        splash splashScreen = new splash();
+        splashScreen.Splash();
+
+        mainMenu room = new mainMenu();
+        room.start();
+
     }
 
     public static void main(String[] args)
     {
-        ControlDB cd = new ControlDB();//
+        ControlSqlite cd = new ControlSqlite();//
         //cd.ControlDB();//
         launch(args);
     }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        assert ElectricityButton != null : "fx:id=\"ElectricityButton\" was not injected: check your FXML file 'simple.fxml'.";
-        ElectricityButton.setOnAction(event ->
-        {
-            form f = new form();
-            try
-            {
-                f.start();
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        });
-        assert HeatingButton != null : "fx:id=\"HeatingButton\" was not injected: check your FXML file 'simple.fxml'.";
-        HeatingButton.setOnAction(event ->
-        {
-            form f = new form();
-            try
-            {
-                f.start();
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        });
-        assert GasButton != null : "fx:id=\"GasButton\" was not injected: check your FXML file 'simple.fxml'.";
-        GasButton.setOnAction(event ->
-        {
-            form f = new form();
-            try
-            {
-                f.start();
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        });
-        assert WaterButton != null : "fx:id=\"WaterButton\" was not injected: check your FXML file 'simple.fxml'.";
-        WaterButton.setOnAction(event ->
-        {
-            FormWater water = new FormWater();
-            try
-            {
-                water.start();
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        });
-
-    }
-
-
 }

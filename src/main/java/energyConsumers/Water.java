@@ -4,42 +4,43 @@ package energyConsumers;
  * WaterIntake or a WaterState and WaterIntake is set itself. setWaterState
  * ensures that WaterState cannot be less than 0 by resetting any
  * WaterState made false.
- * Created by Kesava on 12/12/2016.
  */
-    public class Water extends energyConsumers
+public class Water extends energyConsumers
+{
+    //water usage per min
+
+    private final double waterEmmisions = 0.59; // gram per liter
+
+    public Water(){
+        setState(false);
+        setUsage(50.0);
+    }
+
+    public Water(Boolean state, double intake){
+        setState(state);
+        setUsage(intake);
+    }
+
+    /**
+     * gets the power consumption of energy consumer for given time in liter per time period
+     * @param mins runtime of an energy comsumer
+     * @return power consumption in liter per time period
+     */
+    @Override
+    public double getConsumption(int mins)
     {
-        private Boolean WaterState; //on or off
-        private double waterIntake; //liters per min
-
-        public Water(){
-            setWaterState(false);
-            setWaterIntake(50.0);
-        }
-
-        public Water(Boolean state, double intake){
-            setWaterState(state);
-            setWaterIntake(intake);
-        }
-
-        public Boolean getWaterState() {
-            return WaterState;
-        }
-
-        public void setWaterState(boolean waterState) {
-            this.WaterState = waterState;
-        }
-
-        public double getWaterIntake() {
-            return waterIntake;
-        }
-
-        public void setWaterIntake(double intake) {
-            this.waterIntake = intake;
-            if(intake<0)
-                this.waterIntake = 35.0;
-            else
-                this.waterIntake = intake;
-        }
+        return getUsage()*mins;
+    }
+    /**
+     * estimates emissions of energy consumer using its power consumption and a estimate for water emmisions
+     * @param mins
+     * @return emmisions
+     */
+    @Override
+    public double estimatedEmissions(int mins)
+    {
+        return getConsumption(mins)* waterEmmisions;
+    }
 }
 
 
