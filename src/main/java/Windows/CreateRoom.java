@@ -11,6 +11,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +22,12 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by daniel on 24/12/2016.
@@ -193,6 +197,8 @@ public class CreateRoom
                 currentClick.setCenterY(event.getSceneY());
                 currentClick.setRadius(4.0f);
                 drawLine();
+                Thread t = new Thread(() -> trackLength());
+                t.run();
             }
         });
 
@@ -203,6 +209,22 @@ public class CreateRoom
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
         window.setScene(scene);
         window.show();
+    }
+
+    private void trackLength() {
+        System.out.print("Test");
+        //while(penState) {
+
+            Point currentLoc = MouseInfo.getPointerInfo().getLocation();
+            double currentX = currentLoc.getX();
+            double currentY = currentLoc.getY();
+
+            double lastLocX = pointsX.getLast();
+            double lastLocY = pointsY.getLast();
+
+            int distance = (int) Math.sqrt((lastLocX-currentX)*(lastLocX-currentX) + (lastLocY-currentY)*(lastLocY-currentY));
+            System.out.print(distance);
+        //}
     }
 
     public void drawLine(){
