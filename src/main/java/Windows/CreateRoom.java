@@ -227,8 +227,19 @@ public class CreateRoom
                 System.out.println(coordx + " " + coordy);
                 mouseLine.setEndX(coordx-1);
                 mouseLine.setEndY(coordy-1);
-                //distance.setText(Double.toString(trackLength(coordx, coordy)));*/
+                distance.setText(Double.toString(trackLength(coordx, coordy)));
             }
+            double coordx = event.getSceneX();
+            double coordy = event.getSceneY();
+            if(pointsX.size()>0) {
+                mouseLine.setStartX(pointsX.getLast());
+                mouseLine.setStartY(pointsY.getLast());
+                mouseLine.setEndX(coordx);
+                mouseLine.setEndY(coordy);
+            }
+            distance.setText(Double.toString(trackLength(coordx, coordy)));
+
+>>>>>>> 9ece630a8b2223b14957d4a040f2154fe4cfe6fe
         });
         borderPane.setBottom(distance);
         mouseLine.setStyle("-fx-stroke: red;");
@@ -246,7 +257,11 @@ public class CreateRoom
             lastLocY = pointsY.getLast();
         }
         double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
+<<<<<<< HEAD
        // System.out.print(distance);
+=======
+        //System.out.print(distance);
+>>>>>>> 9ece630a8b2223b14957d4a040f2154fe4cfe6fe
         return distance;
     }
 
