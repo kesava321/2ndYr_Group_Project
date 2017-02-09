@@ -216,35 +216,47 @@ public class CreateRoom
             public void handle(KeyEvent ke) {
                 //keyPressed.setText("Key Pressed: " + ke.getCode());
                 if (ke.getCode() == KeyCode.CONTROL){
-
-                    distance.setText(Double.toString(trackLength()));
+                    double coordx = scene.getX();
+                    double coordy = scene.getY();
+                    distance.setText(Double.toString(trackLength(coordx, coordy)));
                 }
             }
         });
 
+        scene.setOnMouseMoved(event -> {
+            double coordx = event.getSceneX();
+            double coordy = event.getSceneY();
+            distance.setText(Double.toString(trackLength(coordx, coordy)));
+            
+        });
         borderPane.setBottom(distance);
 
         window.setScene(scene);
         window.show();
     }
 
-    private double trackLength() {
+    private double trackLength(double coordx, double coordy) {
         System.out.print("Test");
         Point currentLoc = MouseInfo.getPointerInfo().getLocation();
-        double currentX = currentLoc.getX();
-        double currentY = currentLoc.getY();
+        double currentX = coordx;
+        double currentY = coordy;
 
-        Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
-        currentY = currentY - boundsInScreen.getMinY();
-        currentX = currentX - boundsInScreen.getMinX();
+        //Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
+        //currentY = currentY - boundsInScreen.getMinY();
+        //currentX = currentX - boundsInScreen.getMinX();
 
-        System.out.print("x = " + currentX);
+        //System.out.print("x = " + currentX);
 
-        System.out.println(" y = " + currentY);
+        //System.out.println(" y = " + currentY);
 
 
         double lastLocX = pointsX.getLast();
         double lastLocY = pointsY.getLast();
+
+        System.out.println("Last Loc x " +lastLocX);
+        System.out.println("Last Loc Y " +lastLocY);
+        System.out.println("Current X " +currentX);
+        System.out.println("Current Y " +currentY);
 
         double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
         System.out.print(distance);
