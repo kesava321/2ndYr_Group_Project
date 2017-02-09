@@ -218,24 +218,16 @@ public class CreateRoom
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
-            if(!pointsX.isEmpty())
-            {
                 double coordx = event.getSceneX();
                 double coordy = event.getSceneY();
+            if(!pointsX.isEmpty())
+            {
                 mouseLine.setStartX(pointsX.getLast());
                 mouseLine.setStartY(pointsY.getLast());
                 System.out.println(coordx + " " + coordy);
                 mouseLine.setEndX(coordx-1);
-                mouseLine.setEndY(coordy-1);
+                mouseLine.setEndY(coordy+1);
                 distance.setText(Double.toString(trackLength(coordx, coordy)));
-            }
-            double coordx = event.getSceneX();
-            double coordy = event.getSceneY();
-            if(pointsX.size()>0) {
-                mouseLine.setStartX(pointsX.getLast());
-                mouseLine.setStartY(pointsY.getLast());
-                mouseLine.setEndX(coordx);
-                mouseLine.setEndY(coordy);
             }
             distance.setText(Double.toString(trackLength(coordx, coordy)));
 
