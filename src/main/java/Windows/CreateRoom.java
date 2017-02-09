@@ -1,4 +1,5 @@
 package Windows;
+import controlDB.ControlSqlite;
 import energyConsumers.ElectricHeating;
 import energyConsumers.Light;
 import javafx.beans.value.ChangeListener;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.awt.*;
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -256,6 +258,12 @@ public class CreateRoom
                 ImageView image = drawHeater();
                 canvas.getChildren().add(image);
                 electricHeatings.add(new ElectricHeating(true,1000,25));
+                ElectricHeating temp = electricHeatings.get(electricHeatings.size()-1);
+                try {
+                    temp.InsertElectricHeatingData(temp.getAllData());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 System.out.println(electricHeatings.get(heatCount).getUsage());
                 heatCount++;
             });
