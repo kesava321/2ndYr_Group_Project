@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
@@ -23,6 +25,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.awt.*;
+import java.awt.geom.Arc2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -197,24 +200,33 @@ public class CreateRoom
                 currentClick.setCenterY(event.getSceneY());
                 currentClick.setRadius(4.0f);
                 drawLine();
-                Thread t = new Thread(() -> trackLength());
-                t.run();
             }
         });
 
 
+        Label distance = new Label();
         infoPane.getChildren().add(infoLabel);
         borderPane.setBottom(infoPane);
         Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                //keyPressed.setText("Key Pressed: " + ke.getCode());
+                if (ke.getCode() == KeyCode.CONTROL){
+
+                    distance.setText(Double.toString(trackLength()));
+                }
+            }
+        });
+
+        borderPane.setBottom(distance);
+
         window.setScene(scene);
         window.show();
     }
 
-    private void trackLength() {
+    private double trackLength() {
         System.out.print("Test");
-        //while(penState) {
-
             Point currentLoc = MouseInfo.getPointerInfo().getLocation();
             double currentX = currentLoc.getX();
             double currentY = currentLoc.getY();
@@ -224,7 +236,7 @@ public class CreateRoom
 
             int distance = (int) Math.sqrt((lastLocX-currentX)*(lastLocX-currentX) + (lastLocY-currentY)*(lastLocY-currentY));
             System.out.print(distance);
-        //}
+        return distance;
     }
 
     public void drawLine(){
