@@ -65,6 +65,7 @@ public class CreateRoom
     LinkedList<Double> pointsY = new LinkedList<Double>();
     LinkedList<Line> lines = new LinkedList<Line>();
     Circle currentClick = new Circle();
+    Line mouseLine = new Line();
 
     Button mouse = new Button("Mouse");
     Button pen = new Button("Pen");
@@ -213,24 +214,20 @@ public class CreateRoom
         borderPane.setBottom(infoPane);
         //Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent ke) {
-                //keyPressed.setText("Key Pressed: " + ke.getCode());
-                if (ke.getCode() == KeyCode.CONTROL){
-                    double coordx = scene.getX();
-                    double coordy = scene.getY();
-                    distance.setText(Double.toString(trackLength(coordx, coordy)));
-                }
-            }
-        });
 
         scene.setOnMouseMoved(event -> {
             double coordx = event.getSceneX();
             double coordy = event.getSceneY();
+            mouseLine.setStartX(pointsX.getLast());
+            mouseLine.setStartY(pointsY.getLast());
+            mouseLine.setEndX(coordx);
+            mouseLine.setEndY(coordy);
             distance.setText(Double.toString(trackLength(coordx, coordy)));
+            
         });
         borderPane.setBottom(distance);
-
+        mouseLine.setStyle("-fx-stroke: red;");
+        borderPane.getChildren().add(mouseLine);
         window.setScene(scene);
         window.show();
     }
@@ -265,7 +262,6 @@ public class CreateRoom
 
     class Lights
     {
-
         public Pane getView()
         {
             Pane p = new Pane();
