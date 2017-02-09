@@ -228,7 +228,6 @@ public class CreateRoom
             double coordx = event.getSceneX();
             double coordy = event.getSceneY();
             distance.setText(Double.toString(trackLength(coordx, coordy)));
-            
         });
         borderPane.setBottom(distance);
 
@@ -237,28 +236,13 @@ public class CreateRoom
     }
 
     private double trackLength(double coordx, double coordy) {
-        System.out.print("Test");
-        Point currentLoc = MouseInfo.getPointerInfo().getLocation();
         double currentX = coordx;
         double currentY = coordy;
-
-        //Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
-        //currentY = currentY - boundsInScreen.getMinY();
-        //currentX = currentX - boundsInScreen.getMinX();
-
-        //System.out.print("x = " + currentX);
-
-        //System.out.println(" y = " + currentY);
-
-
-        double lastLocX = pointsX.getLast();
-        double lastLocY = pointsY.getLast();
-
-        System.out.println("Last Loc x " +lastLocX);
-        System.out.println("Last Loc Y " +lastLocY);
-        System.out.println("Current X " +currentX);
-        System.out.println("Current Y " +currentY);
-
+        double lastLocX = 0, lastLocY = 0;
+        if (pointsX.size()>0){
+            lastLocX = pointsX.getLast();
+            lastLocY = pointsY.getLast();
+        }
         double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
         System.out.print(distance);
         return distance;
