@@ -197,8 +197,10 @@ public class CreateRoom
         borderPane.getChildren().add(currentClick);
         canvas.setOnMouseClicked(event ->
         {
+            System.out.println("THIS SHOULD WORK");
             if(penState)
             {
+                System.out.println("CLICKED");
                 pointsX.add(event.getSceneX());
                 pointsY.add(event.getSceneY());
                 currentClick.setCenterX(event.getSceneX());
@@ -216,14 +218,16 @@ public class CreateRoom
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
-            double coordx = event.getSceneX();
-            double coordy = event.getSceneY();
-            mouseLine.setStartX(pointsX.getLast());
-            mouseLine.setStartY(pointsY.getLast());
-            mouseLine.setEndX(coordx);
-            mouseLine.setEndY(coordy);
-            distance.setText(Double.toString(trackLength(coordx, coordy)));
-            
+            if(!pointsX.isEmpty())
+            {
+                double coordx = event.getSceneX();
+                double coordy = event.getSceneY();
+                mouseLine.setStartX(pointsX.getLast());
+                mouseLine.setStartY(pointsY.getLast());
+                mouseLine.setEndX(coordx);
+                mouseLine.setEndY(coordy);
+                distance.setText(Double.toString(trackLength(coordx, coordy)));
+            }
         });
         borderPane.setBottom(distance);
         mouseLine.setStyle("-fx-stroke: red;");
@@ -241,7 +245,7 @@ public class CreateRoom
             lastLocY = pointsY.getLast();
         }
         double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
-        System.out.print(distance);
+       // System.out.print(distance);
         return distance;
     }
 
