@@ -4,6 +4,7 @@ import energyConsumers.Light;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -43,6 +44,8 @@ public class CreateRoom
     public static ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
     Boolean penState = false;
     BorderPane borderPane = new BorderPane();
+    Scene scene = new Scene(borderPane,800,600);
+
     private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
     private int count = 0;
@@ -207,7 +210,7 @@ public class CreateRoom
         Label distance = new Label();
         infoPane.getChildren().add(infoLabel);
         borderPane.setBottom(infoPane);
-        Scene scene = new Scene(borderPane,800,600);
+        //Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
@@ -227,15 +230,24 @@ public class CreateRoom
 
     private double trackLength() {
         System.out.print("Test");
-            Point currentLoc = MouseInfo.getPointerInfo().getLocation();
-            double currentX = currentLoc.getX();
-            double currentY = currentLoc.getY();
+        Point currentLoc = MouseInfo.getPointerInfo().getLocation();
+        double currentX = currentLoc.getX();
+        double currentY = currentLoc.getY();
 
-            double lastLocX = pointsX.getLast();
-            double lastLocY = pointsY.getLast();
+        Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
+        currentY = currentY - boundsInScreen.getMinY();
+        currentX = currentX - boundsInScreen.getMinX();
 
-            int distance = (int) Math.sqrt((lastLocX-currentX)*(lastLocX-currentX) + (lastLocY-currentY)*(lastLocY-currentY));
-            System.out.print(distance);
+        System.out.print("x = " + currentX);
+
+        System.out.println(" y = " + currentY);
+
+
+        double lastLocX = pointsX.getLast();
+        double lastLocY = pointsY.getLast();
+
+        double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
+        System.out.print(distance);
         return distance;
     }
 
