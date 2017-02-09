@@ -28,5 +28,5 @@ public interface DatabaseExecutable {
      * Display all the records in tableName
      * @param tableName
      */
-    public void DisplayTable(String tableName);
+    public void DisplayTable(String tableName) throws SQLException;
 }
