@@ -224,9 +224,10 @@ public class CreateRoom
                 double coordy = event.getSceneY();
                 mouseLine.setStartX(pointsX.getLast());
                 mouseLine.setStartY(pointsY.getLast());
-                mouseLine.setEndX(coordx);
-                mouseLine.setEndY(coordy);
-                distance.setText(Double.toString(trackLength(coordx, coordy)));
+                System.out.println(coordx + " " + coordy);
+                mouseLine.setEndX(coordx-1);
+                mouseLine.setEndY(coordy-1);
+                //distance.setText(Double.toString(trackLength(coordx, coordy)));*/
             }
         });
         borderPane.setBottom(distance);
