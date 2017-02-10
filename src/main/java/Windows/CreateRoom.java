@@ -237,7 +237,7 @@ public class CreateRoom
                 mouseLine.setEndY(coordy-1);
                 distance.setText(Double.toString(trackLength(coordx, coordy)));
             }
-            distance.setText(Double.toString(trackLength(coordx, coordy)));
+            distance.setText(df2.format(trackLength(coordx, coordy)/10) + "m");
 
         });
         borderPane.setBottom(distance);
