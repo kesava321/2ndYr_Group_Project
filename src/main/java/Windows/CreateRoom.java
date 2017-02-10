@@ -1,37 +1,24 @@
 package Windows;
-import controlDB.ControlSqlite;
 import energyConsumers.ElectricHeating;
 import energyConsumers.Light;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
-
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
 import java.sql.*;
 
 /**
@@ -205,10 +192,8 @@ public class CreateRoom
         borderPane.getChildren().add(currentClick);
         canvas.setOnMouseClicked(event ->
         {
-            System.out.println("THIS SHOULD WORK");
             if(penState)
             {
-                System.out.println("CLICKED");
                 pointsX.add(event.getSceneX());
                 pointsY.add(event.getSceneY());
                 currentClick.setCenterX(event.getSceneX());
@@ -222,7 +207,6 @@ public class CreateRoom
         Label distance = new Label();
         infoPane.getChildren().add(infoLabel);
         borderPane.setBottom(infoPane);
-        //Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
