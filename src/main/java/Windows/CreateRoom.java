@@ -183,8 +183,16 @@ public class CreateRoom
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
-        mouse.setOnMouseClicked(e -> penState = false);
-        pen.setOnMouseClicked(e -> penState = true);
+        mouse.setOnMouseClicked(e ->
+        {
+            penState = false;
+            borderPane.getChildren().removeAll(mouseLine);
+
+        });
+        pen.setOnMouseClicked(e ->{
+            penState = true;
+            borderPane.getChildren().add(mouseLine);
+        });
         toolbar.getItems().addAll(mouse,pen);
         borderPane.setTop(toolbar);
         build();
@@ -226,7 +234,7 @@ public class CreateRoom
                 mouseLine.setStartY(pointsY.getLast());
                 System.out.println(coordx + " " + coordy);
                 mouseLine.setEndX(coordx-1);
-                mouseLine.setEndY(coordy+1);
+                mouseLine.setEndY(coordy-1);
                 distance.setText(Double.toString(trackLength(coordx, coordy)));
             }
             distance.setText(Double.toString(trackLength(coordx, coordy)));
@@ -234,7 +242,6 @@ public class CreateRoom
         });
         borderPane.setBottom(distance);
         mouseLine.setStyle("-fx-stroke: red;");
-        borderPane.getChildren().add(mouseLine);
         window.setScene(scene);
         window.show();
     }
