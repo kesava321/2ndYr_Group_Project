@@ -167,6 +167,7 @@ public class CreateRoom
 
     public void start() throws Exception
     {
+        Label distance = new Label();
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
@@ -174,11 +175,15 @@ public class CreateRoom
         {
             penState = false;
             borderPane.getChildren().removeAll(mouseLine);
+            infoPane.getChildren().removeAll(distance);
+            infoPane.getChildren().add(infoLabel);
 
         });
         pen.setOnMouseClicked(e ->{
             penState = true;
             borderPane.getChildren().add(mouseLine);
+            infoPane.getChildren().removeAll(infoLabel);
+            infoPane.getChildren().add(distance);
         });
         toolbar.getItems().addAll(mouse,pen);
         borderPane.setTop(toolbar);
@@ -204,9 +209,7 @@ public class CreateRoom
         });
 
 
-        Label distance = new Label();
         infoPane.getChildren().add(infoLabel);
-        borderPane.setBottom(infoPane);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
@@ -214,17 +217,17 @@ public class CreateRoom
                 double coordy = event.getSceneY();
             if(!pointsX.isEmpty())
             {
+                System.out.println(pointsX.size());
                 mouseLine.setStartX(pointsX.getLast());
                 mouseLine.setStartY(pointsY.getLast());
                 System.out.println(coordx + " " + coordy);
                 mouseLine.setEndX(coordx-1);
                 mouseLine.setEndY(coordy-1);
-                distance.setText(Double.toString(trackLength(coordx, coordy)));
+                distance.setText(df2.format(trackLength(coordx, coordy)/10) + "m");
             }
-            distance.setText(df2.format(trackLength(coordx, coordy)/10) + "m");
 
         });
-        borderPane.setBottom(distance);
+        borderPane.setBottom(infoPane);
         mouseLine.setStyle("-fx-stroke: red;");
         window.setScene(scene);
         window.show();
