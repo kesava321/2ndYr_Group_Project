@@ -1,6 +1,8 @@
 package Windows;
 
 import energyConsumers.ElectricHeating;
+import energyConsumers.Gas;
+import energyConsumers.GasHeating;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,6 +42,11 @@ class HeatPreferences
                 ((ElectricHeating) tempObject).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
                 update();
             }
+            else if(tempObject instanceof GasHeating)
+            {
+                ((GasHeating) tempObject).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
+                update();
+            }
         });
         powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
         {
@@ -52,6 +59,11 @@ class HeatPreferences
                 if(tempObject instanceof ElectricHeating)
                 {
                     ((ElectricHeating) tempObject).setUsage(Double.parseDouble(newValue));
+                    update();
+                }
+                else if(tempObject instanceof GasHeating)
+                {
+                    ((GasHeating) tempObject).setUsage(Double.parseDouble(newValue));
                     update();
                 }
             }
@@ -67,6 +79,11 @@ class HeatPreferences
                 {
                     tempField.getStyleClass().remove("error");
                     ((ElectricHeating) tempObject).setTemperature(Double.parseDouble(newValue));
+                    update();
+                }
+                else if(tempObject instanceof GasHeating)
+                {
+                    ((GasHeating) tempObject).setTemperature(Double.parseDouble(newValue));
                     update();
                 }
             }

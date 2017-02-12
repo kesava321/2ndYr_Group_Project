@@ -17,7 +17,7 @@ public class GasHeating extends Gas
         super(false,70.0);
         setTemperature(0.0);
     }
-    public GasHeating(double temp, double power,Boolean state)
+    public GasHeating(boolean state, double power, double temp)
     {
         super(state,power);
         setTemperature(temp);
