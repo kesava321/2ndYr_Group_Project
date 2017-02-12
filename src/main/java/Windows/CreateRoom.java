@@ -39,7 +39,7 @@ public class CreateRoom
     public static int count = 0;
     public static int currentSelected =0;
     private static Label infoLabel = new Label();
-    private FlowPane infoPane = new FlowPane();
+    private Pane infoPane = new Pane();
     static LightPreferences lightPreferences = new LightPreferences();
     static HeatPreferences heatPreferences = new HeatPreferences();
     static double orgSceneX, orgSceneY;
@@ -116,19 +116,19 @@ public class CreateRoom
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
+        infoPane.getChildren().addAll(distance,infoLabel);
         mouse.setOnMouseClicked(e ->
         {
             penState = false;
             borderPane.getChildren().removeAll(mouseLine);
-            infoPane.getChildren().removeAll(distance);
-            infoPane.getChildren().add(infoLabel);
-
+            distance.setVisible(false);
+            infoLabel.setVisible(true);
         });
         pen.setOnMouseClicked(e ->{
             penState = true;
             borderPane.getChildren().add(mouseLine);
-            infoPane.getChildren().removeAll(infoLabel);
-            infoPane.getChildren().add(distance);
+            distance.setVisible(true);
+            infoLabel.setVisible(false);
         });
         toolbar.getItems().addAll(mouse,pen);
         borderPane.setTop(toolbar);
@@ -152,9 +152,6 @@ public class CreateRoom
                 drawLine();
             }
         });
-
-
-        infoPane.getChildren().add(infoLabel);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
