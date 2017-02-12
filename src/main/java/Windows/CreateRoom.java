@@ -28,8 +28,7 @@ public class CreateRoom
 {
 
     private Stage window = new Stage();
-    public static ArrayList<Light> lights = new ArrayList<Light>();
-    public static ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
+    public static ArrayList<Object> energyConsumers = new ArrayList<>();
     Boolean penState = false;
     BorderPane borderPane = new BorderPane();
     Scene scene = new Scene(borderPane,800,600);
@@ -37,8 +36,6 @@ public class CreateRoom
     private Pane prefPane = new Pane();
     private Pane canvas = new Pane();
     private int count = 0;
-    private int heatCount = 0;
-    public static int currentHeatingSelected =0;
     public static int currentSelected =0;
     private static Label infoLabel = new Label();
     private FlowPane infoPane = new FlowPane();
@@ -82,12 +79,18 @@ public class CreateRoom
             heatPreferences.setVisible(false);
             lightPreferences.setVisible(true);
             currentSelected = id;
-            double powerRating = lights.get(id).getUsage();
-            int lighState = BooleanUtils.toInteger(lights.get(id).getState());
-            lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
-            lightPreferences.stateCombo.getSelectionModel().select(lighState);
-            orgSceneX = event.getSceneX();
-            orgSceneY = event.getSceneY();
+            Object temp = energyConsumers.get(id);
+            if(temp instanceof Light)
+            {
+                double powerRating = ((Light) temp).getUsage();
+                int lighState = BooleanUtils.toInteger(((Light) temp).getState());
+                lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
+                lightPreferences.stateCombo.getSelectionModel().select(lighState);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+            else
+                System.out.println("insert profanity here");
         });
         imageView.setOnMouseDragged(event ->
         {
@@ -108,21 +111,27 @@ public class CreateRoom
 
     private ImageView drawHeater()
     {
-        int id = heatCount;
+        int id = count;
         Image image = new Image("Images/heating.png",50,50,false,false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
-            currentHeatingSelected = id;
+            currentSelected = id;
             heatPreferences.setVisible(true);
             lightPreferences.setVisible(false);
-            heatPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(electricHeatings.get(id).getState()));
-            heatPreferences.powerRatingField.setText(Double.toString(electricHeatings.get(id).getUsage()));
-            heatPreferences.tempField.setText(Double.toString(electricHeatings.get(id).getTemperature()));
-            System.out.println(electricHeatings.get(id).getUsage());
-            orgSceneX = event.getSceneX();
-            orgSceneY = event.getSceneY();
+            Object temp = energyConsumers.get(id);
+            if(temp instanceof ElectricHeating)
+            {
+                heatPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((ElectricHeating) temp).getState()));
+                heatPreferences.powerRatingField.setText(Double.toString(((ElectricHeating) temp).getUsage()));
+                heatPreferences.tempField.setText(Double.toString(((ElectricHeating) temp).getTemperature()));
+                System.out.println(((ElectricHeating) temp).getUsage());
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+            else
+                System.out.println("insert profanity here");
         });
         imageView.setOnMouseDragged(event ->
         {
@@ -145,22 +154,30 @@ public class CreateRoom
     {
         double power,emmisions;
         power = emmisions = 0;
-        for(int x =0; x<lights.size();x++)
+        for(int x =0; x<energyConsumers.size();x++)
         {
-            System.out.println(lights.size() + " " + lights.get(x).getConsumption(60)); //converts watts into KW
-            if(lights.get(x).getState())
-            {
-                power += lights.get(x).getConsumption(60);
-                emmisions += lights.get(x).estimatedEmissions(60);
-            }
-        }
-        for(int y = 0;y<electricHeatings.size();y++)
-        {
-            if(electricHeatings.get(y).getState())
-            {
-                power+= electricHeatings.get(y).getConsumption(60);
-                emmisions+=electricHeatings.get(y).estimatedEmissions(60);
-            }
+            //System.out.println(lights.size() + " " + lights.get(x).getConsumption(60)); //converts watts into KW
+
+                Object temp = energyConsumers.get(x);
+                if (temp instanceof Light)
+                {
+                    if(((Light) temp).getState())
+                    {
+                        power += ((Light) temp).getConsumption(60);
+                        emmisions += ((Light) temp).estimatedEmissions(60);
+                    }
+                }
+                else if (temp instanceof ElectricHeating)
+                {
+                    if(((ElectricHeating) temp).getState())
+                    {
+                        power += ((ElectricHeating) temp).getConsumption(60);
+                        emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
+                    }
+                }
+                else
+                    System.out.println("WHY THO");
+
         }
         infoLabel.setText("Power: " + df2.format(power) + " KwH" + " Emmisions:" + df2.format(emmisions) + "Kg/co2");
     }
@@ -272,18 +289,18 @@ public class CreateRoom
             {
                 ImageView image = drawHeater();
                 canvas.getChildren().add(image);
-                electricHeatings.add(new ElectricHeating(true,1000,25));
-                ElectricHeating temp = electricHeatings.get(electricHeatings.size()-1);
+                energyConsumers.add(new ElectricHeating(true,1000,25));
+                /*ElectricHeating temp = electricHeatings.get(electricHeatings.size()-1);
                 try {
                     temp.InsertElectricHeatingData(temp.getAllData());
                 } catch (SQLException e) {
                     e.printStackTrace();
-                }
-                System.out.println(electricHeatings.get(heatCount).getUsage());
-                heatCount++;
+                }*/
+                //System.out.println(electricHeatings.get(heatCount).getUsage());
+                count++;
             });
             button.setOnMouseClicked(event ->{
-                lights.add(new Light(true,100));
+                energyConsumers.add(new Light(true,100));
                 ImageView image = drawLight();
                 canvas.getChildren().add(image);
                 count++;
