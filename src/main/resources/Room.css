@@ -3,3 +3,9 @@
     -fx-focus-color: red ;
 }
 
+
+.left-line{
+    -fx-padding: 0 0 100;
+    -fx-border-width: 0 0 0 1;
+    -fx-border-color: grey;
+}

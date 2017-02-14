@@ -2,6 +2,7 @@ package Windows;
 import energyConsumers.ElectricHeating;
 import energyConsumers.GasHeating;
 import energyConsumers.Light;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -44,6 +47,7 @@ public class CreateRoom
     static HeatPreferences heatPreferences = new HeatPreferences();
     static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
+    public static ArrayList<Integer> transformSelected = new ArrayList<>();
 
     //Room coords
     static LinkedList<Double> pointsX = new LinkedList<Double>();
@@ -78,33 +82,33 @@ public class CreateRoom
         power = emmisions = 0;
         for(int x =0; x<energyConsumers.size();x++)
         {
-                Object temp = energyConsumers.get(x);
-                if (temp instanceof Light)
+                if(energyConsumers.get(x) != null)
                 {
-                    if(((Light) temp).getState())
+                    Object temp = energyConsumers.get(x);
+                    if (temp instanceof Light)
                     {
-                        power += ((Light) temp).getConsumption(60);
-                        emmisions += ((Light) temp).estimatedEmissions(60);
-                    }
-                }
-                else if (temp instanceof ElectricHeating)
-                {
-                    if(((ElectricHeating) temp).getState())
+                        if (((Light) temp).getState())
+                        {
+                            power += ((Light) temp).getConsumption(60);
+                            emmisions += ((Light) temp).estimatedEmissions(60);
+                        }
+                    } else if (temp instanceof ElectricHeating)
                     {
-                        power += ((ElectricHeating) temp).getConsumption(60);
-                        emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
-                    }
-                }
-                else if(temp instanceof GasHeating)
-                {
-                    if(((GasHeating) temp).getState())
+                        if (((ElectricHeating) temp).getState())
+                        {
+                            power += ((ElectricHeating) temp).getConsumption(60);
+                            emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
+                        }
+                    } else if (temp instanceof GasHeating)
                     {
-                        power+= ((GasHeating) temp).getConsumption(60);
-                        emmisions = ((GasHeating) temp).estimatedEmissions(60);
-                    }
+                        if (((GasHeating) temp).getState())
+                        {
+                            power += ((GasHeating) temp).getConsumption(60);
+                            emmisions = ((GasHeating) temp).estimatedEmissions(60);
+                        }
+                    } else
+                        System.out.println("WHY THO " + temp.getClass());
                 }
-                else
-                    System.out.println("WHY THO");
 
         }
         infoLabel.setText("Power: " + df2.format(power) + " KwH" + " Emmisions:" + df2.format(emmisions) + "Kg/co2");
@@ -136,6 +140,7 @@ public class CreateRoom
         borderPane.setCenter(canvas);
         prefPane.getChildren().add(lightPreferences.init());
         prefPane.getChildren().add(heatPreferences.init());
+        lightPreferences.setVisible(false);
         heatPreferences.setVisible(false);
         borderPane.setRight(prefPane);
 
@@ -169,8 +174,19 @@ public class CreateRoom
             }
 
         });
+        scene.setOnKeyPressed(event ->
+        {
+            if(event.getCode() == KeyCode.BACK_SPACE && !penState)
+            {
+                System.out.println(currentSelected);
+                if(energyConsumers.get(currentSelected) != null)
+                    canvas.getChildren().remove(currentSelected);
+                energyConsumers.set(currentSelected,null);
+            }
+        });
         borderPane.setBottom(infoPane);
         mouseLine.setStyle("-fx-stroke: red;");
+        //prefPane.getStyleClass().add("left-line");
         window.setScene(scene);
         window.show();
     }

@@ -136,6 +136,7 @@ class ElectricAccordion
                 pointsY.removeFirst();
                 lines.removeFirst();
             }
+
         });
 
         VBox vBox = new VBox(5);
