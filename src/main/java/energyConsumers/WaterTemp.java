@@ -18,6 +18,7 @@ public class WaterTemp extends Water
         setTemperature(temp);
     }
 
+
     /**
      * Returns the temperature of the electric heater
      * @return temperature
