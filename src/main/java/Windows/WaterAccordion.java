@@ -93,11 +93,49 @@ public class WaterAccordion {
         return imageView;
     }
 
+    private ImageView drawKitchen() {
+        int id = count;
+        Image image = new Image("Images/waterKitchen.png", 50, 50, false, false);
+        ImageView imageView = new ImageView(image);
+        imageView.setCursor(Cursor.HAND);
+        imageView.setOnMousePressed(event ->
+        {
+            currentSelected = id;
+            waterPreferences.setVisible(true);
+            heatPreferences.setVisible(false);
+            lightPreferences.setVisible(false);
+            Object temp = energyConsumers.get(id);
+            if (temp instanceof WaterTemp) {
+                waterPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((WaterTemp) temp).getState()));
+                waterPreferences.powerRatingField.setText(Double.toString(((WaterTemp) temp).getUsage()));
+                waterPreferences.tempField.setText(Double.toString(((WaterTemp) temp).getTemperature()));
+            } else
+                System.out.println("oh-oh");
+            orgSceneX = event.getSceneX();
+            orgSceneY = event.getSceneY();
+        });
+
+        imageView.setOnMouseDragged(event ->
+        {
+            if ((event.getX() > 0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight())) {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                i.setX(i.getX() + offsetX);
+                i.setY(i.getY() + offsetY);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+        });
+        return imageView;
+    }
 
     public Pane getView() {
         Pane p = new Pane();
         Button waterTap = new Button("Tap");
         Button waterToilet = new Button("Toilet");
+        Button waterKitchen = new Button("Kitchen");
         waterTap.setOnMouseClicked(event ->
         {
             ImageView image = drawTap();
@@ -112,9 +150,16 @@ public class WaterAccordion {
             canvas.getChildren().add(image);
             count++;
         });
+        waterKitchen.setOnMouseClicked(event ->{
+
+            ImageView image = drawKitchen();
+            energyConsumers.add(new WaterTemp(true, 100, 25));
+            canvas.getChildren().add(image);
+            count++;
+        });
 
         VBox vBox = new VBox(5);
-        vBox.getChildren().addAll(waterTap,waterToilet);
+        vBox.getChildren().addAll(waterTap,waterToilet,waterKitchen);
         p.getChildren().add(vBox);
         return p;
     }
