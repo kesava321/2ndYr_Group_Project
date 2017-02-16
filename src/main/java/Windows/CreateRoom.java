@@ -47,7 +47,6 @@ public class CreateRoom
     static HeatPreferences heatPreferences = new HeatPreferences();
     static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
-    public static ArrayList<Integer> transformSelected = new ArrayList<>();
 
     //Room coords
     static LinkedList<Double> pointsX = new LinkedList<Double>();
@@ -82,33 +81,33 @@ public class CreateRoom
         power = emmisions = 0;
         for(int x =0; x<energyConsumers.size();x++)
         {
-                if(energyConsumers.get(x) != null)
+            if(energyConsumers.get(x) != null)
+            {
+                Object temp = energyConsumers.get(x);
+                if (temp instanceof Light)
                 {
-                    Object temp = energyConsumers.get(x);
-                    if (temp instanceof Light)
+                    if (((Light) temp).getState())
                     {
-                        if (((Light) temp).getState())
-                        {
-                            power += ((Light) temp).getConsumption(60);
-                            emmisions += ((Light) temp).estimatedEmissions(60);
-                        }
-                    } else if (temp instanceof ElectricHeating)
+                        power += ((Light) temp).getConsumption(60);
+                        emmisions += ((Light) temp).estimatedEmissions(60);
+                    }
+                } else if (temp instanceof ElectricHeating)
+                {
+                    if (((ElectricHeating) temp).getState())
                     {
-                        if (((ElectricHeating) temp).getState())
-                        {
-                            power += ((ElectricHeating) temp).getConsumption(60);
-                            emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
-                        }
-                    } else if (temp instanceof GasHeating)
+                        power += ((ElectricHeating) temp).getConsumption(60);
+                        emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
+                    }
+                } else if (temp instanceof GasHeating)
+                {
+                    if (((GasHeating) temp).getState())
                     {
-                        if (((GasHeating) temp).getState())
-                        {
-                            power += ((GasHeating) temp).getConsumption(60);
-                            emmisions = ((GasHeating) temp).estimatedEmissions(60);
-                        }
-                    } else
-                        System.out.println("WHY THO " + temp.getClass());
-                }
+                        power += ((GasHeating) temp).getConsumption(60);
+                        emmisions = ((GasHeating) temp).estimatedEmissions(60);
+                    }
+                } else
+                    System.out.println("WHY THO " + temp.getClass());
+            }
 
         }
         infoLabel.setText("Power: " + df2.format(power) + " KwH" + " Emmisions:" + df2.format(emmisions) + "Kg/co2");
@@ -160,8 +159,8 @@ public class CreateRoom
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
-                double coordx = event.getSceneX();
-                double coordy = event.getSceneY();
+            double coordx = event.getSceneX();
+            double coordy = event.getSceneY();
             if(!pointsX.isEmpty())
             {
                 System.out.println(pointsX.size());
@@ -211,7 +210,7 @@ public class CreateRoom
         else {
             for (int i = 0; i < pointsX.size() - 1; i++) {
                 Line temp = new Line(pointsX.get(i), pointsY.get(i), pointsX.get(i + 1), pointsY.get(i + 1));
-               // temp.draw();
+                // temp.draw();
                 lines.add(temp);
                 borderPane.getChildren().add(temp);
             }
