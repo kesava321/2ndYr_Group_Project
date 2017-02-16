@@ -1,9 +1,5 @@
 package Windows;
 
-        import energyConsumers.ElectricHeating;
-        import energyConsumers.GasHeating;
-        import energyConsumers.Light;
-        import energyConsumers.WaterTemp;
         import javafx.scene.Cursor;
         import javafx.scene.control.Button;
         import javafx.scene.image.Image;
@@ -18,7 +14,7 @@ package Windows;
  */
 public class WaterAccordion {
 
-    private ImageView drawTap() {
+    /*private ImageView drawTap() {
         int id = count;
         Image image = new Image("Images/waterTap.png", 50, 50, false, false);
         ImageView imageView = new ImageView(image);
@@ -129,14 +125,14 @@ public class WaterAccordion {
             }
         });
         return imageView;
-    }
+    }*/
 
     public Pane getView() {
         Pane p = new Pane();
         Button waterTap = new Button("Tap");
         Button waterToilet = new Button("Toilet");
         Button waterKitchen = new Button("Kitchen");
-        waterTap.setOnMouseClicked(event ->
+       /* waterTap.setOnMouseClicked(event ->
         {
             ImageView image = drawTap();
             canvas.getChildren().add(image);
@@ -156,7 +152,7 @@ public class WaterAccordion {
             energyConsumers.add(new WaterTemp(true, 100, 25));
             canvas.getChildren().add(image);
             count++;
-        });
+        });*/
 
         VBox vBox = new VBox(5);
         vBox.getChildren().addAll(waterTap,waterToilet,waterKitchen);

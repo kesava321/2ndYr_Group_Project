@@ -5,7 +5,7 @@ package energyConsumers;
  * ensures that WaterState cannot be less than 0 by resetting any
  * WaterState made false.
  */
-public class Water extends energyConsumers
+public abstract class Water extends energyConsumers
 {
     //water usage per min
 
@@ -22,16 +22,6 @@ public class Water extends energyConsumers
     }
 
     /**
-     * gets the power consumption of energy consumer for given time in liter per time period
-     * @param mins runtime of an energy comsumer
-     * @return power consumption in liter per time period
-     */
-    @Override
-    public double getConsumption(int mins)
-    {
-        return getUsage()*mins;
-    }
-    /**
      * estimates emissions of energy consumer using its power consumption and a estimate for water emmisions
      * @param mins
      * @return emmisions
@@ -41,6 +31,8 @@ public class Water extends energyConsumers
     {
         return getConsumption(mins)* waterEmmisions;
     }
+
+    public abstract double getConsumption();
 }
 
 

@@ -57,7 +57,7 @@ public class FormWater
             Water[] waters = new Water[Integer.parseInt(waterNumField.getText())];
             for(int x = 0; x<Integer.parseInt(waterNumField.getText());x++)
             {
-                waters[x] = new Water(false, (Double.parseDouble(waterConsumptionField.getText())* Integer.parseInt(timeField.getText())));
+                //waters[x] = new Water(false, (Double.parseDouble(waterConsumptionField.getText())* Integer.parseInt(timeField.getText())));
             }
             for(int y = 0; y<Integer.parseInt(waterNumField.getText());y++)
             {
