@@ -45,6 +45,7 @@ public class CreateRoom
     private Pane infoPane = new Pane();
     static LightPreferences lightPreferences = new LightPreferences();
     static HeatPreferences heatPreferences = new HeatPreferences();
+    static HeatPreferences waterPreferences = new HeatPreferences(); //k
     static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
 
@@ -62,15 +63,18 @@ public class CreateRoom
     private void build()
     {
         Accordion accordion = new Accordion();
-        Pane electric,gas,water;
-        TitledPane tiledPaneElectric,titledPaneGas;
+        Pane electric,gas,water; //k
+        TitledPane tiledPaneElectric,titledPaneGas,titledPaneWater; //k
         ElectricAccordion electricAccordion = new ElectricAccordion();
         electric = electricAccordion.getView();
         GasAccordion gasAccordion = new GasAccordion();
         gas = gasAccordion.getView();
+        WaterAccordion waterAccordion = new WaterAccordion(); //k
+        water = waterAccordion.getView(); //k
         tiledPaneElectric = new TitledPane("Electric", electric);
         titledPaneGas = new TitledPane("Gas",gas);
-        accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas);
+        titledPaneWater = new TitledPane("Water",water); //k
+        accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas,titledPaneWater); //k
         accordion.setExpandedPane(tiledPaneElectric);
         borderPane.setLeft(accordion);
     }
@@ -139,8 +143,10 @@ public class CreateRoom
         borderPane.setCenter(canvas);
         prefPane.getChildren().add(lightPreferences.init());
         prefPane.getChildren().add(heatPreferences.init());
+        prefPane.getChildren().add(waterPreferences.init()); //k
         lightPreferences.setVisible(false);
         heatPreferences.setVisible(false);
+        waterPreferences.setVisible(false); //k
         borderPane.setRight(prefPane);
 
         borderPane.getChildren().add(currentClick);
