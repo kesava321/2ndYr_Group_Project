@@ -1,5 +1,7 @@
 package Windows;
 
+        import energyConsumers.Sink;
+        import energyConsumers.Toilet;
         import javafx.scene.Cursor;
         import javafx.scene.control.Button;
         import javafx.scene.image.Image;
@@ -14,24 +16,25 @@ package Windows;
  */
 public class WaterAccordion {
 
-    /*private ImageView drawTap() {
+    private ImageView drawTap() {
         int id = count;
-        Image image = new Image("Images/waterTap.png", 50, 50, false, false);
+        Image image = new Image("Images/sink.png", 50, 50, false, false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
             currentSelected = id;
-            waterPreferences.setVisible(true);
+            waterPreferences.setVisible(true,WaterPreferences.SINK);
             heatPreferences.setVisible(false);
             lightPreferences.setVisible(false);
             Object temp = energyConsumers.get(id);
-            if (temp instanceof WaterTemp) {
-                waterPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((WaterTemp) temp).getState()));
-                waterPreferences.powerRatingField.setText(Double.toString(((WaterTemp) temp).getUsage()));
-                waterPreferences.tempField.setText(Double.toString(((WaterTemp) temp).getTemperature()));
+            if (temp instanceof Sink) {
+                waterPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((Sink) temp).getState()));
+                waterPreferences.usePerHourField.setText(Integer.toString(((Sink) temp).getUsePerHour()));
+                waterPreferences.avgUseTimeField.setText(Double.toString(((Sink) temp).getAvgTimeUsed()));
+                waterPreferences.literPerUseField.setText(Double.toString(((Sink) temp).getUsage()));
             } else
-                System.out.println("oh-oh");
+                System.out.println("I done a boo boo");
             orgSceneX = event.getSceneX();
             orgSceneY = event.getSceneY();
         });
@@ -53,20 +56,21 @@ public class WaterAccordion {
 
     private ImageView drawToilet() {
         int id = count;
-        Image image = new Image("Images/waterToilet.png", 50, 50, false, false);
+        Image image = new Image("Images/toilet.png", 50, 50, false, false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
             currentSelected = id;
-            waterPreferences.setVisible(true);
             heatPreferences.setVisible(false);
             lightPreferences.setVisible(false);
+            waterPreferences.setVisible(true,waterPreferences.TOILET);
             Object temp = energyConsumers.get(id);
-            if (temp instanceof WaterTemp) {
-                waterPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((WaterTemp) temp).getState()));
-                waterPreferences.powerRatingField.setText(Double.toString(((WaterTemp) temp).getUsage()));
-                waterPreferences.tempField.setText(Double.toString(((WaterTemp) temp).getTemperature()));
+            if (temp instanceof Toilet)
+            {
+                waterPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((Toilet) temp).getState()));
+                waterPreferences.usePerHourField.setText(Integer.toString(((Toilet) temp).getUsePerHour()));
+                waterPreferences.literPerUseField.setText(Double.toString(((Toilet) temp).getUsage()));
             } else
                 System.out.println("oh-oh");
             orgSceneX = event.getSceneX();
@@ -89,7 +93,7 @@ public class WaterAccordion {
         return imageView;
     }
 
-    private ImageView drawKitchen() {
+    /*private ImageView drawKitchen() {
         int id = count;
         Image image = new Image("Images/waterKitchen.png", 50, 50, false, false);
         ImageView imageView = new ImageView(image);
@@ -131,22 +135,22 @@ public class WaterAccordion {
         Pane p = new Pane();
         Button waterTap = new Button("Tap");
         Button waterToilet = new Button("Toilet");
-        Button waterKitchen = new Button("Kitchen");
-       /* waterTap.setOnMouseClicked(event ->
+        //Button waterKitchen = new Button("Kitchen");
+        waterTap.setOnMouseClicked(event ->
         {
             ImageView image = drawTap();
             canvas.getChildren().add(image);
-            energyConsumers.add(new WaterTemp(true, 100, 25));
+            energyConsumers.add(new Sink(true, 30, 2,2));
             count++;
         });
         waterToilet.setOnMouseClicked(event ->{
 
             ImageView image = drawToilet();
-            energyConsumers.add(new WaterTemp(true, 100, 25));
+            energyConsumers.add(new Toilet(true, 18, 4));
             canvas.getChildren().add(image);
             count++;
         });
-        waterKitchen.setOnMouseClicked(event ->{
+       /* waterKitchen.setOnMouseClicked(event ->{
 
             ImageView image = drawKitchen();
             energyConsumers.add(new WaterTemp(true, 100, 25));
@@ -155,7 +159,7 @@ public class WaterAccordion {
         });*/
 
         VBox vBox = new VBox(5);
-        vBox.getChildren().addAll(waterTap,waterToilet,waterKitchen);
+        vBox.getChildren().addAll(waterTap,waterToilet/*,waterKitchen*/);
         p.getChildren().add(vBox);
         return p;
     }

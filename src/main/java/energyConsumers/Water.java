@@ -7,18 +7,21 @@ package energyConsumers;
  */
 public abstract class Water extends energyConsumers
 {
-    //water usage per min
+    //water usage in L
 
     private final double waterEmmisions = 0.59; // gram per liter
+    private int usePerHour;
 
     public Water(){
         setState(false);
         setUsage(50.0);
+        setUsePerHour(1);
     }
 
-    public Water(Boolean state, double intake){
+    public Water(Boolean state, double intake, int usePerHour){
         setState(state);
         setUsage(intake);
+        setUsePerHour(usePerHour);
     }
 
     /**
@@ -32,7 +35,16 @@ public abstract class Water extends energyConsumers
         return getConsumption(mins)* waterEmmisions;
     }
 
-    public abstract double getConsumption();
+    public int getUsePerHour()
+    {
+        return usePerHour;
+    }
+
+    public void setUsePerHour(int usePerHour)
+    {
+        this.usePerHour = usePerHour;
+    }
+
 }
 
 

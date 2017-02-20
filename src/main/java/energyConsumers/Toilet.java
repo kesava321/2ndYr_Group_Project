@@ -3,22 +3,17 @@ package energyConsumers;
 /**
  * Created by daniel on 16/02/2017.
  */
-public abstract class Toilet extends Water
+public class Toilet extends Water
 {
-    private int flushPerHour;
 
     public Toilet()
     {
-        setUsage(17);
-        setState(true);
-        setFlushPerHour(4);
+        super(true,17,4);
     }
 
     public Toilet(boolean state, double usage, int flushPerHour)
     {
-        setState(state);
-        setUsage(usage);
-        setFlushPerHour(flushPerHour);
+        super(state,usage,flushPerHour);
     }
 
     /**
@@ -29,16 +24,7 @@ public abstract class Toilet extends Water
     @Override
     public double getConsumption(int mins)
     {
-        return ((getUsage()*getFlushPerHour())/60)*mins;
+        return ((getUsage()*getUsePerHour())/60)*mins;
     }
 
-    public double getFlushPerHour()
-    {
-        return flushPerHour;
-    }
-
-    public void setFlushPerHour(int flushPerHour)
-    {
-        this.flushPerHour = flushPerHour;
-    }
 }

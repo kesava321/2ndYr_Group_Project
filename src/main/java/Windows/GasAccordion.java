@@ -28,6 +28,7 @@ public class GasAccordion
             currentSelected = id;
             heatPreferences.setVisible(true);
             lightPreferences.setVisible(false);
+            waterPreferences.setVisible(false);
             Object temp = energyConsumers.get(id);
             if(temp instanceof GasHeating)
             {

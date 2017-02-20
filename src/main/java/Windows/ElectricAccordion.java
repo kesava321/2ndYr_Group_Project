@@ -28,6 +28,7 @@ class ElectricAccordion
         {
             heatPreferences.setVisible(false);
             lightPreferences.setVisible(true);
+            waterPreferences.setVisible(false);
             currentSelected = id;
             Object temp = energyConsumers.get(id);
             if(temp instanceof Light)
@@ -70,6 +71,7 @@ class ElectricAccordion
             currentSelected = id;
             heatPreferences.setVisible(true);
             lightPreferences.setVisible(false);
+            waterPreferences.setVisible(false);
             Object temp = energyConsumers.get(id);
             if(temp instanceof ElectricHeating)
             {

@@ -1,7 +1,5 @@
 package Windows;
-import energyConsumers.ElectricHeating;
-import energyConsumers.GasHeating;
-import energyConsumers.Light;
+import energyConsumers.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -45,7 +43,7 @@ public class CreateRoom
     private Pane infoPane = new Pane();
     static LightPreferences lightPreferences = new LightPreferences();
     static HeatPreferences heatPreferences = new HeatPreferences();
-    static HeatPreferences waterPreferences = new HeatPreferences(); //k
+    static WaterPreferences waterPreferences = new WaterPreferences();
     static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
 
@@ -95,21 +93,40 @@ public class CreateRoom
                         power += ((Light) temp).getConsumption(60);
                         emmisions += ((Light) temp).estimatedEmissions(60);
                     }
-                } else if (temp instanceof ElectricHeating)
+                }
+                else if (temp instanceof ElectricHeating)
                 {
                     if (((ElectricHeating) temp).getState())
                     {
                         power += ((ElectricHeating) temp).getConsumption(60);
                         emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
                     }
-                } else if (temp instanceof GasHeating)
+                }
+                else if (temp instanceof GasHeating)
                 {
                     if (((GasHeating) temp).getState())
                     {
                         power += ((GasHeating) temp).getConsumption(60);
                         emmisions = ((GasHeating) temp).estimatedEmissions(60);
                     }
-                } else
+                }
+                else if(temp instanceof Toilet)
+                {
+                    if(((Toilet) temp).getState())
+                    {
+                        power += ((Toilet) temp).getConsumption(60);
+                        emmisions = ((Toilet) temp).estimatedEmissions(60);
+                    }
+                }
+                else if(temp instanceof Sink)
+                {
+                    if(((Sink) temp).getState())
+                    {
+                        power += ((Sink) temp).getConsumption(60);
+                        emmisions = ((Sink) temp).estimatedEmissions(60);
+                    }
+                }
+                else
                     System.out.println("WHY THO " + temp.getClass());
             }
 
