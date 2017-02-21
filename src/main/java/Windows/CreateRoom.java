@@ -58,18 +58,18 @@ public class CreateRoom
     private void build()
     {
         Accordion accordion = new Accordion();
-        Pane electric,gas,water; //k
-        TitledPane tiledPaneElectric,titledPaneGas,titledPaneWater; //k
+        Pane electric,gas,water;
+        TitledPane tiledPaneElectric,titledPaneGas,titledPaneWater;
         ElectricAccordion electricAccordion = new ElectricAccordion();
         electric = electricAccordion.getView();
         GasAccordion gasAccordion = new GasAccordion();
         gas = gasAccordion.getView();
-        WaterAccordion waterAccordion = new WaterAccordion(); //k
-        water = waterAccordion.getView(); //k
+        WaterAccordion waterAccordion = new WaterAccordion();
+        water = waterAccordion.getView();
         tiledPaneElectric = new TitledPane("Electric", electric);
         titledPaneGas = new TitledPane("Gas",gas);
-        titledPaneWater = new TitledPane("Water",water); //k
-        accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas,titledPaneWater); //k
+        titledPaneWater = new TitledPane("Water",water);
+        accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas,titledPaneWater);
         accordion.setExpandedPane(tiledPaneElectric);
         borderPane.setLeft(accordion);
     }
