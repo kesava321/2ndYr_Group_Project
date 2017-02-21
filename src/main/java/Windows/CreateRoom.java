@@ -207,7 +207,24 @@ public class CreateRoom
             lastLocY = pointsY.getLast();
         }
         double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
+
+        double area = 0;
+        double RS = 0; // refers to right side of multiplication e.g. (x0*y1)+(x1*y2)+(x2*y3)...
+        double LS = 0; // refers to left side of multiplication e.g. (y0*x1)+(y1*x2)+(y2*x3)...
+
+        for (int i = 0; i < pointsX.size()-2; i++) { // ignores last set of coordinates assumes last point is equal to first
+            RS = RS + (pointsX.get(i) * pointsY.get(i+1));
+            LS = LS + (pointsY.get(i) * pointsX.get(i+1));
+        }
+        RS = RS + (pointsX.get(pointsX.size()-2)) * pointsY.getFirst();
+        LS = LS + (pointsY.get(pointsY.size()-2)) * pointsX.getFirst();
+
+        area = (RS - LS)/2;
+
+        System.out.println("area = " + area);
+
         return distance;
+
     }
 
     public void drawLine(){
