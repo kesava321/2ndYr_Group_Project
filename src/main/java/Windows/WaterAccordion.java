@@ -1,20 +1,22 @@
 package Windows;
 
-        import energyConsumers.Sink;
-        import energyConsumers.Toilet;
-        import javafx.scene.Cursor;
-        import javafx.scene.control.Button;
-        import javafx.scene.image.Image;
-        import javafx.scene.image.ImageView;
-        import javafx.scene.layout.Pane;
-        import javafx.scene.layout.VBox;
-        import org.apache.commons.lang3.BooleanUtils;
+import energyConsumers.Sink;
+import energyConsumers.Toilet;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import org.apache.commons.lang3.BooleanUtils;
 
-        import static Windows.CreateRoom.*;
+import static Windows.CreateRoom.*;
+
 /**
  * Created by Kesava on 15/02/2017.
  */
-public class WaterAccordion {
+public class WaterAccordion
+{
 
     private ImageView drawTap() {
         int id = count;

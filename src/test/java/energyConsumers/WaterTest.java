@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class WaterTest {
-    @Test
+    /*@Test
     public void getWaterState() throws Exception {
         Water source = new Water();
         boolean x = source.getState();
@@ -45,6 +45,6 @@ public class WaterTest {
         source.setUsage(75);
         double x = source.getUsage();
         assertEquals(x,75,0);
-    }
+    }*/
 
 }

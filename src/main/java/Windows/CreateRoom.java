@@ -31,7 +31,7 @@ public class CreateRoom
 
     private Stage window = new Stage();
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
-    Boolean penState = false;
+    public static Boolean penState = false;
     static BorderPane borderPane = new BorderPane();
     Scene scene = new Scene(borderPane,800,600);
 
@@ -39,7 +39,8 @@ public class CreateRoom
     public static Pane canvas = new Pane();
     public static int count = 0;
     public static int currentSelected =0;
-    private static Label infoLabel = new Label();
+    public static Label infoLabel = new Label();
+    public static Label distance = new Label();
     private Pane infoPane = new Pane();
     static LightPreferences lightPreferences = new LightPreferences();
     static HeatPreferences heatPreferences = new HeatPreferences();
@@ -52,11 +53,7 @@ public class CreateRoom
     static LinkedList<Double> pointsY = new LinkedList<Double>();
     static LinkedList<Line> lines = new LinkedList<Line>();
     static Circle currentClick = new Circle();
-    Line mouseLine = new Line();
-
-    Button mouse = new Button("Mouse");
-    Button pen = new Button("Pen");
-    private ToolBar toolbar = new ToolBar();
+    public static Line mouseLine = new Line();
 
     private void build()
     {
@@ -136,26 +133,14 @@ public class CreateRoom
 
     public void start() throws Exception
     {
-        Label distance = new Label();
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
         infoPane.getChildren().addAll(distance,infoLabel);
-        mouse.setOnMouseClicked(e ->
-        {
-            penState = false;
-            borderPane.getChildren().removeAll(mouseLine);
-            distance.setVisible(false);
-            infoLabel.setVisible(true);
-        });
-        pen.setOnMouseClicked(e ->{
-            penState = true;
-            borderPane.getChildren().add(mouseLine);
-            distance.setVisible(true);
-            infoLabel.setVisible(false);
-        });
-        toolbar.getItems().addAll(mouse,pen);
-        borderPane.setTop(toolbar);
+
+        TopBar topBar = new TopBar();
+        borderPane.setTop(topBar.build());
+
         build();
         borderPane.setCenter(canvas);
         prefPane.getChildren().add(lightPreferences.init());
