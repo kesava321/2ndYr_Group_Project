@@ -42,31 +42,47 @@ public class TopBar
         MenuItem deleteRoom = new MenuItem("Delete Room");
         deleteRoom.setOnAction(event ->
         {
-            System.out.print("Hit");
-            borderPane.getChildren().removeAll(lines);
-            borderPane.getChildren().remove(currentClick);
-            while (!pointsX.isEmpty()) {
-                pointsX.removeFirst();
-                pointsY.removeFirst();
-                lines.removeFirst();
-            }
+            deleteRoomOutline();
         });
 
 
         MenuItem deleteItems = new MenuItem("Delete Items");
         deleteItems.setOnAction(event ->
         {
-            canvas.getChildren().clear();
-            energyConsumers.clear();
-            currentSelected = 0;
-            count = 0;
+            deleteRoomContents();
         });
 
-        edit.getItems().addAll(deleteRoom, deleteItems);
+        MenuItem deleteAll = new MenuItem("Delete Room and Items");
+        deleteAll.setOnAction(event ->
+        {
+            deleteRoomOutline();
+            deleteRoomContents();
+        });
+
+        edit.getItems().addAll(deleteRoom, deleteItems, deleteAll);
 
         menuBar.getMenus().addAll(file, edit, help);
         toolbar.getItems().addAll(mouse,pen);
         topContainer.getChildren().addAll(menuBar,toolbar);
         return topContainer;
     }
+
+     public void deleteRoomOutline(){
+         System.out.print("Hit");
+         borderPane.getChildren().removeAll(lines);
+         borderPane.getChildren().remove(currentClick);
+         while (!pointsX.isEmpty()) {
+             pointsX.removeFirst();
+             pointsY.removeFirst();
+             lines.removeFirst();
+         }
+     }
+
+     public void deleteRoomContents(){
+         canvas.getChildren().clear();
+         energyConsumers.clear();
+         currentSelected = 0;
+         count = 0;
+     }
+
 }
