@@ -56,13 +56,10 @@ public class TopBar
         MenuItem deleteItems = new MenuItem("Delete Items");
         deleteItems.setOnAction(event ->
         {
-            int j = energyConsumers.size();
-            System.out.print(j);
-            int i = 0;
-            for (;i<j;i++) {
-                Object remove = energyConsumers.get(i);
-                energyConsumers.remove(remove);
-            }
+            canvas.getChildren().clear();
+            energyConsumers.clear();
+            currentSelected = 0;
+            count = 0;
         });
 
         edit.getItems().addAll(deleteRoom, deleteItems);
