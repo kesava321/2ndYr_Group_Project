@@ -51,7 +51,21 @@ public class TopBar
                 lines.removeFirst();
             }
         });
-        edit.getItems().addAll(deleteRoom);
+
+
+        MenuItem deleteItems = new MenuItem("Delete Items");
+        deleteItems.setOnAction(event ->
+        {
+            int j = energyConsumers.size();
+            System.out.print(j);
+            int i = 0;
+            for (;i<j;i++) {
+                Object remove = energyConsumers.get(i);
+                energyConsumers.remove(remove);
+            }
+        });
+
+        edit.getItems().addAll(deleteRoom, deleteItems);
 
         menuBar.getMenus().addAll(file, edit, help);
         toolbar.getItems().addAll(mouse,pen);
