@@ -1,5 +1,8 @@
 package Windows;
 
+import energyConsumers.ElectricHeating;
+import energyConsumers.Gas;
+import energyConsumers.GasHeating;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -7,7 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.electricHeatings;
+import static Windows.CreateRoom.currentSelected;
 import static Windows.CreateRoom.update;
 
 /**
@@ -33,29 +36,56 @@ class HeatPreferences
     {
         stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-            electricHeatings.get(CreateRoom.currentHeatingSelected).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
-            update();
+            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            if(tempObject instanceof ElectricHeating)
+            {
+                ((ElectricHeating) tempObject).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
+                update();
+            }
+            else if(tempObject instanceof GasHeating)
+            {
+                ((GasHeating) tempObject).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
+                update();
+            }
         });
         powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
         {
+            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 powerRatingField.getStyleClass().add("error");
             else
             {
                 powerRatingField.getStyleClass().remove("error");
-                electricHeatings.get(CreateRoom.currentHeatingSelected).setUsage(Double.parseDouble(newValue));
-                update();
+                if(tempObject instanceof ElectricHeating)
+                {
+                    ((ElectricHeating) tempObject).setUsage(Double.parseDouble(newValue));
+                    update();
+                }
+                else if(tempObject instanceof GasHeating)
+                {
+                    ((GasHeating) tempObject).setUsage(Double.parseDouble(newValue));
+                    update();
+                }
             }
         });
         tempField.textProperty().addListener((observable, oldValue, newValue) ->
         {
+            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 tempField.getStyleClass().add("error");
             else
             {
-                tempField.getStyleClass().remove("error");
-                electricHeatings.get(CreateRoom.currentHeatingSelected).setTemperature(Double.parseDouble(newValue));
-                update();
+                if(tempObject instanceof ElectricHeating)
+                {
+                    tempField.getStyleClass().remove("error");
+                    ((ElectricHeating) tempObject).setTemperature(Double.parseDouble(newValue));
+                    update();
+                }
+                else if(tempObject instanceof GasHeating)
+                {
+                    ((GasHeating) tempObject).setTemperature(Double.parseDouble(newValue));
+                    update();
+                }
             }
         });
         stateCombo.getItems().addAll("Off", "On");

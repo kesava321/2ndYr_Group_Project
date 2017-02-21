@@ -25,7 +25,14 @@ dependencies{
 
     compile 'org.xerial:sqlite-jdbc:3.8.10.1'
 
+    // https://mvnrepository.com/artifact/org.jfree/jfreechart
+    compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
+
 }
+
+
+
+
 
 subprojects {
     tasks.withType(JavaCompile) {

@@ -1,33 +1,27 @@
 package Windows;
-import energyConsumers.ElectricHeating;
-import energyConsumers.Light;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import energyConsumers.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
-
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
+import java.sql.*;
 
 /**
  * Created by daniel on 24/12/2016.
@@ -36,136 +30,103 @@ public class CreateRoom
 {
 
     private Stage window = new Stage();
-    public static ArrayList<Light> lights = new ArrayList<Light>();
-    public static ArrayList<ElectricHeating> electricHeatings = new ArrayList<>();
-    Boolean penState = false;
-    BorderPane borderPane = new BorderPane();
+    public static ArrayList<Object> energyConsumers = new ArrayList<>();
+    public static Boolean penState = false;
+    static BorderPane borderPane = new BorderPane();
+    Scene scene = new Scene(borderPane,800,600);
+
     private Pane prefPane = new Pane();
-    private Pane canvas = new Pane();
-    private int count = 0;
-    private int heatCount = 0;
-    public static int currentHeatingSelected =0;
+    public static Pane canvas = new Pane();
+    public static int count = 0;
     public static int currentSelected =0;
-    private static Label infoLabel = new Label();
-    private FlowPane infoPane = new FlowPane();
-    LightPreferences lightPreferences = new LightPreferences();
-    HeatPreferences heatPreferences = new HeatPreferences();
-    double orgSceneX, orgSceneY;
+    public static Label infoLabel = new Label();
+    public static Label distance = new Label();
+    private Pane infoPane = new Pane();
+    static LightPreferences lightPreferences = new LightPreferences();
+    static HeatPreferences heatPreferences = new HeatPreferences();
+    static WaterPreferences waterPreferences = new WaterPreferences();
+    static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
 
     //Room coords
-    LinkedList<Double> pointsX = new LinkedList<Double>();
-    LinkedList<Double> pointsY = new LinkedList<Double>();
-    LinkedList<Line> lines = new LinkedList<Line>();
-    Circle currentClick = new Circle();
-
-    Button mouse = new Button("Mouse");
-    Button pen = new Button("Pen");
-    private ToolBar toolbar = new ToolBar();
+    static LinkedList<Double> pointsX = new LinkedList<Double>();
+    static LinkedList<Double> pointsY = new LinkedList<Double>();
+    static LinkedList<Line> lines = new LinkedList<Line>();
+    static Circle currentClick = new Circle();
+    public static Line mouseLine = new Line();
 
     private void build()
     {
         Accordion accordion = new Accordion();
-        Pane pane;
-        TitledPane tiledPane;
-        Lights light = new Lights();
-        pane = light.getView();
-        tiledPane = new TitledPane("Electric", pane);
-        accordion.getPanes().add(tiledPane);
-        accordion.setExpandedPane(tiledPane);
+        Pane electric,gas,water;
+        TitledPane tiledPaneElectric,titledPaneGas,titledPaneWater;
+        ElectricAccordion electricAccordion = new ElectricAccordion();
+        electric = electricAccordion.getView();
+        GasAccordion gasAccordion = new GasAccordion();
+        gas = gasAccordion.getView();
+        WaterAccordion waterAccordion = new WaterAccordion();
+        water = waterAccordion.getView();
+        tiledPaneElectric = new TitledPane("Electric", electric);
+        titledPaneGas = new TitledPane("Gas",gas);
+        titledPaneWater = new TitledPane("Water",water);
+        accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas,titledPaneWater);
+        accordion.setExpandedPane(tiledPaneElectric);
         borderPane.setLeft(accordion);
-    }
-
-    private ImageView drawLight()
-    {
-        int id = count;
-        Image image = new Image("Images/bulb.png",50,50,false,false);
-        ImageView imageView = new ImageView(image);
-        imageView.setCursor(Cursor.HAND);
-        imageView.setOnMousePressed(event ->
-        {
-            heatPreferences.setVisible(false);
-            lightPreferences.setVisible(true);
-            currentSelected = id;
-            double powerRating = lights.get(id).getUsage();
-            int lighState = BooleanUtils.toInteger(lights.get(id).getState());
-            lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
-            lightPreferences.stateCombo.getSelectionModel().select(lighState);
-            orgSceneX = event.getSceneX();
-            orgSceneY = event.getSceneY();
-        });
-        imageView.setOnMouseDragged(event ->
-        {
-            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
-            {
-                double offsetX = event.getSceneX() - orgSceneX;
-                double offsetY = event.getSceneY() - orgSceneY;
-                Object o = event.getSource();
-                ImageView i = (ImageView) o;
-                i.setX(i.getX() + offsetX);
-                i.setY(i.getY() + offsetY);
-                orgSceneX = event.getSceneX();
-                orgSceneY = event.getSceneY();
-            }
-        });
-        return imageView;
-    }
-
-    private ImageView drawHeater()
-    {
-        int id = heatCount;
-        Image image = new Image("Images/heating.png",50,50,false,false);
-        ImageView imageView = new ImageView(image);
-        imageView.setCursor(Cursor.HAND);
-        imageView.setOnMousePressed(event ->
-        {
-            currentHeatingSelected = id;
-            heatPreferences.setVisible(true);
-            lightPreferences.setVisible(false);
-            heatPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(electricHeatings.get(id).getState()));
-            heatPreferences.powerRatingField.setText(Double.toString(electricHeatings.get(id).getUsage()));
-            heatPreferences.tempField.setText(Double.toString(electricHeatings.get(id).getTemperature()));
-            System.out.println(electricHeatings.get(id).getUsage());
-            orgSceneX = event.getSceneX();
-            orgSceneY = event.getSceneY();
-        });
-        imageView.setOnMouseDragged(event ->
-        {
-            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
-            {
-                double offsetX = event.getSceneX() - orgSceneX;
-                double offsetY = event.getSceneY() - orgSceneY;
-                Object o = event.getSource();
-                ImageView i = (ImageView) o;
-                i.setX(i.getX() + offsetX);
-                i.setY(i.getY() + offsetY);
-                orgSceneX = event.getSceneX();
-                orgSceneY = event.getSceneY();
-            }
-        });
-        return imageView;
     }
 
     public static void update()
     {
         double power,emmisions;
         power = emmisions = 0;
-        for(int x =0; x<lights.size();x++)
+        for(int x =0; x<energyConsumers.size();x++)
         {
-            System.out.println(lights.size() + " " + lights.get(x).getConsumption(60)); //converts watts into KW
-            if(lights.get(x).getState())
+            if(energyConsumers.get(x) != null)
             {
-                power += lights.get(x).getConsumption(60);
-                emmisions += lights.get(x).estimatedEmissions(60);
+                Object temp = energyConsumers.get(x);
+                if (temp instanceof Light)
+                {
+                    if (((Light) temp).getState())
+                    {
+                        power += ((Light) temp).getConsumption(60);
+                        emmisions += ((Light) temp).estimatedEmissions(60);
+                    }
+                }
+                else if (temp instanceof ElectricHeating)
+                {
+                    if (((ElectricHeating) temp).getState())
+                    {
+                        power += ((ElectricHeating) temp).getConsumption(60);
+                        emmisions += ((ElectricHeating) temp).estimatedEmissions(60);
+                    }
+                }
+                else if (temp instanceof GasHeating)
+                {
+                    if (((GasHeating) temp).getState())
+                    {
+                        power += ((GasHeating) temp).getConsumption(60);
+                        emmisions = ((GasHeating) temp).estimatedEmissions(60);
+                    }
+                }
+                else if(temp instanceof Toilet)
+                {
+                    if(((Toilet) temp).getState())
+                    {
+                        power += ((Toilet) temp).getConsumption(60);
+                        emmisions = ((Toilet) temp).estimatedEmissions(60);
+                    }
+                }
+                else if(temp instanceof Sink)
+                {
+                    if(((Sink) temp).getState())
+                    {
+                        power += ((Sink) temp).getConsumption(60);
+                        emmisions = ((Sink) temp).estimatedEmissions(60);
+                    }
+                }
+                else
+                    System.out.println("WHY THO " + temp.getClass());
             }
-        }
-        for(int y = 0;y<electricHeatings.size();y++)
-        {
-            if(electricHeatings.get(y).getState())
-            {
-                power+= electricHeatings.get(y).getConsumption(60);
-                emmisions+=electricHeatings.get(y).estimatedEmissions(60);
-            }
+
         }
         infoLabel.setText("Power: " + df2.format(power) + " KwH" + " Emmisions:" + df2.format(emmisions) + "Kg/co2");
     }
@@ -175,15 +136,19 @@ public class CreateRoom
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
-        mouse.setOnMouseClicked(e -> penState = false);
-        pen.setOnMouseClicked(e -> penState = true);
-        toolbar.getItems().addAll(mouse,pen);
-        borderPane.setTop(toolbar);
+        infoPane.getChildren().addAll(distance,infoLabel);
+
+        TopBar topBar = new TopBar();
+        borderPane.setTop(topBar.build());
+
         build();
         borderPane.setCenter(canvas);
         prefPane.getChildren().add(lightPreferences.init());
         prefPane.getChildren().add(heatPreferences.init());
+        prefPane.getChildren().add(waterPreferences.init()); //k
+        lightPreferences.setVisible(false);
         heatPreferences.setVisible(false);
+        waterPreferences.setVisible(false); //k
         borderPane.setRight(prefPane);
 
         borderPane.getChildren().add(currentClick);
@@ -197,34 +162,52 @@ public class CreateRoom
                 currentClick.setCenterY(event.getSceneY());
                 currentClick.setRadius(4.0f);
                 drawLine();
-                Thread t = new Thread(() -> trackLength());
-                t.run();
             }
         });
-
-
-        infoPane.getChildren().add(infoLabel);
-        borderPane.setBottom(infoPane);
-        Scene scene = new Scene(borderPane,800,600);
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
+
+        scene.setOnMouseMoved(event -> {
+            double coordx = event.getSceneX();
+            double coordy = event.getSceneY();
+            if(!pointsX.isEmpty())
+            {
+                System.out.println(pointsX.size());
+                mouseLine.setStartX(pointsX.getLast());
+                mouseLine.setStartY(pointsY.getLast());
+                System.out.println(coordx + " " + coordy);
+                mouseLine.setEndX(coordx-1);
+                mouseLine.setEndY(coordy-1);
+                distance.setText(df2.format(trackLength(coordx, coordy)/10) + "m");
+            }
+
+        });
+        scene.setOnKeyPressed(event ->
+        {
+            if(event.getCode() == KeyCode.BACK_SPACE && !penState)
+            {
+                System.out.println(currentSelected);
+                if(energyConsumers.get(currentSelected) != null)
+                    canvas.getChildren().remove(currentSelected);
+                energyConsumers.set(currentSelected,null);
+            }
+        });
+        borderPane.setBottom(infoPane);
+        mouseLine.setStyle("-fx-stroke: red;");
+        //prefPane.getStyleClass().add("left-line");
         window.setScene(scene);
         window.show();
     }
 
-    private void trackLength() {
-        System.out.print("Test");
-        //while(penState) {
-
-            Point currentLoc = MouseInfo.getPointerInfo().getLocation();
-            double currentX = currentLoc.getX();
-            double currentY = currentLoc.getY();
-
-            double lastLocX = pointsX.getLast();
-            double lastLocY = pointsY.getLast();
-
-            int distance = (int) Math.sqrt((lastLocX-currentX)*(lastLocX-currentX) + (lastLocY-currentY)*(lastLocY-currentY));
-            System.out.print(distance);
-        //}
+    private double trackLength(double coordx, double coordy) {
+        double currentX = coordx;
+        double currentY = coordy;
+        double lastLocX = 0, lastLocY = 0;
+        if (pointsX.size()>0){
+            lastLocX = pointsX.getLast();
+            lastLocY = pointsY.getLast();
+        }
+        double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
+        return distance;
     }
 
     public void drawLine(){
@@ -235,54 +218,11 @@ public class CreateRoom
         else {
             for (int i = 0; i < pointsX.size() - 1; i++) {
                 Line temp = new Line(pointsX.get(i), pointsY.get(i), pointsX.get(i + 1), pointsY.get(i + 1));
-               // temp.draw();
+                // temp.draw();
                 lines.add(temp);
                 borderPane.getChildren().add(temp);
             }
         }
     }
 
-    class Lights
-    {
-
-        public Pane getView()
-        {
-            Pane p = new Pane();
-            Button button = new Button("LED Bulb"); //probs should change to image view at a later date
-            Button heatingButton = new Button("Heating");
-            Button clearCanvas = new Button("Delete Room");
-            heatingButton.setOnMouseClicked(event->
-            {
-                ImageView image = drawHeater();
-                canvas.getChildren().add(image);
-                electricHeatings.add(new ElectricHeating(true,1000,25));
-                System.out.println(electricHeatings.get(heatCount).getUsage());
-                heatCount++;
-            });
-            button.setOnMouseClicked(event ->{
-                lights.add(new Light(true,100));
-                ImageView image = drawLight();
-                canvas.getChildren().add(image);
-                count++;
-                update();
-            });
-            clearCanvas.setOnMouseClicked(event ->{
-                System.out.print("Hit");
-                borderPane.getChildren().removeAll(lines);
-                borderPane.getChildren().remove(currentClick);
-                while (!pointsX.isEmpty()) {
-                    pointsX.removeFirst();
-                    pointsY.removeFirst();
-                    lines.removeFirst();
-                }
-            });
-
-            VBox vBox = new VBox(5);
-            vBox.getChildren().addAll(button,heatingButton, clearCanvas);
-            p.getChildren().addAll(vBox);
-            return p;
-        }
-
-    }
-    
 }

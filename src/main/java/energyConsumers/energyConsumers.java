@@ -14,6 +14,7 @@ public abstract class energyConsumers
 {
     private boolean state;
     private double usage;
+
     /**
      * @param mins runtime of an energy consumer
      * @return KWh

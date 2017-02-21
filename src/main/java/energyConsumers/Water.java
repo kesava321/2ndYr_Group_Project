@@ -5,32 +5,25 @@ package energyConsumers;
  * ensures that WaterState cannot be less than 0 by resetting any
  * WaterState made false.
  */
-public class Water extends energyConsumers
+public abstract class Water extends energyConsumers
 {
-    //water usage per min
+    //water usage in L
 
     private final double waterEmmisions = 0.59; // gram per liter
+    private int usePerHour;
 
     public Water(){
         setState(false);
         setUsage(50.0);
+        setUsePerHour(1);
     }
 
-    public Water(Boolean state, double intake){
+    public Water(Boolean state, double intake, int usePerHour){
         setState(state);
         setUsage(intake);
+        setUsePerHour(usePerHour);
     }
 
-    /**
-     * gets the power consumption of energy consumer for given time in liter per time period
-     * @param mins runtime of an energy comsumer
-     * @return power consumption in liter per time period
-     */
-    @Override
-    public double getConsumption(int mins)
-    {
-        return getUsage()*mins;
-    }
     /**
      * estimates emissions of energy consumer using its power consumption and a estimate for water emmisions
      * @param mins
@@ -41,6 +34,17 @@ public class Water extends energyConsumers
     {
         return getConsumption(mins)* waterEmmisions;
     }
+
+    public int getUsePerHour()
+    {
+        return usePerHour;
+    }
+
+    public void setUsePerHour(int usePerHour)
+    {
+        this.usePerHour = usePerHour;
+    }
+
 }
 
 
