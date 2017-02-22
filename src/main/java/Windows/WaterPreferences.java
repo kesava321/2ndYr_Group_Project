@@ -8,14 +8,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.currentSelected;
-import static Windows.CreateRoom.update;
-
 
 /**
  * Created by Kesava on 15/02/2017.
  */
-class WaterPreferences
+class WaterPreferences extends CreateRoom
 {
 
     public static final int TOILET = 1;
@@ -61,7 +58,7 @@ class WaterPreferences
     {
         stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if(tempObject instanceof Toilet)
             {
                 ((Toilet) tempObject).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
@@ -75,7 +72,7 @@ class WaterPreferences
         });
         usePerHourField.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 usePerHourField.getStyleClass().add("error");
             else
@@ -95,7 +92,7 @@ class WaterPreferences
         });
         literPerUseField.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 literPerUseField.getStyleClass().add("error");
             else
@@ -115,7 +112,7 @@ class WaterPreferences
         });
         avgUseTimeField.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 avgUseTimeField.getStyleClass().add("error");
             else

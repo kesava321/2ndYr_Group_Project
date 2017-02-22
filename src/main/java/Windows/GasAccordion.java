@@ -10,11 +10,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.*;
 /**
  * Created by daniel on 12/02/2017.
  */
-public class GasAccordion
+public class GasAccordion extends CreateRoom
 {
 
     private ImageView drawHeater()

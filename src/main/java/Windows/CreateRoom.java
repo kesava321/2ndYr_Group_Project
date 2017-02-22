@@ -26,13 +26,12 @@ import java.sql.*;
 /**
  * Created by daniel on 24/12/2016.
  */
-public class CreateRoom
+public class CreateRoom extends Room
 {
 
-    private Stage window = new Stage();
-    public static ArrayList<Object> energyConsumers = new ArrayList<>();
+    public Stage window = new Stage();
     public static Boolean penState = false;
-    static BorderPane borderPane = new BorderPane();
+    public BorderPane borderPane = new BorderPane();
     Scene scene = new Scene(borderPane,800,600);
 
     private Pane prefPane = new Pane();
@@ -42,17 +41,15 @@ public class CreateRoom
     public static Label infoLabel = new Label();
     public static Label distance = new Label();
     private Pane infoPane = new Pane();
-    static LightPreferences lightPreferences = new LightPreferences();
-    static HeatPreferences heatPreferences = new HeatPreferences();
-    static WaterPreferences waterPreferences = new WaterPreferences();
-    static double orgSceneX, orgSceneY;
+    public static LightPreferences lightPreferences = new LightPreferences();
+    public static HeatPreferences heatPreferences = new HeatPreferences();
+    public static WaterPreferences waterPreferences = new WaterPreferences();
+    public static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
 
     //Room coords
-    static LinkedList<Double> pointsX = new LinkedList<Double>();
-    static LinkedList<Double> pointsY = new LinkedList<Double>();
-    static LinkedList<Line> lines = new LinkedList<Line>();
-    static Circle currentClick = new Circle();
+
+    public static Circle currentClick = new Circle();
     public static Line mouseLine = new Line();
 
     private void build()
@@ -74,7 +71,7 @@ public class CreateRoom
         borderPane.setLeft(accordion);
     }
 
-    public static void update()
+    public /*static*/ void update()
     {
         double power,emmisions;
         power = emmisions = 0;
@@ -208,7 +205,7 @@ public class CreateRoom
         }
         double distance = Math.sqrt((currentX-lastLocX)*(currentX-lastLocX) + (currentY-lastLocY)*(currentY-lastLocY));
 
-        double area = 0;
+        /*double area = 0;
         double RS = 0; // refers to right side of multiplication e.g. (x0*y1)+(x1*y2)+(x2*y3)...
         double LS = 0; // refers to left side of multiplication e.g. (y0*x1)+(y1*x2)+(y2*x3)...
 
@@ -221,7 +218,7 @@ public class CreateRoom
 
         area = (RS - LS)/2;
 
-        System.out.println("area = " + area);
+        System.out.println("area = " + area);*/
 
         return distance;
 
