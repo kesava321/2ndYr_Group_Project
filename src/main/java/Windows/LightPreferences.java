@@ -8,12 +8,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.currentSelected;
 
 /**
  * Created by daniel on 06/02/2017.
  */
-class LightPreferences
+class LightPreferences extends CreateRoom
 {
     Pane pane = new Pane();
     Label state = new Label("Light State");
@@ -29,17 +28,17 @@ class LightPreferences
     {
         stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             boolean state = BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex());
             if(tempObject instanceof Light)
             {
                 ((Light) tempObject).setState(state);
-                CreateRoom.update();
+                update();
             }
         });
         powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if(!Validation.Validate.vDouble(newValue))
                 powerRatingField.getStyleClass().add("error");
             else
@@ -49,7 +48,7 @@ class LightPreferences
                 {
                     ((Light) tempObject).setUsage(Double.parseDouble(newValue));
                     //System.out.println("|" + currentSelected + " " + lights.get(currentSelected).getUsage());
-                    CreateRoom.update();
+                    update();
                 }
             }
         });

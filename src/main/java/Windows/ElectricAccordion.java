@@ -10,19 +10,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.*;
 /**
  * Created by daniel on 12/02/2017.
  */
 
-class ElectricAccordion
+class ElectricAccordion extends CreateRoom
 {
 
     private ImageView drawLight()
     {
         int id = count;
         Image image = new Image("Images/bulb.png",50,50,false,false);
+        System.out.println(image);
         ImageView imageView = new ImageView(image);
+        System.out.println(imageView + "%%");
+        System.out.println("**HELLO WORLD**");
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {
@@ -122,9 +124,9 @@ class ElectricAccordion
             count++;
         });
         button.setOnMouseClicked(event ->{
-            energyConsumers.add(new Light(true,100));
             ImageView image = drawLight();
             canvas.getChildren().add(image);
+            energyConsumers.add(new Light(true,100));
             count++;
             update();
         });

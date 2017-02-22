@@ -10,9 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.*;
 
-public class WaterAccordion
+public class WaterAccordion extends CreateRoom
 {
     private ImageView drawTap() {
         int id = count;

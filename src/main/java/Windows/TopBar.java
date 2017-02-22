@@ -7,7 +7,7 @@ import static Windows.CreateRoom.*;
 /**
  * Created by daniel on 21/02/2017.
  */
-public class TopBar
+public class TopBar extends CreateRoom
 {
     private MenuBar menuBar = new MenuBar();
 
