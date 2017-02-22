@@ -19,7 +19,7 @@ public class Room
     public static LinkedList<Double> pointsY = new LinkedList<Double>();
     public static LinkedList<Line> lines = new LinkedList<Line>();
 
-    
+
 
     public void save()
     {
