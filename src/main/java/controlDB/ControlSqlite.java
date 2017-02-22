@@ -19,42 +19,28 @@ public class ControlSqlite implements DatabaseExecutable{
             c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/Data.db");
             System.out.println("Opened database successfully");
 
-            //create DataInput database to reord all the data input
+            //create DataInput database to reord all the TYPES
             stmt = c.createStatement();
-            sql = "CREATE TABLE if not exists ENERGYDATA " +
-                    " (EnergyComsumer CHAR(50) NOT NULL," +
-                    " TimePriod      INT    NOT NULL, " +
-                    " UpdatedPowerRating    DOUBLE     NOT NULL, " +
-                    " Location        CHAR(50), " +
-                    " TotalConsumption     DOUBLE NOT NULL," +
-                    " TotalEstimatedEmissions DOUBLE NOT NULL," +
-                    " Temperature DOUBLE )";
+            sql = "CREATE TABLE if not exists Types_Table " +
+                    "(appliance_ID INT PRIMARY KEY," +
+                    " power_type INT)";
             stmt.executeUpdate(sql);
 
-            //The table for Light
-            //stmt = c.createStatement();
-            sql = "CREATE TABLE if not exists Light " +
-                    "(ID     INT PRIMARY KEY NOT NULL,"+
-                    " PowerRating    FLOAT     NOT NULL, " +
-                    " Location        CHAR(50), " +
-                    " Consumption     DOUBLE NOT NULL," +
-                    " EstimatedEmissions DOUBLE NOT NULL," +
-                    " TotalNumber    Int)";
+            //The table for RATING
+            sql = "CREATE TABLE if not exists Rating " +
+                    "(appliance_ID INT PRIMARY KEY," +
+                    " power_rating REAL)";
             stmt.executeUpdate(sql);
 
-            //The table for Heating
-            //stmt = c.createStatement();
-            sql = "CREATE TABLE if not exists Heating " +
-                    "(ID     INT PRIMARY KEY NOT NULL,"+
-                    " PowerRating    FLOAT     NOT NULL, " +
-                    " Location        CHAR(50), " +
-                    " Consumption     DOUBLE NOT NULl," +
-                    " EstimatedEmissions DOUBLE NOT NULL," +
-                    " TotalNumber     Int)";
+            //The table for APPLIANCE
+            sql = "CREATE TABLE if not exists Appliance " +
+                    "(appliance_ID INT PRIMARY KEY,"  +
+                    "name TEXT," +
+                    "image BLOB)";
             stmt.executeUpdate(sql);
 
             System.out.println("Table created successfully");
-            //stmt.close();
+            stmt.close();
             //c.close();
         } catch(SQLException se){
             //Handle errors for JDBC
