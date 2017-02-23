@@ -10,7 +10,7 @@ package energyConsumers;
  * on a variable kilowatt hours.
  */
 
-public abstract class energyConsumers
+public abstract class energyConsumers implements java.io.Serializable
 {
     private boolean state;
     private double usage;

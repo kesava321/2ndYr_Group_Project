@@ -3,6 +3,9 @@ package Windows;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.*;
+
+import java.io.IOException;
+
 import static Windows.CreateRoom.*;
 /**
  * Created by daniel on 21/02/2017.
@@ -36,8 +39,20 @@ public class TopBar extends CreateRoom
         Menu help = new Menu("Help");
 
         MenuItem openFile = new MenuItem("Open File");
+        MenuItem saveFile = new Menu("Save");
         MenuItem exitApp = new MenuItem("Exit");
-        file.getItems().addAll(openFile,exitApp);
+        file.getItems().addAll(openFile,saveFile,exitApp);
+
+        saveFile.setOnAction(event ->
+        {
+            try
+            {
+                save();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        });
 
         MenuItem deleteRoom = new MenuItem("Delete Room");
         deleteRoom.setOnAction(event ->
