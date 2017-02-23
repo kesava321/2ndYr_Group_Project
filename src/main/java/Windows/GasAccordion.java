@@ -54,6 +54,18 @@ public class GasAccordion extends CreateRoom
                 orgSceneY = event.getSceneY();
             }
         });
+        imageView.setOnMouseReleased(event ->
+        {
+            if(energyConsumers.get(id) instanceof GasHeating)
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                ((GasHeating) energyConsumers.get(id)).setX(i.getX() + offsetX);
+                ((GasHeating) energyConsumers.get(id)).setY(i.getY() + offsetY);
+            }
+        });
         return imageView;
     }
 

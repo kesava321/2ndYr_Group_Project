@@ -71,6 +71,7 @@ public class Room
         pointsX.clear();
         pointsX = (LinkedList<Double>) oisPointsX.readObject();
 
+        pointsY.clear();
         pointsY = (LinkedList<Double>) oisPointsY.readObject();
 
         oisEnergyConsumer.close();

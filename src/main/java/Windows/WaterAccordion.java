@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.apache.commons.lang3.BooleanUtils;
 
 
@@ -48,6 +49,18 @@ public class WaterAccordion extends CreateRoom
                 orgSceneY = event.getSceneY();
             }
         });
+        imageView.setOnMouseReleased(event ->
+        {
+            if(energyConsumers.get(id) instanceof Sink)
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                ((Sink) energyConsumers.get(id)).setX(i.getX() + offsetX);
+                ((Sink) energyConsumers.get(id)).setY(i.getY() + offsetY);
+            }
+        });
         return imageView;
     }
 
@@ -85,6 +98,18 @@ public class WaterAccordion extends CreateRoom
                 i.setY(i.getY() + offsetY);
                 orgSceneX = event.getSceneX();
                 orgSceneY = event.getSceneY();
+            }
+        });
+        imageView.setOnMouseReleased(event ->
+        {
+            if(energyConsumers.get(id) instanceof Toilet)
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                ((Toilet) energyConsumers.get(id)).setX(i.getX() + offsetX);
+                ((Toilet) energyConsumers.get(id)).setY(i.getY() + offsetY);
             }
         });
         return imageView;
