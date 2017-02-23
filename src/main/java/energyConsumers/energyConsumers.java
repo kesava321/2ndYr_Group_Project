@@ -14,7 +14,8 @@ public abstract class energyConsumers implements java.io.Serializable
 {
     private boolean state;
     private double usage;
-
+    private double y;
+    private double x;
     /**
      * @param mins runtime of an energy consumer
      * @return KWh
@@ -69,6 +70,26 @@ public abstract class energyConsumers implements java.io.Serializable
             this.usage = 0;
         else
             this.usage = usage;
+    }
+
+    public double getX()
+    {
+        return x;
+    }
+
+    public void setY(double y)
+    {
+        this.y = y;
+    }
+
+    public void setX(double x)
+    {
+        this.x = x;
+    }
+
+    public double getY()
+    {
+        return y;
     }
 }
 

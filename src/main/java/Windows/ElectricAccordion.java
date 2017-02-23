@@ -59,6 +59,18 @@ class ElectricAccordion extends CreateRoom
                 orgSceneY = event.getSceneY();
             }
         });
+        imageView.setOnMouseReleased(event ->
+        {
+            if(energyConsumers.get(id) instanceof Light)
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                ((Light) energyConsumers.get(id)).setX(i.getX() + offsetX);
+                ((Light) energyConsumers.get(id)).setY(i.getY() + offsetY);
+            }
+        });
         return imageView;
     }
 
@@ -124,9 +136,9 @@ class ElectricAccordion extends CreateRoom
             count++;
         });
         button.setOnMouseClicked(event ->{
+            energyConsumers.add(new Light(true,100));
             ImageView image = drawLight();
             canvas.getChildren().add(image);
-            energyConsumers.add(new Light(true,100));
             count++;
             update();
         });

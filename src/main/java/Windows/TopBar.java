@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.*;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static Windows.CreateRoom.*;
 /**
@@ -39,9 +40,26 @@ public class TopBar extends CreateRoom
         Menu help = new Menu("Help");
 
         MenuItem openFile = new MenuItem("Open File");
-        MenuItem saveFile = new Menu("Save");
+        MenuItem saveFile = new MenuItem("Save");
         MenuItem exitApp = new MenuItem("Exit");
         file.getItems().addAll(openFile,saveFile,exitApp);
+
+        openFile.setOnAction(event ->
+        {
+            try
+            {
+                load();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            } catch (URISyntaxException e)
+            {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+        });
 
         saveFile.setOnAction(event ->
         {

@@ -48,6 +48,8 @@ public class CreateRoom extends Room
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
 
     //Room coords
+    public static LinkedList<Line> lines = new LinkedList<Line>();
+
 
     public static Circle currentClick = new Circle();
     public static Line mouseLine = new Line();
