@@ -10,9 +10,9 @@ import java.sql.* ;
  * Created by Rui on 2017/2/1.
  */
 public class ControlSqlite implements DatabaseExecutable{
-    public Connection c  = null;
-    public Statement stmt = null;
-    public String sql = null;
+    private Connection c  = null;
+    private Statement stmt = null;
+    private String sql = null;
     public ControlSqlite(){
         try {
             Class.forName("org.sqlite.JDBC");
@@ -23,7 +23,7 @@ public class ControlSqlite implements DatabaseExecutable{
             stmt = c.createStatement();
             sql = "CREATE TABLE if not exists Types_Table " +
                     "(appliance_ID INT PRIMARY KEY," +
-                    " power_type INT)";
+                    " power_type TEXT)";
             stmt.executeUpdate(sql);
 
             //The table for RATING
@@ -40,7 +40,7 @@ public class ControlSqlite implements DatabaseExecutable{
             stmt.executeUpdate(sql);
 
             System.out.println("Table created successfully");
-            stmt.close();
+            //stmt.close();
             //c.close();
         } catch(SQLException se){
             //Handle errors for JDBC
@@ -51,31 +51,40 @@ public class ControlSqlite implements DatabaseExecutable{
         }
     }
 
-    public void InsertData(String tableName, Object[] dataSet) throws SQLException {
-        //insert new data
+    public void databaseClose() throws SQLException{
+        stmt.close();
+        System.out.printf("Database disconnected\n");
+    }
 
-        /*sql =  "INSERT INTO " + tableName +
-                " VALUES (" +
-                dataSet[0].toString() + ", " +
-                dataSet[1].toString() + ", " +
-                dataSet[2].toString() + ", " +
-                dataSet[3].toString() + ", " +
-                dataSet[4].toString() + ", " +
-                dataSet[5].toString() + ", " +
-                dataSet[6].toString() + ")";*/
-        sql = "INSERT INTO "+ tableName + " VALUES (?,?,?,?,?,?,?)";
-        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, (String)dataSet[0]);
-            pstmt.setInt(2, (Integer)dataSet[1]);
-            pstmt.setDouble(3, (Double)dataSet[2]);
-            pstmt.setString(4, (String)dataSet[3]);
-            pstmt.setDouble(5, (double)dataSet[4]);
-            pstmt.setDouble(6, (double)dataSet[5]);
-            pstmt.setDouble(7, (double)dataSet[6]);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+    public void InsertData(String tableName, Object[] dataSet) throws SQLException {
+        sql = "INSERT INTO "+ tableName + " VALUES (?,?)";
+
+        if (tableName == "Types_Table") {
+            try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+                pstmt.setString(2, (String) dataSet[0]);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
+        else if (tableName == "Rating"){
+            try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+                pstmt.setFloat(2, (String) dataSet[0]);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else {
+            try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+                pstmt.setString(1, (String) dataSet[0]);
+                pstmt.setString(2, readFile((String)dataSet[1]));
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
     public void UpdateData(String tableName){
