@@ -23,8 +23,6 @@ class ElectricAccordion extends CreateRoom
         Image image = new Image("Images/bulb.png",50,50,false,false);
         System.out.println(image);
         ImageView imageView = new ImageView(image);
-        System.out.println(imageView + "%%");
-        System.out.println("**HELLO WORLD**");
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
         {

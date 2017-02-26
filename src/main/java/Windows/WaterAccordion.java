@@ -119,7 +119,6 @@ public class WaterAccordion extends CreateRoom
         Pane p = new Pane();
         Button waterTap = new Button("Tap");
         Button waterToilet = new Button("Toilet");
-        //Button waterKitchen = new Button("Kitchen");
         waterTap.setOnMouseClicked(event ->
         {
             ImageView image = drawTap();
