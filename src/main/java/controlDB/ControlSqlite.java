@@ -2,6 +2,7 @@ package controlDB;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileInputStream;
 import java.sql.* ;
 
 /**
@@ -22,19 +23,19 @@ public class ControlSqlite implements DatabaseExecutable{
             //create DataInput database to reord all the TYPES
             stmt = c.createStatement();
             sql = "CREATE TABLE if not exists Types_Table " +
-                    "(appliance_ID INT PRIMARY KEY," +
+                    "(appliance_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " power_type TEXT)";
             stmt.executeUpdate(sql);
 
             //The table for RATING
             sql = "CREATE TABLE if not exists Rating " +
-                    "(appliance_ID INT PRIMARY KEY," +
+                    "(appliance_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " power_rating REAL)";
             stmt.executeUpdate(sql);
 
             //The table for APPLIANCE
             sql = "CREATE TABLE if not exists Appliance " +
-                    "(appliance_ID INT PRIMARY KEY,"  +
+                    "(appliance_ID INTEGER PRIMARY KEY AUTOINCREMENT,"  +
                     "name TEXT," +
                     "image BLOB)";
             stmt.executeUpdate(sql);
@@ -51,17 +52,23 @@ public class ControlSqlite implements DatabaseExecutable{
         }
     }
 
-    public void databaseClose() throws SQLException{
-        stmt.close();
+    public void databaseClose() {
+        try {
+            stmt.close();
+            c.close();
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
         System.out.printf("Database disconnected\n");
     }
 
-    public void InsertData(String tableName, Object[] dataSet) throws SQLException {
+    public void InsertData(String tableName, Object[] dataSet) {
         sql = "INSERT INTO "+ tableName + " VALUES (?,?)";
 
         if (tableName == "Types_Table") {
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-                pstmt.setString(2, (String) dataSet[0]);
+                pstmt.setString(2, (String) dataSet[1]);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -69,7 +76,7 @@ public class ControlSqlite implements DatabaseExecutable{
         }
         else if (tableName == "Rating"){
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-                pstmt.setFloat(2, (String) dataSet[0]);
+                pstmt.setInt(2, (Integer)dataSet[1]);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -78,7 +85,7 @@ public class ControlSqlite implements DatabaseExecutable{
         else {
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
                 pstmt.setString(1, (String) dataSet[0]);
-                pstmt.setString(2, readFile((String)dataSet[1]));
+                pstmt.setString(2, (String)dataSet[1]);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -91,21 +98,20 @@ public class ControlSqlite implements DatabaseExecutable{
 
     }
 
-    public void DisplayTable(String tableName) throws SQLException {
+    public void DisplayTable(){
         //ControlSqlite cs = new ControlSqlite();
-        String sql = "SELECT * FROM ENERGYDATA";
-
+        String sql = "SELECT * FROM Rating";
+        System.out.printf("----Database----\n");
         try (
              Statement stmt  = c.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
-
             // loop through the result set
             while (rs.next()) {
                 System.out.println(
-                        rs.getString("EnergyComsumer") +  "\t" +
-                        rs.getInt("TimePriod") + "\t" +
-                        rs.getDouble("UpdatedPowerRating"));
+                        rs.getString("appliance_ID") +  "\t" +
+                        rs.getInt("power_rating") + "\t");
             }
+            System.out.printf("----End Of Data Display----\n");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

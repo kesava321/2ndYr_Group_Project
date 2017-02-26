@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.BooleanUtils;
+import controlDB.*;//added by Rui
 
 /**
  * Created by daniel on 12/02/2017.
@@ -145,6 +146,11 @@ class ElectricAccordion extends CreateRoom
                     e.printStackTrace();
                 }*/
             //System.out.println(electricHeatings.get(heatCount).getUsage());
+            //insert the data into database
+            ControlSqlite cs = new ControlSqlite();
+            Object[] o = {-1, 1000};
+            cs.InsertData("Rating", o);
+            cs.DisplayTable();
             count++;
         });
         button.setOnMouseClicked(event ->{
