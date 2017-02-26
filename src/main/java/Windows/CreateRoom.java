@@ -46,7 +46,7 @@ public class CreateRoom extends Room
     public static WaterPreferences waterPreferences = new WaterPreferences();
     public static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
-
+    public static DrawAppliance draw = new DrawAppliance();
     //Room coords
     public static LinkedList<Line> lines = new LinkedList<Line>();
 

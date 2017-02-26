@@ -16,58 +16,7 @@ import org.apache.commons.lang3.BooleanUtils;
 public class GasAccordion extends CreateRoom
 {
 
-    private ImageView drawHeater()
-    {
-        int id = count;
-        Image image = new Image("Images/gasHeating.png",50,50,false,false);
-        ImageView imageView = new ImageView(image);
-        imageView.setCursor(Cursor.HAND);
-        imageView.setOnMousePressed(event ->
-        {
-            currentSelected = id;
-            heatPreferences.setVisible(true);
-            lightPreferences.setVisible(false);
-            waterPreferences.setVisible(false);
-            Object temp = energyConsumers.get(id);
-            if(temp instanceof GasHeating)
-            {
-                heatPreferences.stateCombo.getSelectionModel().select(BooleanUtils.toInteger(((GasHeating) temp).getState()));
-                heatPreferences.powerRatingField.setText(Double.toString(((GasHeating) temp).getUsage()));
-                heatPreferences.tempField.setText(Double.toString(((GasHeating) temp).getTemperature()));
-            }
-            else
-                System.out.println("oh-oh");
-            orgSceneX = event.getSceneX();
-            orgSceneY = event.getSceneY();
-        });
-        imageView.setOnMouseDragged(event ->
-        {
-            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
-            {
-                double offsetX = event.getSceneX() - orgSceneX;
-                double offsetY = event.getSceneY() - orgSceneY;
-                Object o = event.getSource();
-                ImageView i = (ImageView) o;
-                i.setX(i.getX() + offsetX);
-                i.setY(i.getY() + offsetY);
-                orgSceneX = event.getSceneX();
-                orgSceneY = event.getSceneY();
-            }
-        });
-        imageView.setOnMouseReleased(event ->
-        {
-            if(energyConsumers.get(id) instanceof GasHeating)
-            {
-                double offsetX = event.getSceneX() - orgSceneX;
-                double offsetY = event.getSceneY() - orgSceneY;
-                Object o = event.getSource();
-                ImageView i = (ImageView) o;
-                ((GasHeating) energyConsumers.get(id)).setX(i.getX() + offsetX);
-                ((GasHeating) energyConsumers.get(id)).setY(i.getY() + offsetY);
-            }
-        });
-        return imageView;
-    }
+
 
     public Pane getView()
     {
@@ -75,7 +24,7 @@ public class GasAccordion extends CreateRoom
         Button gasHeater = new Button("Heater");
         gasHeater.setOnMouseClicked(event ->
         {
-            ImageView image = drawHeater();
+            ImageView image = draw.drawGasHeater();
             canvas.getChildren().add(image);
             energyConsumers.add(new GasHeating(true,100,25));
             count++;
