@@ -17,6 +17,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
+
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -26,7 +29,7 @@ import java.sql.*;
 /**
  * Created by daniel on 24/12/2016.
  */
-public class CreateRoom extends Room
+public class CreateRoom extends Room implements Serializable
 {
 
     public Stage window = new Stage();
@@ -73,7 +76,7 @@ public class CreateRoom extends Room
         borderPane.setLeft(accordion);
     }
 
-    public /*static*/ void update()
+    public void update()
     {
         double power,emmisions;
         power = emmisions = 0;
@@ -239,4 +242,62 @@ public class CreateRoom extends Room
             }
         }
     }
+
+    public void reload()
+    {
+        canvas.getChildren().clear();
+        lines.clear();
+        lightPreferences.setVisible(false);
+        heatPreferences.setVisible(false);
+        waterPreferences.setVisible(false);
+        for(int x =0; x<energyConsumers.size();x++)
+        {
+            Object temp = energyConsumers.get(x);
+            ImageView image;
+            if(temp instanceof Light)
+            {
+                image = draw.drawLight();
+                image.setX(((Light) temp).getX());
+                image.setY(((Light) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof ElectricHeating)
+            {
+                image = draw.drawHeater();
+                image.setX(((ElectricHeating) temp).getX());
+                image.setY(((ElectricHeating) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof GasHeating)
+            {
+                image = draw.drawGasHeater();
+                image.setX(((GasHeating) temp).getX());
+                image.setY(((GasHeating) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof Sink)
+            {
+                image = draw.drawTap();
+                image.setX(((Sink) temp).getX());
+                image.setY(((Sink) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof Toilet)
+            {
+                image = draw.drawToilet();
+                image.setX(((Toilet) temp).getX());
+                image.setY(((Toilet) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else
+                System.out.println("Probs worth implementing that" +temp.getClass());
+        }
+        /*for(int y =0;y<pointsX.size()-1;y++)
+        {
+            Line temp = new Line(pointsX.get(y), pointsY.get(y), pointsX.get(y + 1), pointsY.get(y + 1));
+            lines.add(temp);
+            borderPane.getChildren().add(temp);
+        }*/
+    }
+
 }

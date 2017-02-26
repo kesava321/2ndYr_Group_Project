@@ -49,6 +49,7 @@ public class TopBar extends CreateRoom
             try
             {
                 load();
+                reload();
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -75,6 +76,7 @@ public class TopBar extends CreateRoom
         MenuItem deleteRoom = new MenuItem("Delete Room");
         deleteRoom.setOnAction(event ->
         {
+            System.out.println("PLS WORK");
             deleteRoomOutline();
         });
 
@@ -101,14 +103,15 @@ public class TopBar extends CreateRoom
     }
 
      public void deleteRoomOutline(){
-         System.out.print("Hit");
-         borderPane.getChildren().removeAll(lines);
-         borderPane.getChildren().remove(currentClick);
-         while (!pointsX.isEmpty()) {
-             pointsX.removeFirst();
-             pointsY.removeFirst();
-             lines.removeFirst();
-         }
+        if(!pointsX.isEmpty())
+        {
+            borderPane.getChildren().removeAll(lines);
+            borderPane.getChildren().remove(currentClick);
+            pointsX.clear();
+            pointsX.clear();
+            lines.clear();
+        }
+         System.out.println("FINISHED");
      }
 
      public void deleteRoomContents(){

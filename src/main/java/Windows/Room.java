@@ -38,9 +38,9 @@ public class Room
             e.printStackTrace();
         }
 
-        ObjectOutputStream oosEnergyConsumer = new ObjectOutputStream(fosEnergyConsumer);
-        ObjectOutputStream oosPointsX = new ObjectOutputStream(fosPointsX);
-        ObjectOutputStream oopPointsY = new ObjectOutputStream(fosPointsY);
+        ObjectOutput oosEnergyConsumer = new ObjectOutputStream(fosEnergyConsumer);
+        ObjectOutput oosPointsX = new ObjectOutputStream(fosPointsX);
+        ObjectOutput oopPointsY = new ObjectOutputStream(fosPointsY);
 
         oosEnergyConsumer.writeObject(energyConsumers);
         oosPointsX.writeObject(pointsX);
@@ -58,25 +58,26 @@ public class Room
         URL urlPointsY  = this.getClass().getResource("/pointsY.ser");
 
         FileInputStream finEnergyConsumer = new FileInputStream(urlEnergyConsumer.toURI().getPath());
-        FileInputStream finPointsX = new FileInputStream(urlPointsX.toURI().getPath());
-        FileInputStream finPointsY = new FileInputStream(urlPointsY.toURI().getPath());
+        /*FileInputStream finPointsX = new FileInputStream(urlPointsX.toURI().getPath());
+        FileInputStream finPointsY = new FileInputStream(urlPointsY.toURI().getPath());*/
 
         ObjectInputStream oisEnergyConsumer = new ObjectInputStream(finEnergyConsumer);
-        ObjectInputStream oisPointsX = new ObjectInputStream(finPointsX);
-        ObjectInputStream oisPointsY = new ObjectInputStream(finPointsY);
+        /*ObjectInputStream oisPointsX = new ObjectInputStream(finPointsX);
+        ObjectInputStream oisPointsY = new ObjectInputStream(finPointsY);*/
+
 
         energyConsumers.clear();
         energyConsumers = (ArrayList<Object>) oisEnergyConsumer.readObject();
 
-        pointsX.clear();
+       /* pointsX.clear();
         pointsX = (LinkedList<Double>) oisPointsX.readObject();
 
         pointsY.clear();
-        pointsY = (LinkedList<Double>) oisPointsY.readObject();
+        pointsY = (LinkedList<Double>) oisPointsY.readObject();*/
 
         oisEnergyConsumer.close();
-        oisPointsX.close();
-        oisPointsY.close();
+       /* oisPointsX.close();
+        oisPointsY.close();*/
     }
 
 }
