@@ -61,10 +61,11 @@ public class ElectricHeating extends Electricity
      * @param o
      * @throws SQLException
      */
+    /*
     public void InsertElectricHeatingData( Object[] o) throws SQLException {
         ControlSqlite cs = new ControlSqlite();
         cs.InsertData("ENERGYDATA", o);
         cs.DisplayTable("ENERGYDATA");
         System.out.println("Insert successflly");
-    }
+    }*/
 }
