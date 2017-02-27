@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
+
 
 /**
  * Created by daniel on 22/02/2017.
@@ -90,7 +92,8 @@ public class Room
 
     public void generateOccupants(){
         int temp = roomCapacity/activityLevel;
-        setCurrentRoomOccupancy(rand(temp));
+        Random rand = new Random();
+        setCurrentRoomOccupancy(rand.nextInt(temp) + 1);
     }
 
     public int getRoomCapacity(){
