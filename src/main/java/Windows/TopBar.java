@@ -67,6 +67,7 @@ public class TopBar extends CreateRoom
             try
             {
                 save();
+                System.out.println("SAVED YEY");
             } catch (IOException e)
             {
                 e.printStackTrace();
