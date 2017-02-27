@@ -10,13 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.apache.commons.lang3.BooleanUtils;
 
-import static Windows.CreateRoom.currentSelected;
-import static Windows.CreateRoom.update;
-
 /**
  * Created by daniel on 06/02/2017.
  */
-class HeatPreferences
+class HeatPreferences extends CreateRoom
 {
     Label state = new Label("Heater State");
     ComboBox stateCombo = new ComboBox();
@@ -36,7 +33,7 @@ class HeatPreferences
     {
         stateCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if(tempObject instanceof ElectricHeating)
             {
                 ((ElectricHeating) tempObject).setState(BooleanUtils.toBoolean(stateCombo.getSelectionModel().getSelectedIndex()));
@@ -50,7 +47,7 @@ class HeatPreferences
         });
         powerRatingField.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 powerRatingField.getStyleClass().add("error");
             else
@@ -70,7 +67,7 @@ class HeatPreferences
         });
         tempField.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            Object tempObject = CreateRoom.energyConsumers.get(currentSelected);
+            Object tempObject = energyConsumers.get(currentSelected);
             if (!Validation.Validate.vDouble(newValue))
                 tempField.getStyleClass().add("error");
             else

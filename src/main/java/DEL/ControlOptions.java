@@ -1,7 +1,5 @@
 package DEL;
 
-import DEL.ScreenViewController;
-import DEL.ScreensController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,7 +31,7 @@ public class ControlOptions implements ScreenViewController
     {
         try
         {
-            root = FXMLLoader.load(getClass().getResource("/ControlOptions.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/DEL/ControlOptions.fxml"));
         } catch (IOException e)
         {
             e.printStackTrace();

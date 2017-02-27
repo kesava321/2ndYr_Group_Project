@@ -17,6 +17,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
+
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -26,13 +29,12 @@ import java.sql.*;
 /**
  * Created by daniel on 24/12/2016.
  */
-public class CreateRoom
+public class CreateRoom extends Room implements Serializable
 {
 
-    private Stage window = new Stage();
-    public static ArrayList<Object> energyConsumers = new ArrayList<>();
+    public Stage window = new Stage();
     public static Boolean penState = false;
-    static BorderPane borderPane = new BorderPane();
+    public BorderPane borderPane = new BorderPane();
     Scene scene = new Scene(borderPane,800,600);
 
     private Pane prefPane = new Pane();
@@ -42,17 +44,17 @@ public class CreateRoom
     public static Label infoLabel = new Label();
     public static Label distance = new Label();
     private Pane infoPane = new Pane();
-    static LightPreferences lightPreferences = new LightPreferences();
-    static HeatPreferences heatPreferences = new HeatPreferences();
-    static WaterPreferences waterPreferences = new WaterPreferences();
-    static double orgSceneX, orgSceneY;
+    public static LightPreferences lightPreferences = new LightPreferences();
+    public static HeatPreferences heatPreferences = new HeatPreferences();
+    public static WaterPreferences waterPreferences = new WaterPreferences();
+    public static double orgSceneX, orgSceneY;
     private static DecimalFormat df2 = new DecimalFormat("####0.##");
-
+    public static DrawAppliance draw = new DrawAppliance();
     //Room coords
-    static LinkedList<Double> pointsX = new LinkedList<Double>();
-    static LinkedList<Double> pointsY = new LinkedList<Double>();
-    static LinkedList<Line> lines = new LinkedList<Line>();
-    static Circle currentClick = new Circle();
+    public static LinkedList<Line> lines = new LinkedList<Line>();
+
+
+    public static Circle currentClick = new Circle();
     public static Line mouseLine = new Line();
 
     private void build()
@@ -74,7 +76,7 @@ public class CreateRoom
         borderPane.setLeft(accordion);
     }
 
-    public static void update()
+    public void update()
     {
         double power,emmisions;
         power = emmisions = 0;
@@ -210,6 +212,22 @@ public class CreateRoom
         return distance;
     }
 
+    private double trackArea(){
+        double area = 0;
+        double RS = 0; // refers to right side of multiplication e.g. (x0*y1)+(x1*y2)+(x2*y3)...
+        double LS = 0; // refers to left side of multiplication e.g. (y0*x1)+(y1*x2)+(y2*x3)...
+        for (int i = 0; i < pointsX.size()-2; i++) { // ignores last set of coordinates assumes last point is equal to first
+            RS = RS + (pointsX.get(i) * pointsY.get(i+1));
+            LS = LS + (pointsY.get(i) * pointsX.get(i+1));
+        }
+        RS = RS + (pointsX.get(pointsX.size()-2)) * pointsY.getFirst();
+        LS = LS + (pointsY.get(pointsY.size()-2)) * pointsX.getFirst();
+        area = (RS - LS)/2;
+        System.out.println("area = " + area);
+        return area;
+    }
+
+
     public void drawLine(){
         System.out.println(penState);
         if (pointsX.size()<1){
@@ -223,6 +241,63 @@ public class CreateRoom
                 borderPane.getChildren().add(temp);
             }
         }
+    }
+
+    public void reload()
+    {
+        canvas.getChildren().clear();
+        lines.clear();
+        lightPreferences.setVisible(false);
+        heatPreferences.setVisible(false);
+        waterPreferences.setVisible(false);
+        for(int x =0; x<energyConsumers.size();x++)
+        {
+            Object temp = energyConsumers.get(x);
+            ImageView image;
+            if(temp instanceof Light)
+            {
+                image = draw.drawLight();
+                image.setX(((Light) temp).getX());
+                image.setY(((Light) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof ElectricHeating)
+            {
+                image = draw.drawHeater();
+                image.setX(((ElectricHeating) temp).getX());
+                image.setY(((ElectricHeating) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof GasHeating)
+            {
+                image = draw.drawGasHeater();
+                image.setX(((GasHeating) temp).getX());
+                image.setY(((GasHeating) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof Sink)
+            {
+                image = draw.drawTap();
+                image.setX(((Sink) temp).getX());
+                image.setY(((Sink) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else if(temp instanceof Toilet)
+            {
+                image = draw.drawToilet();
+                image.setX(((Toilet) temp).getX());
+                image.setY(((Toilet) temp).getY());
+                canvas.getChildren().add(image);
+            }
+            else
+                System.out.println("Probs worth implementing that" +temp.getClass());
+        }
+        /*for(int y =0;y<pointsX.size()-1;y++)
+        {
+            Line temp = new Line(pointsX.get(y), pointsY.get(y), pointsX.get(y + 1), pointsY.get(y + 1));
+            lines.add(temp);
+            borderPane.getChildren().add(temp);
+        }*/
     }
 
 }

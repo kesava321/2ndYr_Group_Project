@@ -15,7 +15,7 @@ public interface DatabaseExecutable {
      * primarily used on DataInput
      * @param tableName
      */
-    public void InsertData(String tableName, Object[] dataSet) throws SQLException;
+    public void InsertData(String tableName, Object[] dataSet);
 
     /**
      * update data in tableName
@@ -28,5 +28,5 @@ public interface DatabaseExecutable {
      * Display all the records in tableName
      * @param tableName
      */
-    public void DisplayTable(String tableName) throws SQLException;
+    public void DisplayTable();
 }

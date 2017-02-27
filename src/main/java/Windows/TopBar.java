@@ -3,11 +3,15 @@ package Windows;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static Windows.CreateRoom.*;
 /**
  * Created by daniel on 21/02/2017.
  */
-public class TopBar
+public class TopBar extends CreateRoom
 {
     private MenuBar menuBar = new MenuBar();
 
@@ -36,37 +40,86 @@ public class TopBar
         Menu help = new Menu("Help");
 
         MenuItem openFile = new MenuItem("Open File");
+        MenuItem saveFile = new MenuItem("Save");
         MenuItem exitApp = new MenuItem("Exit");
-        file.getItems().addAll(openFile,exitApp);
+        file.getItems().addAll(openFile,saveFile,exitApp);
+
+        openFile.setOnAction(event ->
+        {
+            try
+            {
+                load();
+                reload();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            } catch (URISyntaxException e)
+            {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+        });
+
+        saveFile.setOnAction(event ->
+        {
+            try
+            {
+                save();
+                System.out.println("SAVED YEY");
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        });
 
         MenuItem deleteRoom = new MenuItem("Delete Room");
         deleteRoom.setOnAction(event ->
         {
-            System.out.print("Hit");
-            borderPane.getChildren().removeAll(lines);
-            borderPane.getChildren().remove(currentClick);
-            while (!pointsX.isEmpty()) {
-                pointsX.removeFirst();
-                pointsY.removeFirst();
-                lines.removeFirst();
-            }
+            System.out.println("PLS WORK");
+            deleteRoomOutline();
         });
 
 
         MenuItem deleteItems = new MenuItem("Delete Items");
         deleteItems.setOnAction(event ->
         {
-            canvas.getChildren().clear();
-            energyConsumers.clear();
-            currentSelected = 0;
-            count = 0;
+            deleteRoomContents();
         });
 
-        edit.getItems().addAll(deleteRoom, deleteItems);
+        MenuItem deleteAll = new MenuItem("Delete Room and Items");
+        deleteAll.setOnAction(event ->
+        {
+            deleteRoomOutline();
+            deleteRoomContents();
+        });
+
+        edit.getItems().addAll(deleteRoom, deleteItems, deleteAll);
 
         menuBar.getMenus().addAll(file, edit, help);
         toolbar.getItems().addAll(mouse,pen);
         topContainer.getChildren().addAll(menuBar,toolbar);
         return topContainer;
     }
+
+     public void deleteRoomOutline(){
+        if(!pointsX.isEmpty())
+        {
+            borderPane.getChildren().removeAll(lines);
+            borderPane.getChildren().remove(currentClick);
+            pointsX.clear();
+            pointsX.clear();
+            lines.clear();
+        }
+         System.out.println("FINISHED");
+     }
+
+     public void deleteRoomContents(){
+         canvas.getChildren().clear();
+         energyConsumers.clear();
+         currentSelected = 0;
+         count = 0;
+     }
+
 }
