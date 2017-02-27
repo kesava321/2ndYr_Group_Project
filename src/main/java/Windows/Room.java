@@ -14,9 +14,9 @@ import java.util.LinkedList;
  */
 public class Room
 {
-    public static int HIGH = 3;
+    public static int HIGH = 1;
     public static int MEDIUM = 2;
-    public static int LOW = 1;
+    public static int LOW = 3;
 
     private int roomCapacity = 100; //DEFAULT
     private int currentRoomOccupancy = 50; //DEFAULT
@@ -89,7 +89,8 @@ public class Room
     }
 
     public void generateOccupants(){
-
+        int temp = roomCapacity/activityLevel;
+        setCurrentRoomOccupancy(rand(temp));
     }
 
     public int getRoomCapacity(){
@@ -105,7 +106,15 @@ public class Room
     }
 
     public void setRoomCapacity(int x){
-        roomCapacity = x;   
+        roomCapacity = x;
     }
 
+    public void setActivityLevel(int x){
+        if (x>3|| x<0) {
+            activityLevel = x;
+        }
+        else{
+            activityLevel = MEDIUM;
+        }
+    }
 }
