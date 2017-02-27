@@ -14,6 +14,14 @@ import java.util.LinkedList;
  */
 public class Room
 {
+    public static int HIGH = 3;
+    public static int MEDIUM = 2;
+    public static int LOW = 1;
+
+    private int roomCapacity = 100; //DEFAULT
+    private int currentRoomOccupancy = 50; //DEFAULT
+    private int activityLevel = MEDIUM; //DEFAULT
+
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
     public static LinkedList<Double> pointsX = new LinkedList<Double>();
@@ -78,6 +86,26 @@ public class Room
         oisEnergyConsumer.close();
        /* oisPointsX.close();
         oisPointsY.close();*/
+    }
+
+    public void generateOccupants(){
+
+    }
+
+    public int getRoomCapacity(){
+        return roomCapacity;
+    }
+
+    public int getCurrentRoomOccupancy(){
+        return currentRoomOccupancy;
+    }
+
+    public void setCurrentRoomOccupancy(int x){
+        currentRoomOccupancy = x;
+    }
+
+    public void setRoomCapacity(int x){
+        roomCapacity = x;   
     }
 
 }
