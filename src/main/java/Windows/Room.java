@@ -30,8 +30,8 @@ public class Room
 
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
-    public static LinkedList<Double> pointsX = new LinkedList<Double>();
-    public static LinkedList<Double> pointsY = new LinkedList<Double>();
+    public static LinkedList<Double> pointsX = new LinkedList<>();
+    public static LinkedList<Double> pointsY = new LinkedList<>();
 
     public void save()throws IOException
     {
@@ -98,7 +98,6 @@ public class Room
     {
         System.out.println(room);
         rooms.set(currentRoom,energyConsumers);
-        //energyConsumers.clear();
         energyConsumers = (ArrayList<Object>)rooms.get(room);
         currentRoom = room;
     }

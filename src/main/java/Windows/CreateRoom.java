@@ -246,7 +246,9 @@ public class CreateRoom extends Room implements Serializable
 
     public void reload()
     {
+        count = 0;
         canvas.getChildren().clear();
+        System.out.println(canvas.getChildren().size());
         lines.clear();
         lightPreferences.setVisible(false);
         heatPreferences.setVisible(false);
@@ -292,6 +294,7 @@ public class CreateRoom extends Room implements Serializable
             }
             else
                 System.out.println("Probs worth implementing that" +temp.getClass());
+            count++;
         }
         /*for(int y =0;y<pointsX.size()-1;y++)
         {

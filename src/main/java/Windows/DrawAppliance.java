@@ -179,6 +179,7 @@ public class DrawAppliance extends CreateRoom
             lightPreferences.setVisible(true);
             waterPreferences.setVisible(false);
             currentSelected = id;
+            System.out.println(id);
             Object temp = energyConsumers.get(id);
             if(temp instanceof Light)
             {
@@ -244,7 +245,7 @@ public class DrawAppliance extends CreateRoom
                 orgSceneY = event.getSceneY();
             }
             else
-                System.out.println("insert profanity here");
+                System.out.println("insert profanity here " + id + " " + temp.getClass());
         });
         imageView.setOnMouseDragged(event ->
         {
