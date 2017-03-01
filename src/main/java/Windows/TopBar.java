@@ -29,13 +29,13 @@ public class TopBar extends CreateRoom
         mouse.setOnMouseClicked(e ->
         {
             penState = false;
-            borderPane.getChildren().removeAll(mouseLine);
+            canvas.getChildren().removeAll(mouseLine);
             distance.setVisible(false);
             infoLabel.setVisible(true);
         });
         pen.setOnMouseClicked(e ->{
             penState = true;
-            borderPane.getChildren().add(mouseLine);
+            canvas.getChildren().add(mouseLine);
             distance.setVisible(true);
             infoLabel.setVisible(false);
         });
@@ -142,8 +142,8 @@ public class TopBar extends CreateRoom
     public void deleteRoomOutline(){
         if(!pointsX.isEmpty())
         {
-            borderPane.getChildren().removeAll(lines);
-            borderPane.getChildren().remove(currentClick);
+            canvas.getChildren().removeAll(lines);
+            canvas.getChildren().remove(currentClick);
             pointsX.clear();
             pointsX.clear();
             lines.clear();

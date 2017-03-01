@@ -28,7 +28,7 @@ public class Room
 
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
-    private static ArrayList[][] points = new ArrayList[2][];
+    private static ArrayList<LinkedList<Double>[]> points = new ArrayList<>();
     public static LinkedList<Double> pointsX = new LinkedList<>();
     public static LinkedList<Double> pointsY = new LinkedList<>();
 
@@ -87,8 +87,6 @@ public class Room
         rooms.clear();
         rooms = (ArrayList<Object>) oisEnergyConsumer.readObject();
         energyConsumers = (ArrayList<Object>)rooms.get(0);
-        /*energyConsumers.clear();
-        energyConsumers = (ArrayList<Object>) oisEnergyConsumer.readObject();*/
 
        /* pointsX.clear();
         pointsX = (LinkedList<Double>) oisPointsX.readObject();
@@ -103,6 +101,8 @@ public class Room
 
     public void setRoom(int room)
     {
+        pointsX = points.get(room)[0];
+        pointsY = points.get(room)[1];
         rooms.set(currentRoom,energyConsumers);
         energyConsumers = (ArrayList<Object>)rooms.get(room);
         currentRoom = room;
@@ -110,8 +110,10 @@ public class Room
 
     public void addRoom()
     {
-        LinkedList<Double> tempx = new LinkedList<>();
-        LinkedList<Double> tempy = new LinkedList<>();
+        LinkedList<Double> temp[] = new LinkedList[2];
+        temp[0] = pointsX;
+        temp[1] = pointsY;
+        points.add(temp);
         rooms.add(new ArrayList<>());
         roomCount++;
         rooms.set(currentRoom,energyConsumers);
