@@ -1,8 +1,5 @@
 package Windows;
 
-import energyConsumers.Light;
-import javafx.scene.shape.Line;
-
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -12,7 +9,7 @@ import java.util.*;
 /**
  * Created by daniel on 22/02/2017.
  */
-public class Room
+public class Room implements Serializable
 {
     public static int HIGH = 1;
     public static int MEDIUM = 2;
@@ -36,71 +33,61 @@ public class Room
     public void save()throws IOException
     {
         URL urlEnergyConsumer  = this.getClass().getResource("/energyConsumers.ser");
-        URL urlPointsX  = this.getClass().getResource("/pointsX.ser");
-        URL urlPointsY  = this.getClass().getResource("/pointsY.ser");
+        URL urlPoints  = this.getClass().getResource("/points.ser");
 
         FileOutputStream fosEnergyConsumer = null;
-        FileOutputStream fosPointsX = null;
-        FileOutputStream fosPointsY = null;
+        FileOutputStream fosPoints = null;
         try
         {
             fosEnergyConsumer = new FileOutputStream(urlEnergyConsumer.toURI().getPath());
-            fosPointsX = new FileOutputStream(urlPointsX.toURI().getPath());
-            fosPointsY = new FileOutputStream(urlPointsY.toURI().getPath());
+            fosPoints = new FileOutputStream(urlPoints.toURI().getPath());
         } catch (URISyntaxException e)
         {
             e.printStackTrace();
         }
 
         ObjectOutput oosEnergyConsumer = new ObjectOutputStream(fosEnergyConsumer);
-        ObjectOutput oosPointsX = new ObjectOutputStream(fosPointsX);
-        ObjectOutput oopPointsY = new ObjectOutputStream(fosPointsY);
+        ObjectOutput oosPoints = new ObjectOutputStream(fosPoints);
 
-
+        //saves current room
         rooms.set(currentRoom,energyConsumers);
-
-
+        savePoints();t
         oosEnergyConsumer.writeObject(rooms);
-        oosPointsX.writeObject(pointsX);
-        oopPointsY.writeObject(pointsY);
+        oosPoints.writeObject(points);
 
         oosEnergyConsumer.close();
-        oosPointsX.close();
-        oopPointsY.close();
+        oosPoints.close();
     }
 
     public void load() throws IOException, URISyntaxException, ClassNotFoundException
     {
         URL urlEnergyConsumer  = this.getClass().getResource("/energyConsumers.ser");
-        URL urlPointsX  = this.getClass().getResource("/pointsX.ser");
-        URL urlPointsY  = this.getClass().getResource("/pointsY.ser");
+        URL urlPoints  = this.getClass().getResource("/points.ser");
 
         FileInputStream finEnergyConsumer = new FileInputStream(urlEnergyConsumer.toURI().getPath());
-        /*FileInputStream finPointsX = new FileInputStream(urlPointsX.toURI().getPath());
-        FileInputStream finPointsY = new FileInputStream(urlPointsY.toURI().getPath());*/
+        FileInputStream finPoints = new FileInputStream(urlPoints.toURI().getPath());
 
         ObjectInputStream oisEnergyConsumer = new ObjectInputStream(finEnergyConsumer);
-        /*ObjectInputStream oisPointsX = new ObjectInputStream(finPointsX);
-        ObjectInputStream oisPointsY = new ObjectInputStream(finPointsY);*/
+        ObjectInputStream oisPoints = new ObjectInputStream(finPoints);
 
         energyConsumers.clear();
         rooms.clear();
         rooms = (ArrayList<Object>) oisEnergyConsumer.readObject();
         energyConsumers = (ArrayList<Object>)rooms.get(0);
+        points.clear();
+        points = (ArrayList<LinkedList<Double>[]>)oisPoints.readObject();
+        pointsX = points.get(0)[0];
+        pointsY = points.get(0)[1];
 
-       /* pointsX.clear();
-        pointsX = (LinkedList<Double>) oisPointsX.readObject();
 
-        pointsY.clear();
-        pointsY = (LinkedList<Double>) oisPointsY.readObject();*/
 
         oisEnergyConsumer.close();
-       /* oisPointsX.close();
-        oisPointsY.close();*/
+        oisPoints.close();
     }
 
     public void setRoom(int room)
     {
+        savePoints();
         pointsX = points.get(room)[0];
         pointsY = points.get(room)[1];
         rooms.set(currentRoom,energyConsumers);
@@ -110,21 +97,29 @@ public class Room
 
     public void addRoom()
     {
-        LinkedList<Double> temp[] = new LinkedList[2];
-        temp[0] = pointsX;
-        temp[1] = pointsY;
-        points.add(temp);
+        points.add(new LinkedList[2]);
         rooms.add(new ArrayList<>());
         roomCount++;
         rooms.set(currentRoom,energyConsumers);
+        savePoints();
         currentRoom = roomCount-1;
         energyConsumers = new ArrayList<>();
+        pointsX = new LinkedList<>();
+        pointsY = new LinkedList<>();
     }
 
     public void generateOccupants(){
         int temp = roomCapacity/activityLevel;
         Random rand = new Random();
         setCurrentRoomOccupancy(rand.nextInt(temp) + 1);
+    }
+
+    private void savePoints()
+    {
+        LinkedList<Double> temp[] = new LinkedList[2];
+        temp[0] = pointsX;
+        temp[1] = pointsY;
+        points.set(currentRoom,temp);
     }
 
     public int getRoomCapacity(){
