@@ -6,9 +6,7 @@ import javafx.scene.shape.Line;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 
 /**
@@ -30,8 +28,10 @@ public class Room
 
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
+    private static ArrayList[][] points = new ArrayList[2][];
     public static LinkedList<Double> pointsX = new LinkedList<>();
     public static LinkedList<Double> pointsY = new LinkedList<>();
+
 
     public void save()throws IOException
     {
@@ -96,7 +96,6 @@ public class Room
 
     public void setRoom(int room)
     {
-        System.out.println(room);
         rooms.set(currentRoom,energyConsumers);
         energyConsumers = (ArrayList<Object>)rooms.get(room);
         currentRoom = room;
@@ -104,6 +103,8 @@ public class Room
 
     public void addRoom()
     {
+        LinkedList<Double> tempx = new LinkedList<>();
+        LinkedList<Double> tempy = new LinkedList<>();
         rooms.add(new ArrayList<>());
         roomCount++;
         rooms.set(currentRoom,energyConsumers);

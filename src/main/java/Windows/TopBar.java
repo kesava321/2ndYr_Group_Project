@@ -49,7 +49,7 @@ public class TopBar extends CreateRoom
 
         for(int x =0 ;x<roomCount;x++)
         {
-            MenuItem temp = new MenuItem("Room " + x+1);
+            MenuItem temp = new MenuItem("Room " + (x+1));
             int finalX = x;
             temp.setOnAction(event ->{
                 setRoom(finalX);
@@ -130,7 +130,7 @@ public class TopBar extends CreateRoom
 
     private void updateRooms()
     {
-        MenuItem temp = new MenuItem("Room " + roomCount+1);
+        MenuItem temp = new MenuItem("Room " + roomCount);
         temp.setOnAction(event ->{
             setRoom(roomCount-1);
             reload();
