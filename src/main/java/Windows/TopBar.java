@@ -6,6 +6,7 @@ import javafx.scene.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import static Windows.CreateRoom.*;
 /**
@@ -18,6 +19,9 @@ public class TopBar extends CreateRoom
     private ToolBar toolbar = new ToolBar();
     private Button mouse = new Button("Mouse");
     private Button pen = new Button("Pen");
+
+    private Menu rooms = new Menu("Rooms");
+    private ArrayList<MenuItem> roomItems = new ArrayList<>();
 
     public VBox build()
     {
@@ -37,12 +41,33 @@ public class TopBar extends CreateRoom
         });
         Menu file = new Menu("File");
         Menu edit = new Menu("Edit");
-        Menu help = new Menu("Help");
 
         MenuItem openFile = new MenuItem("Open File");
         MenuItem saveFile = new MenuItem("Save");
         MenuItem exitApp = new MenuItem("Exit");
-        file.getItems().addAll(openFile,saveFile,exitApp);
+        MenuItem addRoom = new MenuItem("Add Room");
+
+        for(int x =0 ;x<roomCount;x++)
+        {
+            MenuItem temp = new MenuItem("Room " + (x+1));
+            int finalX = x;
+            temp.setOnAction(event ->{
+                setRoom(finalX);
+                reload();
+            });
+            roomItems.add(temp);
+            rooms.getItems().add(roomItems.get(x));
+        }
+
+        file.getItems().addAll(openFile,saveFile,exitApp,addRoom);
+
+        addRoom.setOnAction(event ->
+        {
+            addRoom();
+            reload();
+            updateRooms();
+        });
+
 
         openFile.setOnAction(event ->
         {
@@ -97,13 +122,24 @@ public class TopBar extends CreateRoom
 
         edit.getItems().addAll(deleteRoom, deleteItems, deleteAll);
 
-        menuBar.getMenus().addAll(file, edit, help);
+        menuBar.getMenus().addAll(file, edit, rooms);
         toolbar.getItems().addAll(mouse,pen);
         topContainer.getChildren().addAll(menuBar,toolbar);
         return topContainer;
     }
 
-     public void deleteRoomOutline(){
+    private void updateRooms()
+    {
+        MenuItem temp = new MenuItem("Room " + roomCount);
+        temp.setOnAction(event ->{
+            setRoom(roomCount-1);
+            reload();
+        });
+        roomItems.add(temp);
+        rooms.getItems().add(roomItems.get(roomCount-1));
+    }
+
+    public void deleteRoomOutline(){
         if(!pointsX.isEmpty())
         {
             borderPane.getChildren().removeAll(lines);

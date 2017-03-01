@@ -6,9 +6,7 @@ import javafx.scene.shape.Line;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 
 /**
@@ -24,10 +22,16 @@ public class Room
     private int currentRoomOccupancy = 50; //DEFAULT
     private int activityLevel = MEDIUM; //DEFAULT
 
+    public static int currentRoom = 0;
+    public static int roomCount = 0;
+    private static ArrayList<Object> rooms = new ArrayList<>();
+
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
-    public static LinkedList<Double> pointsX = new LinkedList<Double>();
-    public static LinkedList<Double> pointsY = new LinkedList<Double>();
+    private static ArrayList[][] points = new ArrayList[2][];
+    public static LinkedList<Double> pointsX = new LinkedList<>();
+    public static LinkedList<Double> pointsY = new LinkedList<>();
+
 
     public void save()throws IOException
     {
@@ -52,7 +56,11 @@ public class Room
         ObjectOutput oosPointsX = new ObjectOutputStream(fosPointsX);
         ObjectOutput oopPointsY = new ObjectOutputStream(fosPointsY);
 
-        oosEnergyConsumer.writeObject(energyConsumers);
+
+        rooms.set(currentRoom,energyConsumers);
+
+
+        oosEnergyConsumer.writeObject(rooms);
         oosPointsX.writeObject(pointsX);
         oopPointsY.writeObject(pointsY);
 
@@ -75,9 +83,12 @@ public class Room
         /*ObjectInputStream oisPointsX = new ObjectInputStream(finPointsX);
         ObjectInputStream oisPointsY = new ObjectInputStream(finPointsY);*/
 
-
         energyConsumers.clear();
-        energyConsumers = (ArrayList<Object>) oisEnergyConsumer.readObject();
+        rooms.clear();
+        rooms = (ArrayList<Object>) oisEnergyConsumer.readObject();
+        energyConsumers = (ArrayList<Object>)rooms.get(0);
+        /*energyConsumers.clear();
+        energyConsumers = (ArrayList<Object>) oisEnergyConsumer.readObject();*/
 
        /* pointsX.clear();
         pointsX = (LinkedList<Double>) oisPointsX.readObject();
@@ -88,6 +99,24 @@ public class Room
         oisEnergyConsumer.close();
        /* oisPointsX.close();
         oisPointsY.close();*/
+    }
+
+    public void setRoom(int room)
+    {
+        rooms.set(currentRoom,energyConsumers);
+        energyConsumers = (ArrayList<Object>)rooms.get(room);
+        currentRoom = room;
+    }
+
+    public void addRoom()
+    {
+        LinkedList<Double> tempx = new LinkedList<>();
+        LinkedList<Double> tempy = new LinkedList<>();
+        rooms.add(new ArrayList<>());
+        roomCount++;
+        rooms.set(currentRoom,energyConsumers);
+        currentRoom = roomCount-1;
+        energyConsumers = new ArrayList<>();
     }
 
     public void generateOccupants(){

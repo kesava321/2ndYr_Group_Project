@@ -135,6 +135,7 @@ public class CreateRoom extends Room implements Serializable
 
     public void start() throws Exception
     {
+        addRoom();
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
@@ -245,12 +246,14 @@ public class CreateRoom extends Room implements Serializable
 
     public void reload()
     {
+        count = 0;
         canvas.getChildren().clear();
+        System.out.println(canvas.getChildren().size());
         lines.clear();
         lightPreferences.setVisible(false);
         heatPreferences.setVisible(false);
         waterPreferences.setVisible(false);
-        for(int x =0; x<energyConsumers.size();x++)
+        for(int x  =0; x<energyConsumers.size();x++)
         {
             Object temp = energyConsumers.get(x);
             ImageView image;
@@ -291,6 +294,7 @@ public class CreateRoom extends Room implements Serializable
             }
             else
                 System.out.println("Probs worth implementing that" +temp.getClass());
+            count++;
         }
         /*for(int y =0;y<pointsX.size()-1;y++)
         {
