@@ -24,6 +24,10 @@ public class Room
     private int currentRoomOccupancy = 50; //DEFAULT
     private int activityLevel = MEDIUM; //DEFAULT
 
+    public static int currentRoom = 0;
+    public static int roomCount = 0;
+    private static ArrayList<Object> rooms = new ArrayList<>();
+
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
     public static LinkedList<Double> pointsX = new LinkedList<Double>();
@@ -88,6 +92,24 @@ public class Room
         oisEnergyConsumer.close();
        /* oisPointsX.close();
         oisPointsY.close();*/
+    }
+
+    public void setRoom(int room)
+    {
+        System.out.println(room);
+        rooms.set(currentRoom,energyConsumers);
+        //energyConsumers.clear();
+        energyConsumers = (ArrayList<Object>)rooms.get(room);
+        currentRoom = room;
+    }
+
+    public void addRoom()
+    {
+        rooms.add(new ArrayList<>());
+        roomCount++;
+        rooms.set(currentRoom,energyConsumers);
+        currentRoom = roomCount-1;
+        energyConsumers = new ArrayList<>();
     }
 
     public void generateOccupants(){
