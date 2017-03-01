@@ -56,7 +56,11 @@ public class Room
         ObjectOutput oosPointsX = new ObjectOutputStream(fosPointsX);
         ObjectOutput oopPointsY = new ObjectOutputStream(fosPointsY);
 
-        oosEnergyConsumer.writeObject(energyConsumers);
+
+        rooms.set(currentRoom,energyConsumers);
+
+
+        oosEnergyConsumer.writeObject(rooms);
         oosPointsX.writeObject(pointsX);
         oopPointsY.writeObject(pointsY);
 
@@ -79,9 +83,12 @@ public class Room
         /*ObjectInputStream oisPointsX = new ObjectInputStream(finPointsX);
         ObjectInputStream oisPointsY = new ObjectInputStream(finPointsY);*/
 
-
         energyConsumers.clear();
-        energyConsumers = (ArrayList<Object>) oisEnergyConsumer.readObject();
+        rooms.clear();
+        rooms = (ArrayList<Object>) oisEnergyConsumer.readObject();
+        energyConsumers = (ArrayList<Object>)rooms.get(0);
+        /*energyConsumers.clear();
+        energyConsumers = (ArrayList<Object>) oisEnergyConsumer.readObject();*/
 
        /* pointsX.clear();
         pointsX = (LinkedList<Double>) oisPointsX.readObject();
