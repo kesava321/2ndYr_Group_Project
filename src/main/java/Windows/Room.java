@@ -15,13 +15,17 @@ public class Room implements Serializable
     public static int MEDIUM = 2;
     public static int LOW = 3;
 
-    private int roomCapacity = 100; //DEFAULT
-    private int currentRoomOccupancy = 50; //DEFAULT
-    private int activityLevel = MEDIUM; //DEFAULT
+    class RoomAttributes
+    {
+        int roomCapacity = 100; //DEFAULT
+        int currentRoomOccupancy = 50; //DEFAULT
+        int activityLevel = MEDIUM; //DEFAULT
+    }
 
+    RoomAttributes roomAttributes = new RoomAttributes();
     public static int currentRoom = 0;
     public static int roomCount = 0;
-    private static ArrayList<Object> rooms = new ArrayList<>();
+    private static ArrayList<Object[]> rooms = new ArrayList<>();
 
     public static ArrayList<Object> energyConsumers = new ArrayList<>();
 
@@ -50,7 +54,7 @@ public class Room implements Serializable
         ObjectOutput oosPoints = new ObjectOutputStream(fosPoints);
 
         //saves current room
-        rooms.set(currentRoom,energyConsumers);
+        saveRoom();
         savePoints();
         oosEnergyConsumer.writeObject(rooms);
         oosPoints.writeObject(points);
@@ -72,14 +76,13 @@ public class Room implements Serializable
 
         energyConsumers.clear();
         rooms.clear();
-        rooms = (ArrayList<Object>) oisEnergyConsumer.readObject();
-        energyConsumers = (ArrayList<Object>)rooms.get(0);
+        rooms = (ArrayList<Object[]>) oisEnergyConsumer.readObject();
+        energyConsumers = (ArrayList<Object>)rooms.get(0)[0];
+        roomAttributes = (RoomAttributes)rooms.get(0)[1];
         points.clear();
         points = (ArrayList<LinkedList<Double>[]>)oisPoints.readObject();
         pointsX = points.get(0)[0];
         pointsY = points.get(0)[1];
-
-
 
         oisEnergyConsumer.close();
         oisPoints.close();
@@ -90,28 +93,38 @@ public class Room implements Serializable
         savePoints();
         pointsX = points.get(room)[0];
         pointsY = points.get(room)[1];
-        rooms.set(currentRoom,energyConsumers);
-        energyConsumers = (ArrayList<Object>)rooms.get(room);
+        saveRoom();
+        energyConsumers = (ArrayList<Object>)rooms.get(room)[0];
+        roomAttributes = (RoomAttributes)rooms.get(room)[1];
         currentRoom = room;
     }
 
     public void addRoom()
     {
         points.add(new LinkedList[2]);
-        rooms.add(new ArrayList<>());
+        rooms.add((ArrayList<Object>[]) new ArrayList[2]);
         roomCount++;
-        rooms.set(currentRoom,energyConsumers);
+        saveRoom();
         savePoints();
         currentRoom = roomCount-1;
         energyConsumers = new ArrayList<>();
         pointsX = new LinkedList<>();
         pointsY = new LinkedList<>();
+        roomAttributes = new RoomAttributes();t
     }
 
     public void generateOccupants(){
-        int temp = roomCapacity/activityLevel;
+        int temp = roomAttributes.roomCapacity/roomAttributes.activityLevel;
         Random rand = new Random();
         setCurrentRoomOccupancy(rand.nextInt(temp) + 1);
+    }
+
+    private void saveRoom()
+    {
+        Object[] temp = new Object[2];
+        temp[0] = energyConsumers;
+        temp[1] = roomAttributes;
+        rooms.set(currentRoom,temp);
     }
 
     private void savePoints()
@@ -123,27 +136,27 @@ public class Room implements Serializable
     }
 
     public int getRoomCapacity(){
-        return roomCapacity;
+        return roomAttributes.roomCapacity;
     }
 
     public int getCurrentRoomOccupancy(){
-        return currentRoomOccupancy;
+        return roomAttributes.currentRoomOccupancy;
     }
 
     public void setCurrentRoomOccupancy(int x){
-        currentRoomOccupancy = x;
+        roomAttributes.currentRoomOccupancy = x;
     }
 
     public void setRoomCapacity(int x){
-        roomCapacity = x;
+        roomAttributes.roomCapacity = x;
     }
 
     public void setActivityLevel(int x){
         if (x>3|| x<0) {
-            activityLevel = x;
+            roomAttributes.activityLevel = x;
         }
         else{
-            activityLevel = MEDIUM;
+            roomAttributes.activityLevel = MEDIUM;
         }
     }
 }
