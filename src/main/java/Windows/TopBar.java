@@ -64,6 +64,7 @@ public class TopBar extends CreateRoom
 
         addRoom.setOnAction(event ->
         {
+            resetmouseline();
             addRoom();
             reload();
             updateRooms();

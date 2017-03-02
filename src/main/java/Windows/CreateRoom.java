@@ -307,4 +307,10 @@ public class CreateRoom extends Room implements Serializable
         }*/
     }
 
+    public void resetmouseline() {
+        mouseLine.setStartX(0);
+        mouseLine.setStartY(0);
+        mouseLine.setEndX(0);
+        mouseLine.setEndY(0);
+    }
 }

@@ -165,7 +165,7 @@ public class Room implements Serializable
     }
 
     public void simulateHeating(){
-        
+
     }
 
     public void simulateWeatherInfluence(){
