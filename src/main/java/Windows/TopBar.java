@@ -54,6 +54,7 @@ public class TopBar extends CreateRoom
             temp.setOnAction(event ->{
                 setRoom(finalX);
                 reload();
+                update();
             });
             roomItems.add(temp);
             rooms.getItems().add(roomItems.get(x));
@@ -134,6 +135,7 @@ public class TopBar extends CreateRoom
         temp.setOnAction(event ->{
             setRoom(roomCount-1);
             reload();
+            update();
         });
         roomItems.add(temp);
         rooms.getItems().add(roomItems.get(roomCount-1));

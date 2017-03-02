@@ -51,7 +51,7 @@ public class Room implements Serializable
 
         //saves current room
         rooms.set(currentRoom,energyConsumers);
-        savePoints();t
+        savePoints();
         oosEnergyConsumer.writeObject(rooms);
         oosPoints.writeObject(points);
 
