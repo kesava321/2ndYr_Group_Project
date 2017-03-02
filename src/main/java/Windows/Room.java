@@ -15,11 +15,15 @@ public class Room implements Serializable
     public static int MEDIUM = 2;
     public static int LOW = 3;
 
+    public static double outsideTemperature = 15.0;
     class RoomAttributes
     {
         int roomCapacity = 100; //DEFAULT
         int currentRoomOccupancy = 50; //DEFAULT
         int activityLevel = MEDIUM; //DEFAULT
+
+        double currentTemperature = 25.0; //default
+        double optimalTemperature = 25.0; //default
     }
 
     RoomAttributes roomAttributes = new RoomAttributes();
@@ -110,7 +114,7 @@ public class Room implements Serializable
         energyConsumers = new ArrayList<>();
         pointsX = new LinkedList<>();
         pointsY = new LinkedList<>();
-        roomAttributes = new RoomAttributes();t
+        roomAttributes = new RoomAttributes();
     }
 
     public void generateOccupants(){
@@ -158,5 +162,16 @@ public class Room implements Serializable
         else{
             roomAttributes.activityLevel = MEDIUM;
         }
+    }
+
+    public void simulateHeating(){
+        
+    }
+
+    public void simulateWeatherInfluence(){
+        double differenceInCurrentAndOutside = roomAttributes.currentTemperature - outsideTemperature;
+
+
+
     }
 }
