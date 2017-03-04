@@ -29,17 +29,15 @@ class ElectricAccordion extends CreateRoom
             ImageView image = draw.drawHeater();
             canvas.getChildren().add(image);
             energyConsumers.add(new ElectricHeating(true,1000,25));
-                /*ElectricHeating temp = electricHeatings.get(electricHeatings.size()-1);
-                try {
-                    temp.InsertElectricHeatingData(temp.getAllData());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }*/
-            //System.out.println(electricHeatings.get(heatCount).getUsage());
+
             //insert the data into database
             ControlSqlite cs = new ControlSqlite();
-            Object[] o = {-1, 1000};
-            cs.InsertData("Rating", o);
+            Object[] objectOfTypesTables = {-1, "Electricity"};
+            Object[] objectOfRating = {-1, 1000};
+            Object[] objectOfAppliance = {"ElectricHeating", "src/main/resources/Images/heating.png"};
+            cs.InsertData("Types_Table", objectOfTypesTables);
+            cs.InsertData("Rating", objectOfRating);
+            cs.InsertData("Appliance", objectOfAppliance);
             cs.DisplayTable();
             count++;
         });
