@@ -16,7 +16,7 @@ public class Room implements Serializable
     public static int LOW = 3;
 
     public static double outsideTemperature = 15.0;
-    class RoomAttributes
+    static class RoomAttributes implements Serializable
     {
         int roomCapacity = 100; //DEFAULT
         int currentRoomOccupancy = 50; //DEFAULT
