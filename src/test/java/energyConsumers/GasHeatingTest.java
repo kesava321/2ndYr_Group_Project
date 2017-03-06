@@ -22,17 +22,17 @@ public class GasHeatingTest {
     @Test
     //** A test for checking the constructor with values passed of 20 and 10000 *//*
     public void getTemperatureTestingSetter__Temperature() throws Exception {
-        GasHeating heater = new GasHeating(20, 10000, true);
+        GasHeating heater = new GasHeating(true,20, 10000);
         double x = heater.getTemperature();
-        assertEquals(20, x, 0.0);
+        assertEquals(40, x, 0.0);
     }
 
     @Test
     //** A test for checking the constructor with values passed of 20 and 10000 - POWER RATING *//*
     public void getTemperatureTestingSetter__PowerRating() throws Exception {
-        GasHeating heater = new GasHeating(20, 10000,true);
+        GasHeating heater = new GasHeating(true,20, 10000);
         double x = heater.getUsage();
-        assertEquals(10000, x, 0.0);
+        assertEquals(20, x, 0.0);
     }
 
     @Test
@@ -69,15 +69,14 @@ public class GasHeatingTest {
         double x = heater.getUsage();
         assertEquals(70, x, 0.0);
     }
-
     @Test
     //** testing getter using user defined constructor *//*
     public void getPowerRatingConstrutor() throws Exception {
-        GasHeating heater = new GasHeating(20, 200, true);
+        GasHeating heater = new GasHeating(true,20, 200);
         double x = heater.getUsage();
-        assertEquals(200, x, 0.0);
+        assertEquals(20, x, 0.0);
     }
-
+    
     @Test
     //** sets the power rating to a valid number *//*
     public void setPowerRating__VALID() throws Exception {
