@@ -76,7 +76,7 @@ public class GasHeatingTest {
         double x = heater.getUsage();
         assertEquals(20, x, 0.0);
     }
-    
+
     @Test
     //** sets the power rating to a valid number *//*
     public void setPowerRating__VALID() throws Exception {
