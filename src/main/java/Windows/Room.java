@@ -15,6 +15,8 @@ public class Room implements Serializable
     public static int MEDIUM = 2;
     public static int LOW = 3;
 
+    public static boolean simulate = false;
+
     public static double outsideTemperature = 15.0;
     static class RoomAttributes implements Serializable
     {
@@ -165,7 +167,26 @@ public class Room implements Serializable
     }
 
     public void simulateHeating(){
+        while (simulate=true){
+            if(roomAttributes.currentTemperature> roomAttributes.optimalTemperature+2){
+                //Getting too high/hot
+                //Access heating elements and set them to off/false
+            }
+            else if(roomAttributes.currentTemperature> roomAttributes.optimalTemperature - 2){
+                //Do Nothing - In a good range
+            }
+            else{
+                //Temperature is too low
+                //Access heating elements and set them to on/true
+            }
 
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
     public void simulateWeatherInfluence(){
