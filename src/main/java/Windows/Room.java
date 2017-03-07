@@ -23,6 +23,7 @@ public class Room implements Serializable
         int roomCapacity = 100; //DEFAULT
         int currentRoomOccupancy = 50; //DEFAULT
         int activityLevel = MEDIUM; //DEFAULT
+        int insulationLevel = MEDIUM;
 
         double currentTemperature = 25.0; //default
         double optimalTemperature = 25.0; //default
@@ -192,6 +193,20 @@ public class Room implements Serializable
     public void simulateWeatherInfluence(){
         double differenceInCurrentAndOutside = roomAttributes.currentTemperature - outsideTemperature;
 
+        while(simulate) {
+            if (roomAttributes.currentTemperature < outsideTemperature) {
+                roomAttributes.currentTemperature = roomAttributes.currentTemperature + roomAttributes.insulationLevel;
+            } else {
+                roomAttributes.currentTemperature = roomAttributes.currentTemperature - roomAttributes.insulationLevel;
+            }
+
+            try{
+                Thread.sleep(1000);
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
 
 
     }
