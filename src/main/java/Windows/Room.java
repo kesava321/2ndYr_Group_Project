@@ -9,8 +9,7 @@ import java.util.*;
 /**
  * Created by daniel on 22/02/2017.
  */
-public class Room implements Serializable
-{
+public class Room implements Serializable {
     public static int HIGH = 1;
     public static int MEDIUM = 2;
     public static int LOW = 3;
@@ -18,8 +17,8 @@ public class Room implements Serializable
     public static boolean simulate = false;
 
     public static double outsideTemperature = 15.0;
-    static class RoomAttributes implements Serializable
-    {
+
+    static class RoomAttributes implements Serializable {
         int roomCapacity = 100; //DEFAULT
         int currentRoomOccupancy = 50; //DEFAULT
         int activityLevel = MEDIUM; //DEFAULT
@@ -41,19 +40,16 @@ public class Room implements Serializable
     public static LinkedList<Double> pointsY = new LinkedList<>();
 
 
-    public void save()throws IOException
-    {
-        URL urlEnergyConsumer  = this.getClass().getResource("/energyConsumers.ser");
-        URL urlPoints  = this.getClass().getResource("/points.ser");
+    public void save() throws IOException {
+        URL urlEnergyConsumer = this.getClass().getResource("/energyConsumers.ser");
+        URL urlPoints = this.getClass().getResource("/points.ser");
 
         FileOutputStream fosEnergyConsumer = null;
         FileOutputStream fosPoints = null;
-        try
-        {
+        try {
             fosEnergyConsumer = new FileOutputStream(urlEnergyConsumer.toURI().getPath());
             fosPoints = new FileOutputStream(urlPoints.toURI().getPath());
-        } catch (URISyntaxException e)
-        {
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
@@ -70,10 +66,9 @@ public class Room implements Serializable
         oosPoints.close();
     }
 
-    public void load() throws IOException, URISyntaxException, ClassNotFoundException
-    {
-        URL urlEnergyConsumer  = this.getClass().getResource("/energyConsumers.ser");
-        URL urlPoints  = this.getClass().getResource("/points.ser");
+    public void load() throws IOException, URISyntaxException, ClassNotFoundException {
+        URL urlEnergyConsumer = this.getClass().getResource("/energyConsumers.ser");
+        URL urlPoints = this.getClass().getResource("/points.ser");
 
         FileInputStream finEnergyConsumer = new FileInputStream(urlEnergyConsumer.toURI().getPath());
         FileInputStream finPoints = new FileInputStream(urlPoints.toURI().getPath());
@@ -84,10 +79,10 @@ public class Room implements Serializable
         energyConsumers.clear();
         rooms.clear();
         rooms = (ArrayList<Object[]>) oisEnergyConsumer.readObject();
-        energyConsumers = (ArrayList<Object>)rooms.get(0)[0];
-        roomAttributes = (RoomAttributes)rooms.get(0)[1];
+        energyConsumers = (ArrayList<Object>) rooms.get(0)[0];
+        roomAttributes = (RoomAttributes) rooms.get(0)[1];
         points.clear();
-        points = (ArrayList<LinkedList<Double>[]>)oisPoints.readObject();
+        points = (ArrayList<LinkedList<Double>[]>) oisPoints.readObject();
         pointsX = points.get(0)[0];
         pointsY = points.get(0)[1];
 
@@ -95,119 +90,64 @@ public class Room implements Serializable
         oisPoints.close();
     }
 
-    public void setRoom(int room)
-    {
+    public void setRoom(int room) {
         savePoints();
         pointsX = points.get(room)[0];
         pointsY = points.get(room)[1];
         saveRoom();
-        energyConsumers = (ArrayList<Object>)rooms.get(room)[0];
-        roomAttributes = (RoomAttributes)rooms.get(room)[1];
+        energyConsumers = (ArrayList<Object>) rooms.get(room)[0];
+        roomAttributes = (RoomAttributes) rooms.get(room)[1];
         currentRoom = room;
     }
 
-    public void addRoom()
-    {
+    public void addRoom() {
         points.add(new LinkedList[2]);
         rooms.add((ArrayList<Object>[]) new ArrayList[2]);
         roomCount++;
         saveRoom();
         savePoints();
-        currentRoom = roomCount-1;
+        currentRoom = roomCount - 1;
         energyConsumers = new ArrayList<>();
         pointsX = new LinkedList<>();
         pointsY = new LinkedList<>();
         roomAttributes = new RoomAttributes();
     }
 
-    public void generateOccupants(){
-        int temp = roomAttributes.roomCapacity/roomAttributes.activityLevel;
-        Random rand = new Random();
-        setCurrentRoomOccupancy(rand.nextInt(temp) + 1);
-    }
-
-    private void saveRoom()
-    {
+    private void saveRoom() {
         Object[] temp = new Object[2];
         temp[0] = energyConsumers;
         temp[1] = roomAttributes;
-        rooms.set(currentRoom,temp);
+        rooms.set(currentRoom, temp);
     }
 
-    private void savePoints()
-    {
+    private void savePoints() {
         LinkedList<Double> temp[] = new LinkedList[2];
         temp[0] = pointsX;
         temp[1] = pointsY;
-        points.set(currentRoom,temp);
+        points.set(currentRoom, temp);
     }
 
-    public int getRoomCapacity(){
+    public int getRoomCapacity() {
         return roomAttributes.roomCapacity;
     }
 
-    public int getCurrentRoomOccupancy(){
+    public int getCurrentRoomOccupancy() {
         return roomAttributes.currentRoomOccupancy;
     }
 
-    public void setCurrentRoomOccupancy(int x){
+    public void setCurrentRoomOccupancy(int x) {
         roomAttributes.currentRoomOccupancy = x;
     }
 
-    public void setRoomCapacity(int x){
+    public void setRoomCapacity(int x) {
         roomAttributes.roomCapacity = x;
     }
 
-    public void setActivityLevel(int x){
-        if (x>3|| x<0) {
+    public void setActivityLevel(int x) {
+        if (x <= 3 || x > 0) {
             roomAttributes.activityLevel = x;
-        }
-        else{
+        } else {
             roomAttributes.activityLevel = MEDIUM;
         }
-    }
-
-    public void simulateHeating(){
-        while (simulate=true){
-            if(roomAttributes.currentTemperature> roomAttributes.optimalTemperature+2){
-                //Getting too high/hot
-                //Access heating elements and set them to off/false
-            }
-            else if(roomAttributes.currentTemperature> roomAttributes.optimalTemperature - 2){
-                //Do Nothing - In a good range
-            }
-            else{
-                //Temperature is too low
-                //Access heating elements and set them to on/true
-            }
-
-            try {
-                Thread.sleep(1000);
-            }
-            catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-    }
-
-    public void simulateWeatherInfluence(){
-        double differenceInCurrentAndOutside = roomAttributes.currentTemperature - outsideTemperature;
-
-        while(simulate) {
-            if (roomAttributes.currentTemperature < outsideTemperature) {
-                roomAttributes.currentTemperature = roomAttributes.currentTemperature + roomAttributes.insulationLevel;
-            } else {
-                roomAttributes.currentTemperature = roomAttributes.currentTemperature - roomAttributes.insulationLevel;
-            }
-
-            try{
-                Thread.sleep(1000);
-            }
-            catch(Exception e){
-                System.out.println(e);
-            }
-        }
-
-
     }
 }
