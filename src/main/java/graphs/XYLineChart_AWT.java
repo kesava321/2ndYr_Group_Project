@@ -4,6 +4,8 @@ package graphs;
 //*
 import java.awt.Color;
 import java.awt.BasicStroke;
+import java.util.ArrayList;
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
@@ -16,16 +18,16 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
-class XYLineChart_AWT extends ApplicationFrame
+public class XYLineChart_AWT extends ApplicationFrame
 {
-    public XYLineChart_AWT( String applicationTitle, String chartTitle )
+    public XYLineChart_AWT( String applicationTitle, String chartTitle, ArrayList<Double> elec)
     {
         super(applicationTitle);
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
                 "Time (24HR)" ,
                 "Energy Usage (%)" ,
-                createDataset() ,
+                createDataset(elec) ,
                 PlotOrientation.VERTICAL ,
                 true , true , false);
 
@@ -43,44 +45,15 @@ class XYLineChart_AWT extends ApplicationFrame
         setContentPane( chartPanel );
     }
 
-    private XYDataset createDataset( )
+    public XYDataset createDataset(ArrayList<Double> elec)
     {
         final XYSeries electricity = new XYSeries( "Electricity" );
-        electricity.add( 06.00 , 10.0 );
-        electricity.add( 09.00 , 60.0 );
-        electricity.add( 12.00 , 50.0 );
-        electricity.add( 15.00 , 40.0 );
-        electricity.add( 18.00 , 70.0 );
-        electricity.add( 21.00 , 100.0 );
-        electricity.add( 24.00 , 60.0 );
-        final XYSeries gas = new XYSeries( "Gas" );
-        gas.add( 06.00 , 40.0 );
-        gas.add( 09.00 , 50.0 );
-        gas.add( 12.00 , 70.0 );
-        gas.add( 15.00 , 30.0 );
-        gas.add( 18.00 , 60.0 );
-        gas.add( 21.00 , 90.0 );
-        gas.add( 24.00 , 40.0 );
-        final XYSeries water = new XYSeries( "Water" );
-        water.add( 06.00 , 20.0 );
-        water.add( 09.00 , 50.0 );
-        water.add( 12.00 , 40.0 );
-        water.add( 15.00 , 40.0 );
-        water.add( 18.00 , 50.0 );
-        water.add( 21.00 , 40.0 );
-        water.add( 24.00 , 20.0 );
-        final XYSeriesCollection dataset = new XYSeriesCollection( );
+        for(int x =0;x<elec.size();x++)
+        {
+            electricity.add(x*5,elec.get(x));
+        }
+        final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries( electricity );
-        dataset.addSeries( gas );
-        dataset.addSeries( water );
         return dataset;
-    }
-
-    public static void main( String[ ] args )
-    {
-        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building");
-        chart.pack( );
-        RefineryUtilities.centerFrameOnScreen( chart );
-        chart.setVisible( true );
     }
 }

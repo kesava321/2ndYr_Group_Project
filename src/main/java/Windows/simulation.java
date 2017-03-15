@@ -3,6 +3,8 @@ package Windows;
 import energyConsumers.ElectricHeating;
 import energyConsumers.GasHeating;
 import energyConsumers.Light;
+import graphs.XYLineChart_AWT;
+import org.jfree.ui.RefineryUtilities;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -37,6 +39,10 @@ public class simulation extends Room implements Runnable {
         }
         calcTotals();
         printUsage();
+        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage);
+        chart.pack( );
+        RefineryUtilities.centerFrameOnScreen( chart );
+        chart.setVisible( true );
     }
 
     private void sumCons() {
