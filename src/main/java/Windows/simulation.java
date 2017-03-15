@@ -30,8 +30,8 @@ public class simulation extends Room implements Runnable {
     public void run() {
         timeIntervals = time/5;
         for (int i = 0; i<timeIntervals; i++) {
+            System.out.println(roomAttributes.currentRoomOccupancy);
             generateOccupants();
-            System.out.println(roomAttributes.currentTemperature);
             simulateHeating();
             simulateWeatherInfluence();
             simulateLighting();
@@ -39,7 +39,7 @@ public class simulation extends Room implements Runnable {
         }
         calcTotals();
         printUsage();
-        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage);
+        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage,gasUsage);
         chart.pack( );
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );
@@ -60,7 +60,7 @@ public class simulation extends Room implements Runnable {
             }
         }
         electricityUsage.add(elec);
-        gasUsage.add(elec);
+        gasUsage.add(gas);
     }
 
 
@@ -74,9 +74,16 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof Light) {
                         ((Light) energyConsumers.get(x)).setState(false);
                     }
-                    else{
+                }
+            }
+        }
+        else
+        {
+            for(int x = 0; x<energyConsumers.size();x++)
+            {
+                if (energyConsumers.get(x) != null) {
+                    if (energyConsumers.get(x) instanceof Light) {
                         ((Light) energyConsumers.get(x)).setState(true);
-                        //electricityUsage.add(((Light) energyConsumers.get(x)).getConsumption(5));
                     }
                 }
             }
@@ -90,8 +97,9 @@ public class simulation extends Room implements Runnable {
     public void generateOccupants() {
 
         int temp = roomAttributes.roomCapacity / roomAttributes.activityLevel;
+        System.out.println("|" + temp+ "|");
         Random rand = new Random();
-        setCurrentRoomOccupancy(rand.nextInt(temp) + 1);
+        setCurrentRoomOccupancy(rand.nextInt(temp));
     }
 
     public void simulateHeating() {
