@@ -123,7 +123,16 @@ public class TopBar extends CreateRoom
             deleteRoomContents();
         });
 
-        edit.getItems().addAll(deleteRoom, deleteItems, deleteAll);
+
+        MenuItem attributes = new MenuItem("Room Attributes");
+        attributes.setOnAction(event ->
+        {
+            RoomSettings settings = new RoomSettings();
+            settings.start();
+        });
+
+
+        edit.getItems().addAll(deleteRoom, deleteItems, deleteAll,attributes);
 
         menuBar.getMenus().addAll(file, edit, rooms);
         toolbar.getItems().addAll(mouse,pen);
