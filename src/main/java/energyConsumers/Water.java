@@ -38,7 +38,7 @@ public class Water extends energyConsumers
     @Override
     public double estimatedEmissions(int mins)
     {
-        return ((getUsage()*getUsePerHour())/60)*minsi* waterEmmisions;
+        return ((getUsage()*getUsePerHour())/60)*mins* waterEmmisions;
     }
 
     public int getUsePerHour()

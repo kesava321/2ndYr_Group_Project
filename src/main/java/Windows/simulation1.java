@@ -1,5 +1,8 @@
 package Windows;
 
+import energyConsumers.ElectricHeating;
+import energyConsumers.GasHeating;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
@@ -54,6 +57,20 @@ public class simulation extends Room implements Runnable {
         if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature + 2) {
             //Getting too high/hot
             //Access heating elements and set them to off/false
+            for(int x = 0; x<energyConsumers.size();x++)
+            {
+                if(energyConsumers.get(x)  != null)
+                {
+                    if (energyConsumers.get(x) instanceof ElectricHeating)
+                    {
+                        ((ElectricHeating) energyConsumers.get(x)).setState(false);
+                    }
+                    else if(energyConsumers.get(x) instanceof GasHeating)
+                    {
+                        ((GasHeating) energyConsumers.get(x)).setState(false);
+                    }
+                }
+            }
             roomAttributes.currentTemperature = roomAttributes.currentTemperature +1;
         } else if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature - 2) {
             //Do Nothing - In a good range
@@ -61,6 +78,21 @@ public class simulation extends Room implements Runnable {
         } else {
             //Temperature is too low
             //Access heating elements and set them to on/true
+            for(int x = 0; x<energyConsumers.size();x++)
+            {
+                if (energyConsumers.get(x) != null)
+                {
+                    if (energyConsumers.get(x) instanceof ElectricHeating)
+                    {
+                        ((ElectricHeating) energyConsumers.get(x)).setState(true);
+                        electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getUsage(5));
+                    } else if (energyConsumers.get(x) instanceof GasHeating)
+                    {
+                        ((GasHeating) energyConsumers.get(x)).setState(true);
+                        gasUsage.add(((GasHeating) energyConsumers.get(x)).getUsage(5));
+                    }
+                }
+            }
         }
     }
 
