@@ -1,5 +1,7 @@
 package Windows;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -7,15 +9,19 @@ import java.util.Random;
  */
 public class simulation extends Room implements Runnable {
     private int time;
-    double gasUsage = 0;
+    int timeIntervals = time/5;
+    ArrayList<Double> gasUsage = new ArrayList<Double>();
+    double totalGas = 0;
     double gasCost = 0.16;
-    double electricityUsage = 0;
+    ArrayList<Double> electricityUsage = new ArrayList<Double>();
+    double totalElectricity =0;
     double electricityCost = 0.13;
     double toiletsFlushed = 0;
     double co2Cons = 0;
+
     @Override
     public void run() {
-        int timeIntervals = time/5;
+        timeIntervals = time/5;
         for (int i = 0; i<timeIntervals; i++) {
             generateOccupants();
             simulateHeating();
@@ -77,11 +83,18 @@ public class simulation extends Room implements Runnable {
 
     }
 
+    private void calcTotals(){
+        for (int i =0; i < gasUsage.size(); i++) {
+            totalGas = totalGas + gasUsage.get(i);
+            totalElectricity = totalElectricity + electricityUsage.get(i);
+        }
+    }
+
     private void printUsage(){
-        System.out.printf("Gas used %f", gasUsage);
-        System.out.printf("Gas cost %f", gasUsage*gasCost);
-        System.out.printf("Electricity used %f", electricityUsage);
-        System.out.printf("Electricity Cost %f", electricityUsage*electricityCost);
+        System.out.printf("Gas used %f", totalGas);
+        System.out.printf("Gas cost %f", totalGas*gasCost);
+        System.out.printf("Electricity used %f", totalElectricity);
+        System.out.printf("Electricity Cost %f", totalElectricity*electricityCost);
         System.out.printf("Toilets flushed %f", toiletsFlushed);
         System.out.printf("Co2 Consumption %f", co2Cons);
     }

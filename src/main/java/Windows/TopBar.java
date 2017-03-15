@@ -47,6 +47,7 @@ public class TopBar extends CreateRoom
         MenuItem exitApp = new MenuItem("Exit");
         MenuItem addRoom = new MenuItem("Add Room");
 
+
         for(int x =0 ;x<roomCount;x++)
         {
             MenuItem temp = new MenuItem("Room " + (x+1));
