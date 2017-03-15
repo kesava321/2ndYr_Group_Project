@@ -1,5 +1,7 @@
 package Windows;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -7,17 +9,22 @@ import java.util.Random;
  */
 public class simulation extends Room implements Runnable {
     private int time;
-    double gasUsage = 0;
+    int timeIntervals = time/5;
+    ArrayList<Double> gasUsage = new ArrayList<Double>();
+    double totalGas = 0;
     double gasCost = 0.16;
-    double electricityUsage = 0;
+    ArrayList<Double> electricityUsage = new ArrayList<Double>();
+    double totalElectricity =0;
     double electricityCost = 0.13;
     double toiletsFlushed = 0;
     double co2Cons = 0;
+
     @Override
     public void run() {
-        int timeIntervals = time/5;
+        timeIntervals = time/5;
         for (int i = 0; i<timeIntervals; i++) {
             generateOccupants();
+            System.out.println(roomAttributes.currentTemperature);
             simulateHeating();
             simulateWeatherInfluence();
         }
@@ -36,52 +43,40 @@ public class simulation extends Room implements Runnable {
     }
 
     public void simulateHeating() {
-        while (simulate = true) {
-            if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature + 2) {
-                //Getting too high/hot
-                //Access heating elements and set them to off/false
-                roomAttributes.currentTemperature = roomAttributes.currentTemperature +1;
-                break;
-            } else if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature - 2) {
-                //Do Nothing - In a good range
-                roomAttributes.currentTemperature = roomAttributes.currentTemperature -1;
-            } else {
-                //Temperature is too low
-                //Access heating elements and set them to on/true
-            }
-
-            try {
-            //    Thread.sleep(1000);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+        if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature + 2) {
+            //Getting too high/hot
+            //Access heating elements and set them to off/false
+            roomAttributes.currentTemperature = roomAttributes.currentTemperature +1;
+        } else if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature - 2) {
+            //Do Nothing - In a good range
+            roomAttributes.currentTemperature = roomAttributes.currentTemperature -1;
+        } else {
+            //Temperature is too low
+            //Access heating elements and set them to on/true
         }
     }
 
     public void simulateWeatherInfluence() {
         double differenceInCurrentAndOutside = roomAttributes.currentTemperature - outsideTemperature;
-
-        while (simulate) {
-            if (roomAttributes.currentTemperature < outsideTemperature) {
-                roomAttributes.currentTemperature = roomAttributes.currentTemperature + roomAttributes.insulationLevel;
-            } else {
-                roomAttributes.currentTemperature = roomAttributes.currentTemperature - roomAttributes.insulationLevel;
-            }
-
-            try {
-            //    Thread.sleep(1000);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+        if (roomAttributes.currentTemperature < outsideTemperature) {
+            roomAttributes.currentTemperature = roomAttributes.currentTemperature + roomAttributes.insulationLevel;
+        } else {
+            roomAttributes.currentTemperature = roomAttributes.currentTemperature - roomAttributes.insulationLevel;
         }
+    }
 
+    private void calcTotals(){
+        for (int i =0; i < gasUsage.size(); i++) {
+            totalGas = totalGas + gasUsage.get(i);
+            totalElectricity = totalElectricity + electricityUsage.get(i);
+        }
     }
 
     private void printUsage(){
-        System.out.printf("Gas used %f", gasUsage);
-        System.out.printf("Gas cost %f", gasUsage*gasCost);
-        System.out.printf("Electricity used %f", electricityUsage);
-        System.out.printf("Electricity Cost %f", electricityUsage*electricityCost);
+        System.out.printf("Gas used %f", totalGas);
+        System.out.printf("Gas cost %f", totalGas*gasCost);
+        System.out.printf("Electricity used %f", totalElectricity);
+        System.out.printf("Electricity Cost %f", totalElectricity*electricityCost);
         System.out.printf("Toilets flushed %f", toiletsFlushed);
         System.out.printf("Co2 Consumption %f", co2Cons);
     }
