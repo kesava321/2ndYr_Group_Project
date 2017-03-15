@@ -85,11 +85,11 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof ElectricHeating)
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(true);
-                        electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getUsage(5));
+                        electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getConsumption(5));
                     } else if (energyConsumers.get(x) instanceof GasHeating)
                     {
                         ((GasHeating) energyConsumers.get(x)).setState(true);
-                        gasUsage.add(((GasHeating) energyConsumers.get(x)).getUsage(5));
+                        gasUsage.add(((GasHeating) energyConsumers.get(x)).getConsumption(5));
                     }
                 }
             }
