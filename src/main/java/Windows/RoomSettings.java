@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.BooleanUtils;
 
 /**
  * Created by daniel on 15/03/2017.
@@ -48,6 +47,7 @@ public class RoomSettings extends Room
             roomAttributes.insulationLevel = insulationLevelCombo.getSelectionModel().getSelectedIndex()+1;
             roomAttributes.optimalTemperature = Double.parseDouble(optimalTempField.getText());
             System.out.println(activityLevelCombo.getSelectionModel().getSelectedIndex());
+            simulate(60);
         });
 
         gridPane.setConstraints(roomCapacity,0,0);

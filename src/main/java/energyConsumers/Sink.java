@@ -19,12 +19,6 @@ public class Sink extends Water
         setAvgTimeUsed(avgTimeUsed);
     }
 
-    @Override
-    public double getConsumption(int mins)
-    {
-        return ((getUsage()*getAvgTimeUsed())/60)*mins;
-    }
-
     public double getAvgTimeUsed()
     {
         return avgTimeUsed;
