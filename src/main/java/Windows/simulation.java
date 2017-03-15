@@ -30,8 +30,16 @@ public class simulation extends Room implements Runnable {
             System.out.println(roomAttributes.currentTemperature);
             simulateHeating();
             simulateWeatherInfluence();
+            simulateLighting();
         }
         printUsage();
+    }
+
+    private void simulateLighting() {
+        if (getCurrentRoomOccupancy()==0){
+            //turn lights off
+            
+        }
     }
 
     public simulation(int time) {
