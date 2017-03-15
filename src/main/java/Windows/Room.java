@@ -16,7 +16,7 @@ public class Room implements Serializable {
 
     public static boolean simulate = false;
 
-    public static double outsideTemperature = 15.0;
+    public static double outsideTemperature = 25.0;
 
     static class RoomAttributes implements Serializable {
         int roomCapacity = 100; //DEFAULT
