@@ -127,6 +127,13 @@ public class Room implements Serializable {
         points.set(currentRoom, temp);
     }
 
+    public void simulate(int time){
+        simulation sim = new simulation(time);
+        Thread t = new Thread(sim);
+        t.start();
+    }
+
+
     public int getRoomCapacity() {
         return roomAttributes.roomCapacity;
     }
