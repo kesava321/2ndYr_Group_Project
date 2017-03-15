@@ -2,6 +2,7 @@ package Windows;
 
 import energyConsumers.ElectricHeating;
 import energyConsumers.GasHeating;
+import energyConsumers.Light;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -38,7 +39,19 @@ public class simulation extends Room implements Runnable {
     private void simulateLighting() {
         if (getCurrentRoomOccupancy()==0){
             //turn lights off
-
+            //Access heating elements and set them to on/true
+            for(int x = 0; x<energyConsumers.size();x++)
+            {
+                if (energyConsumers.get(x) != null) {
+                    if (energyConsumers.get(x) instanceof Light) {
+                        ((Light) energyConsumers.get(x)).setState(false);
+                    }
+                    else{
+                        ((Light) energyConsumers.get(x)).setState(true);
+                        //electricityUsage.add(((Light) energyConsumers.get(x)).getConsumption(5));
+                    }
+                }
+            }
         }
     }
 
