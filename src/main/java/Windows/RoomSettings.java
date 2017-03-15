@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.BooleanUtils;
 
 /**
  * Created by daniel on 15/03/2017.
@@ -35,14 +36,18 @@ public class RoomSettings extends Room
         activityLevelCombo.getItems().addAll("High","Medium","Low");
         insulationLevelCombo.getItems().addAll("High","Medium","Low");
 
+        roomCapacityField.setText(Integer.toString(roomAttributes.roomCapacity));
+        activityLevelCombo.getSelectionModel().select(roomAttributes.activityLevel-1);
+        insulationLevelCombo.getSelectionModel().select(roomAttributes.insulationLevel-1);
+        optimalTempField.setText(Double.toString(roomAttributes.optimalTemperature));
 
         go.setOnAction(event ->
         {
             roomAttributes.roomCapacity = Integer.parseInt(roomCapacityField.getText());
-            roomAttributes.activityLevel = Integer.parseInt(activityLevelCombo.getValue().toString());
-            roomAttributes.insulationLevel = Integer.parseInt(insulationLevelCombo.getValue().toString());
+            roomAttributes.activityLevel = activityLevelCombo.getSelectionModel().getSelectedIndex() +1;
+            roomAttributes.insulationLevel = insulationLevelCombo.getSelectionModel().getSelectedIndex()+1;
             roomAttributes.optimalTemperature = Double.parseDouble(optimalTempField.getText());
-            System.out.println(Integer.parseInt(activityLevelCombo.selected);
+            System.out.println(activityLevelCombo.getSelectionModel().getSelectedIndex());
         });
 
         gridPane.setConstraints(roomCapacity,0,0);
