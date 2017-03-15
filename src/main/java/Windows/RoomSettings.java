@@ -1,0 +1,65 @@
+package Windows;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+/**
+ * Created by daniel on 15/03/2017.
+ */
+public class RoomSettings extends Room
+{
+    private Stage window = new Stage();
+    private GridPane gridPane = new GridPane();
+
+    private Label roomCapacity = new Label("Room Capacity");
+    private TextField roomCapacityField = new TextField();
+
+    private Label activityLevel = new Label("Activity Level");
+    private ComboBox activityLevelCombo = new ComboBox();
+
+    private Label insulationLevel = new Label("Insulation Level");
+    private ComboBox insulationLevelCombo = new ComboBox();
+
+    private Label optimalTemp = new Label("Optimal Temp");
+    private TextField optimalTempField = new TextField();
+
+    private Button go = new Button("go");
+
+    public void start()
+    {
+        activityLevelCombo.getItems().addAll("High","Medium","Low");
+        insulationLevelCombo.getItems().addAll("High","Medium","Low");
+
+
+        go.setOnAction(event ->
+        {
+            roomAttributes.roomCapacity = Integer.parseInt(roomCapacityField.getText());
+            roomAttributes.activityLevel = Integer.parseInt(activityLevelCombo.getValue().toString());
+            roomAttributes.insulationLevel = Integer.parseInt(insulationLevelCombo.getValue().toString());
+            roomAttributes.optimalTemperature = Double.parseDouble(optimalTempField.getText());
+            System.out.println(Integer.parseInt(activityLevelCombo.selected);
+        });
+
+        gridPane.setConstraints(roomCapacity,0,0);
+        gridPane.setConstraints(roomCapacityField,1,0);
+        gridPane.setConstraints(activityLevel,0,1);
+        gridPane.setConstraints(activityLevelCombo,1,1);
+        gridPane.setConstraints(insulationLevel,0,2);
+        gridPane.setConstraints(insulationLevelCombo,1,2);
+        gridPane.setConstraints(optimalTemp,0,3);
+        gridPane.setConstraints(optimalTempField,1,3);
+        gridPane.setConstraints(go,1,4);
+        gridPane.getChildren().addAll(roomCapacity,roomCapacityField,activityLevel,activityLevelCombo,
+                insulationLevel,insulationLevelCombo,optimalTemp,optimalTempField,go);
+
+        Scene scene = new Scene(gridPane);
+        window.setScene(scene);
+        window.show();
+
+    }
+}
