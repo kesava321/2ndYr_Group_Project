@@ -35,7 +35,7 @@ public class simulation extends Room implements Runnable {
     private void simulateLighting() {
         if (getCurrentRoomOccupancy()==0){
             //turn lights off
-            
+
         }
     }
 
