@@ -6,9 +6,20 @@ import java.util.Random;
  * Created by Matt on 15-Mar-17.
  */
 public class simulation extends Room implements Runnable {
+    private int time;
+
     @Override
     public void run() {
+        int timeIntervals = time/5;
+        for (int i = 0; i<timeIntervals; i++) {
+            generateOccupants();
+            simulateHeating();
+            simulateWeatherInfluence();
+        }
+    }
 
+    public simulation(int time) {
+        this.time = time;
     }
 
     public void generateOccupants() {
@@ -34,7 +45,7 @@ public class simulation extends Room implements Runnable {
             }
 
             try {
-                Thread.sleep(1000);
+            //    Thread.sleep(1000);
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -52,7 +63,7 @@ public class simulation extends Room implements Runnable {
             }
 
             try {
-                Thread.sleep(1000);
+            //    Thread.sleep(1000);
             } catch (Exception e) {
                 System.out.println(e);
             }
