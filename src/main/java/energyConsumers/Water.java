@@ -5,11 +5,11 @@ package energyConsumers;
  * ensures that WaterState cannot be less than 0 by resetting any
  * WaterState made false.
  */
-public abstract class Water extends energyConsumers
+public class Water extends energyConsumers
 {
     //water usage in L
 
-    private final double waterEmmisions = 0.59; // gram per liter
+    private final double waterEmmisions = 0.0059; // gram per liter
     private int usePerHour;
 
     public Water(){
@@ -24,6 +24,12 @@ public abstract class Water extends energyConsumers
         setUsePerHour(usePerHour);
     }
 
+    @Override
+    public double getConsumption(int mins)
+    {
+        return 0;
+    }
+
     /**
      * estimates emissions of energy consumer using its power consumption and a estimate for water emmisions
      * @param mins
@@ -32,7 +38,7 @@ public abstract class Water extends energyConsumers
     @Override
     public double estimatedEmissions(int mins)
     {
-        return getConsumption(mins)* waterEmmisions;
+        return ((getUsage()*getUsePerHour())/60)*mins* waterEmmisions;
     }
 
     public int getUsePerHour()

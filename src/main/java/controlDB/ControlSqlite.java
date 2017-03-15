@@ -3,6 +3,10 @@ package controlDB;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.File;
 import java.sql.* ;
 
 /**
@@ -64,9 +68,9 @@ public class ControlSqlite implements DatabaseExecutable{
     }
 
     public void InsertData(String tableName, Object[] dataSet) {
-        sql = "INSERT INTO "+ tableName + " VALUES (?,?)";
 
         if (tableName == "Types_Table") {
+            sql = "INSERT INTO "+ tableName + " VALUES (?,?)";
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
                 pstmt.setString(2, (String) dataSet[1]);
                 pstmt.executeUpdate();
@@ -75,17 +79,19 @@ public class ControlSqlite implements DatabaseExecutable{
             }
         }
         else if (tableName == "Rating"){
+            sql = "INSERT INTO "+ tableName + " VALUES (?,?)";
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-                pstmt.setInt(2, (Integer)dataSet[1]);
+                pstmt.setInt(2, (Integer) dataSet[1]);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
         else {
+            sql = "INSERT INTO "+ tableName + " VALUES (?,?,?)";
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-                pstmt.setString(1, (String) dataSet[0]);
-                pstmt.setString(2, (String)dataSet[1]);
+                pstmt.setString(2, (String) dataSet[0]);
+                pstmt.setBytes(3, readFile((String) dataSet[1]));
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -100,20 +106,66 @@ public class ControlSqlite implements DatabaseExecutable{
 
     public void DisplayTable(){
         //ControlSqlite cs = new ControlSqlite();
-        String sql = "SELECT * FROM Rating";
-        System.out.printf("----Database----\n");
-        try (
-             Statement stmt  = c.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-            // loop through the result set
-            while (rs.next()) {
-                System.out.println(
-                        rs.getString("appliance_ID") +  "\t" +
-                        rs.getInt("power_rating") + "\t");
+        for (int i = 0; i < 3; i++) {
+            String tableName = "";
+
+            if (i == 0) tableName = "Types_Table";
+            if (i == 1) tableName = "Rating";
+            if (i == 2) tableName = "Appliance";
+
+            String sql = "SELECT * FROM " + tableName;
+
+            System.out.printf("----Table " + i + "----\n");
+            try (
+                    Statement stmt = c.createStatement();
+                    ResultSet rs = stmt.executeQuery(sql)) {
+                // loop through the result set
+                while (rs.next()) {
+                    if (i == 0) {
+                        System.out.println(
+                                rs.getInt("appliance_ID") + "\t" +
+                                        rs.getString("power_type") + "\t");
+                    }
+
+                    if (i == 1) {
+                        System.out.println(
+                                rs.getInt("appliance_ID") + "\t" +
+                                        rs.getInt("power_rating") + "\t");
+                    }
+
+                    if (i == 2) {
+                        System.out.println(
+                                rs.getInt("appliance_ID") + "\t" +
+                                        rs.getString("name") + "\t");
+                    }
+                }
+                System.out.printf("----End Of Data Display----\n");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-            System.out.printf("----End Of Data Display----\n");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Read the file and returns the byte array
+     * @param file
+     * @return the bytes of the file
+     */
+    private byte[] readFile(String file) {
+        ByteArrayOutputStream bos = null;
+        try {
+            File f = new File(file);
+            FileInputStream fis = new FileInputStream(f);
+            byte[] buffer = new byte[1024];
+            bos = new ByteArrayOutputStream();
+            for (int len; (len = fis.read(buffer)) != -1;) {
+                bos.write(buffer, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e2) {
+            System.err.println(e2.getMessage());
+        }
+        return bos != null ? bos.toByteArray() : null;
     }
 }

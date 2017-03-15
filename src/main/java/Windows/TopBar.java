@@ -6,6 +6,7 @@ import javafx.scene.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import static Windows.CreateRoom.*;
 /**
@@ -19,30 +20,57 @@ public class TopBar extends CreateRoom
     private Button mouse = new Button("Mouse");
     private Button pen = new Button("Pen");
 
+    private Menu rooms = new Menu("Rooms");
+    private ArrayList<MenuItem> roomItems = new ArrayList<>();
+
     public VBox build()
     {
         VBox topContainer = new VBox();
         mouse.setOnMouseClicked(e ->
         {
             penState = false;
-            borderPane.getChildren().removeAll(mouseLine);
+            canvas.getChildren().removeAll(mouseLine);
             distance.setVisible(false);
             infoLabel.setVisible(true);
         });
         pen.setOnMouseClicked(e ->{
             penState = true;
-            borderPane.getChildren().add(mouseLine);
+            canvas.getChildren().add(mouseLine);
             distance.setVisible(true);
             infoLabel.setVisible(false);
         });
         Menu file = new Menu("File");
         Menu edit = new Menu("Edit");
-        Menu help = new Menu("Help");
 
         MenuItem openFile = new MenuItem("Open File");
         MenuItem saveFile = new MenuItem("Save");
         MenuItem exitApp = new MenuItem("Exit");
-        file.getItems().addAll(openFile,saveFile,exitApp);
+        MenuItem addRoom = new MenuItem("Add Room");
+
+
+        for(int x =0 ;x<roomCount;x++)
+        {
+            MenuItem temp = new MenuItem("Room " + (x+1));
+            int finalX = x;
+            temp.setOnAction(event ->{
+                setRoom(finalX);
+                reload();
+                update();
+            });
+            roomItems.add(temp);
+            rooms.getItems().add(roomItems.get(x));
+        }
+
+        file.getItems().addAll(openFile,saveFile,exitApp,addRoom);
+
+        addRoom.setOnAction(event ->
+        {
+            resetmouseline();
+            addRoom();
+            reload();
+            updateRooms();
+        });
+
 
         openFile.setOnAction(event ->
         {
@@ -95,19 +123,40 @@ public class TopBar extends CreateRoom
             deleteRoomContents();
         });
 
-        edit.getItems().addAll(deleteRoom, deleteItems, deleteAll);
 
-        menuBar.getMenus().addAll(file, edit, help);
+        MenuItem attributes = new MenuItem("Room Attributes");
+        attributes.setOnAction(event ->
+        {
+            RoomSettings settings = new RoomSettings();
+            settings.start();
+        });
+
+
+        edit.getItems().addAll(deleteRoom, deleteItems, deleteAll,attributes);
+
+        menuBar.getMenus().addAll(file, edit, rooms);
         toolbar.getItems().addAll(mouse,pen);
         topContainer.getChildren().addAll(menuBar,toolbar);
         return topContainer;
     }
 
-     public void deleteRoomOutline(){
+    private void updateRooms()
+    {
+        MenuItem temp = new MenuItem("Room " + roomCount);
+        temp.setOnAction(event ->{
+            setRoom(roomCount-1);
+            reload();
+            update();
+        });
+        roomItems.add(temp);
+        rooms.getItems().add(roomItems.get(roomCount-1));
+    }
+
+    public void deleteRoomOutline(){
         if(!pointsX.isEmpty())
         {
-            borderPane.getChildren().removeAll(lines);
-            borderPane.getChildren().remove(currentClick);
+            canvas.getChildren().removeAll(lines);
+            canvas.getChildren().remove(currentClick);
             pointsX.clear();
             pointsX.clear();
             lines.clear();
