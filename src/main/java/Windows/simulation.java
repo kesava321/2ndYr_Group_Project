@@ -13,7 +13,8 @@ import java.util.Random;
  */
 public class simulation extends Room implements Runnable {
     private int time;
-    int timeIntervals = time/5;
+    private int timeperiod =5;
+    int timeIntervals = time/timeperiod;
     ArrayList<Double> gasUsage = new ArrayList<Double>();
     double totalGas = 0;
     double gasCost = 0.16;
@@ -32,9 +33,30 @@ public class simulation extends Room implements Runnable {
             simulateHeating();
             simulateWeatherInfluence();
             simulateLighting();
+            sumCons();
         }
+        calcTotals();
         printUsage();
     }
+
+    private void sumCons() {
+        double gas = 0;
+        double elec =0;
+        for (int i = 0; i<energyConsumers.size();i++){
+            if (energyConsumers.get(i) != null) {
+                if (energyConsumers.get(i) instanceof Light) {
+                    elec += ((Light) energyConsumers.get(i)).getConsumption(timeperiod);
+                } else if (energyConsumers.get(i) instanceof ElectricHeating) {
+                    elec += ((ElectricHeating) energyConsumers.get(i)).getConsumption(timeperiod);
+                } else if (energyConsumers.get(i) instanceof GasHeating) {
+                    gas += ((GasHeating) energyConsumers.get(i)).getConsumption(timeperiod);
+                }
+            }
+        }
+        electricityUsage.add(elec);
+        gasUsage.add(elec);
+    }
+
 
     private void simulateLighting() {
         if (getCurrentRoomOccupancy()==0){
@@ -98,11 +120,11 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof ElectricHeating)
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(true);
-                        electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getConsumption(5));
+                        //electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getConsumption(5));
                     } else if (energyConsumers.get(x) instanceof GasHeating)
                     {
                         ((GasHeating) energyConsumers.get(x)).setState(true);
-                        gasUsage.add(((GasHeating) energyConsumers.get(x)).getConsumption(5));
+                        //gasUsage.add(((GasHeating) energyConsumers.get(x)).getConsumption(5));
                     }
                 }
             }
