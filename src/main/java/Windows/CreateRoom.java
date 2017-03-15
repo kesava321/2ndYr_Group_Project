@@ -1,6 +1,7 @@
 package Windows;
 import energyConsumers.*;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -135,6 +136,7 @@ public class CreateRoom extends Room implements Serializable
 
     public void start() throws Exception
     {
+        addRoom();
         ListView list = new ListView();
         BorderPane.setAlignment(list, Pos.TOP_LEFT);
         BorderPane.setMargin(list, new Insets(12,12,12,12));
@@ -153,15 +155,16 @@ public class CreateRoom extends Room implements Serializable
         waterPreferences.setVisible(false); //k
         borderPane.setRight(prefPane);
 
-        borderPane.getChildren().add(currentClick);
+        canvas.getChildren().add(currentClick);
         canvas.setOnMouseClicked(event ->
         {
             if(penState)
             {
-                pointsX.add(event.getSceneX());
-                pointsY.add(event.getSceneY());
-                currentClick.setCenterX(event.getSceneX());
-                currentClick.setCenterY(event.getSceneY());
+                Bounds boundsInScene = canvas.localToScene(canvas.getBoundsInLocal());
+                pointsX.add(event.getSceneX() - boundsInScene.getMinX());
+                pointsY.add(event.getSceneY() - boundsInScene.getMinY());
+                currentClick.setCenterX(event.getSceneX() - boundsInScene.getMinX());
+                currentClick.setCenterY(event.getSceneY() - boundsInScene.getMinY());
                 currentClick.setRadius(4.0f);
                 drawLine();
             }
@@ -169,14 +172,13 @@ public class CreateRoom extends Room implements Serializable
         scene.getStylesheets().add(getClass().getResource("/Room.css").toExternalForm());
 
         scene.setOnMouseMoved(event -> {
-            double coordx = event.getSceneX();
-            double coordy = event.getSceneY();
+            Bounds boundsInScene = canvas.localToScene(canvas.getBoundsInLocal());
+            double coordx = event.getSceneX() -boundsInScene.getMinX();
+            double coordy = event.getSceneY()- boundsInScene.getMinY();
             if(!pointsX.isEmpty())
             {
-                System.out.println(pointsX.size());
                 mouseLine.setStartX(pointsX.getLast());
                 mouseLine.setStartY(pointsY.getLast());
-                System.out.println(coordx + " " + coordy);
                 mouseLine.setEndX(coordx-1);
                 mouseLine.setEndY(coordy-1);
                 distance.setText(df2.format(trackLength(coordx, coordy)/10) + "m");
@@ -238,19 +240,22 @@ public class CreateRoom extends Room implements Serializable
                 Line temp = new Line(pointsX.get(i), pointsY.get(i), pointsX.get(i + 1), pointsY.get(i + 1));
                 // temp.draw();
                 lines.add(temp);
-                borderPane.getChildren().add(temp);
+                //borderPane.getChildren().add(temp);
+                canvas.getChildren().add(temp);
             }
         }
     }
 
     public void reload()
     {
+        count = 0;
         canvas.getChildren().clear();
+        canvas.getChildren().removeAll(lines);
         lines.clear();
         lightPreferences.setVisible(false);
         heatPreferences.setVisible(false);
         waterPreferences.setVisible(false);
-        for(int x =0; x<energyConsumers.size();x++)
+        for(int x  =0; x<energyConsumers.size();x++)
         {
             Object temp = energyConsumers.get(x);
             ImageView image;
@@ -291,7 +296,9 @@ public class CreateRoom extends Room implements Serializable
             }
             else
                 System.out.println("Probs worth implementing that" +temp.getClass());
+            count++;
         }
+        drawLine();
         /*for(int y =0;y<pointsX.size()-1;y++)
         {
             Line temp = new Line(pointsX.get(y), pointsY.get(y), pointsX.get(y + 1), pointsY.get(y + 1));
@@ -300,4 +307,10 @@ public class CreateRoom extends Room implements Serializable
         }*/
     }
 
+    public void resetmouseline() {
+        mouseLine.setStartX(0);
+        mouseLine.setStartY(0);
+        mouseLine.setEndX(0);
+        mouseLine.setEndY(0);
+    }
 }

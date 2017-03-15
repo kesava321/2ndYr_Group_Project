@@ -9,7 +9,7 @@ public abstract class Water extends energyConsumers
 {
     //water usage in L
 
-    private final double waterEmmisions = 0.59; // gram per liter
+    private final double waterEmmisions = 0.0059; // gram per liter
     private int usePerHour;
 
     public Water(){
