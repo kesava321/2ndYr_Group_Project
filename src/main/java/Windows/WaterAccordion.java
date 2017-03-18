@@ -18,8 +18,11 @@ public class WaterAccordion extends CreateRoom
 
     public Pane getView() {
         Pane p = new Pane();
+        p.setStyle("-fx-background-color: #7093ff;");
         Button waterTap = new Button("Tap");
+        waterTap.setStyle("-fx-background-color: #9dc8ff;");
         Button waterToilet = new Button("Toilet");
+        waterToilet.setStyle("-fx-background-color: #9dc8ff;");
         waterTap.setOnMouseClicked(event ->
         {
             ImageView image = draw.drawTap();
