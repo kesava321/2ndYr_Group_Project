@@ -46,4 +46,18 @@ public class ToiletTest {
         double x = toilets.getUsage();
         assertEquals(17,x, 0.0);
     }
+
+    @org.junit.Test
+    public void getToiletEstimatedEmissions() throws Exception {
+        Toilet toilets = new Toilet(true, 15, 5);
+        double x = toilets.estimatedEmissions(50);
+        assertEquals(0.36874999999999997,x, 0.0);
+    }
+
+    @org.junit.Test
+    public void getToiletMAXFlushPerHour__CONSTRUCTOR() throws Exception {
+        Toilet toilets = new Toilet(true, 17, 10000);
+        double x = toilets.getUsePerHour();
+        assertEquals(10000, x, 0.0);
+    }
 }
