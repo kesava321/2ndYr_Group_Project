@@ -41,7 +41,7 @@ public class mainMenu implements Initializable
     {
         root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
         window.setTitle("Building Control Systems");
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 564, 340);
         window.setScene(scene);
         window.show();
     }
