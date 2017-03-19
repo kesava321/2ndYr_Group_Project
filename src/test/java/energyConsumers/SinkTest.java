@@ -17,7 +17,7 @@ public class SinkTest {
         Sink Sinks = new Sink(true,17,4,2);
         Sinks.setState(false);
         boolean x = Sinks.getState();
-        assertEquals(x,false);
+        assertEquals(false,x);
     }
 
     @org.junit.Test
@@ -51,10 +51,40 @@ public class SinkTest {
     }
 
     @org.junit.Test
+    public void getSinkUseperHour__DEFAULTCONSTRUCTOR() throws Exception {
+        Sink Sinks = new Sink();
+        double x = Sinks.getUsePerHour();
+        assertEquals(4,x, 0.0);
+    }
+
+    @org.junit.Test
+    public void getSinkAverageTimeUsed__DEFAULTCONSTRUCTOR() throws Exception {
+        Sink Sinks = new Sink();
+        double x = Sinks.getAvgTimeUsed();
+        assertEquals(2,x, 0.0);
+    }
+
+    @org.junit.Test
+    public void getSinkAverageTimeUsed__CONSTRUCTOR() throws Exception {
+        Sink Sinks = new Sink(true, 17, 10,15);
+        double x = Sinks.getAvgTimeUsed();
+        assertEquals(15,x, 0.0);
+    }
+
+    @org.junit.Test
+    public void getSinkEmissions() throws Exception {
+        Sink Sinks = new Sink(true, 17, 10,2);
+        double x = Sinks.estimatedEmissions(30);
+        assertEquals(0.5015, x, 0.0);
+    }
+
+    @org.junit.Test
     public void getSinkFlushPerHour__CONSTRUCTOR() throws Exception {
         Sink Sinks = new Sink(true, 17, 10,2);
         double x = Sinks.getUsePerHour();
-        assertEquals(x, 10, 0.0);
+        assertEquals(10, x, 0.0);
     }
+
+
 }
 
