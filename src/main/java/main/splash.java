@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Timer;
 
 import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
@@ -51,12 +52,29 @@ public class splash implements Runnable{
         root.getChildren().add(gridpane);
         window.setScene(scene);
 
-        //window.show();
-        window.showAndWait();
-        //window.wait(300);
+        window.show();
+ //       window.showAndWait();
+      //  window.wait(1000);
+     //   wait(1000);
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run(){
+                long x = System.currentTimeMillis();
 
+                while((System.currentTimeMillis()-x)<1000){
+
+                }
+
+                window.hide();
+            }
+        });
+
+        thread1.start();
+
+        while (thread1.isAlive()){
+
+        }
         window.hide();
-
     }
 
 
