@@ -94,4 +94,35 @@ public class GasHeatingTest {
         double x = heater.getUsage();
         assertEquals(0, x, 0.0);
     }
+
+    @Test
+    public void getStateDefaultConst() throws Exception {
+        GasHeating heater = new GasHeating();
+        boolean x = heater.getState();
+        assertEquals(false, x);
+    }
+
+    @Test
+    public void getUsageDefaultConst() throws Exception {
+        GasHeating heater = new GasHeating();
+        double x = heater.getUsage();
+        assertEquals(70, x, 0.0);
+    }
+
+    @Test
+    public void SetUsageConstrutor() throws Exception {
+        GasHeating heater = new GasHeating(true, 20, 200);
+        heater.setUsage(65);
+        double x = heater.getUsage();
+        assertEquals(65, x, 0.0);
+    }
+
+    @Test
+    public void SetStateConstrutor() throws Exception {
+        GasHeating heater = new GasHeating(true,20, 200);
+        heater.setState(false);
+        boolean x = heater.getState();
+        assertEquals(false, x);
+    }
+
 }
