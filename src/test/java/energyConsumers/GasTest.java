@@ -46,4 +46,32 @@ public class GasTest {
         double x = consumer.getUsage();
         assertEquals(x, 110, 0);
     }
+
+    @Test
+    public void setGasConsumption() throws Exception {
+        Gas consumer = new Gas(false ,70);
+        double x = consumer.getConsumption(45);
+        assertEquals(587.3175,x, 0);
+    }
+
+    @Test
+    public void setGasUsage__CONSTRUCTOR() throws Exception {
+        Gas consumer = new Gas(false ,88);
+        double x = consumer.getUsage();
+        assertEquals(88,x, 0);
+    }
+
+    @Test
+    public void setGasState__CONSTRUCTOR() throws Exception {
+        Gas consumer = new Gas(true ,15);
+        boolean x = consumer.getState();
+        assertEquals(true,x);
+    }
+
+    @Test
+    public void GetEmissions() throws Exception {
+        Gas consumer = new Gas(true ,10);
+        double x = consumer.estimatedEmissions(40);
+        assertEquals(41.271281766,x,0.0);
+    }
 }

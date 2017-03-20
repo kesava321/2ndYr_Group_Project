@@ -5,7 +5,7 @@ package energyConsumers;
  */
 public class Sink extends Water
 {
-    private double avgTimeUsed; //use is mesured in mins
+    private double avgTimeUsed; //use is measured in mins
     //usage is average liters used per single use of sink
     public Sink()
     {
