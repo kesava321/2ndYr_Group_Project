@@ -18,7 +18,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
-public class XYLineChart_AWT extends ApplicationFrame
+import javax.swing.*;
+
+public class XYLineChart_AWT extends JFrame
 {
     public XYLineChart_AWT( String applicationTitle, String chartTitle, ArrayList<Double> elec, ArrayList<Double> gas)
     {
