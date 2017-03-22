@@ -1,6 +1,7 @@
 package Windows;
 
 import energyConsumers.ElectricHeating;
+import energyConsumers.Electricity;
 import energyConsumers.GasHeating;
 import energyConsumers.Light;
 import graphs.XYLineChart_AWT;
@@ -165,7 +166,7 @@ public class simulation extends Room implements Runnable {
         System.out.printf("Gas used %f", totalGas);
         System.out.printf("Gas cost %f", totalGas*gasCost);
         System.out.printf("Electricity used %f", totalElectricity);
-        System.out.printf("Electricity Cost %f", totalElectricity*electricityCost);
+        System.out.printf("Electricity Cost %f", Electricity.calculateCost(totalElectricity,electricityCost));
         System.out.printf("Toilets flushed %f", toiletsFlushed);
         System.out.printf("Co2 Consumption %f", co2Cons);
     }
