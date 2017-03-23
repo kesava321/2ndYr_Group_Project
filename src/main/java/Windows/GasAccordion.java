@@ -21,7 +21,9 @@ public class GasAccordion extends CreateRoom
     public Pane getView()
     {
         Pane p = new Pane();
+        p.setStyle("-fx-background-color: #7093ff;");
         Button gasHeater = new Button("Heater");
+        gasHeater.setStyle("-fx-background-color: #9dc8ff;");
         gasHeater.setOnMouseClicked(event ->
         {
             ImageView image = draw.drawGasHeater();

@@ -3,6 +3,8 @@ package controlDB;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.FileNotFoundException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -136,11 +138,34 @@ public class ControlSqlite implements DatabaseExecutable{
                     if (i == 2) {
                         System.out.println(
                                 rs.getInt("appliance_ID") + "\t" +
-                                        rs.getString("name") + "\t");
+                                        rs.getString("name") + "\t" +
+                                        rs.getString("image"));
+                        //write image to file
+                        File file = new File("src/main/resources/temp.png");
+                        FileOutputStream fos = new FileOutputStream(file);
+
+                        //test
+                        if (rs.getBytes(2) == null){
+                            System.out.println("hello");
+                        }
+                        //test
+                        //byte[] test = readFile("src/main/resources/Images/heating.png");
+                        //fos.write(test);
+
+                        InputStream input = rs.getBinaryStream("image");
+
+                        byte[] buffer = new byte[1024];
+
+                        while ( input.read(buffer) > 0 ) {
+                            fos.write(buffer);
+                        }
+                        fos.flush();
+                        fos.close();
+                        input.close();
                     }
                 }
                 System.out.printf("----End Of Data Display----\n");
-            } catch (SQLException e) {
+            } catch (SQLException | IOException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -168,4 +193,7 @@ public class ControlSqlite implements DatabaseExecutable{
         }
         return bos != null ? bos.toByteArray() : null;
     }
+
 }
+
+

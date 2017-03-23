@@ -27,7 +27,7 @@ public abstract class energyConsumers implements java.io.Serializable
      * @param costPerUnit cost per unit for energy consumer
      * @return cost
      */
-    public double calculateCost(double powerConsumption, double costPerUnit){
+    public static double calculateCost(double powerConsumption, double costPerUnit){
         return (powerConsumption)*costPerUnit;
     }
 

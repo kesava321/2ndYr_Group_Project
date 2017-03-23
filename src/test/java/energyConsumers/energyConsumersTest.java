@@ -38,4 +38,27 @@ public class energyConsumersTest {
         assertEquals(lights.getConsumption(90),0.6,0.0);
     }
 
+    @Test
+    public void setUsage_INVALID() throws Exception {
+        Light lights = new Light(true, 400);
+        lights.setUsage(-5);
+        double x = lights.getUsage();
+        assertEquals(0, x, 0.0);
+    }
+
+    @Test
+    public void setUsage_VALID() throws Exception {
+        Light lights = new Light(true, 400);
+        lights.setUsage(55);
+        double x = lights.getUsage();
+        assertEquals(55, x, 0.0);
+    }
+
+    @Test
+    public void setUsage_Constructor() throws Exception {
+        Light lights = new Light(true, 300);
+        double x = lights.getUsage();
+        assertEquals(300, x, 0.0);
+    }
+
 }

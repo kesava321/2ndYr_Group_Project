@@ -18,6 +18,7 @@ public class TopBar extends CreateRoom
 
     private ToolBar toolbar = new ToolBar();
     private Button mouse = new Button("Mouse");
+
     private Button pen = new Button("Pen");
 
     private Menu rooms = new Menu("Rooms");
@@ -26,6 +27,7 @@ public class TopBar extends CreateRoom
     public VBox build()
     {
         VBox topContainer = new VBox();
+        mouse.setStyle("-fx-background-color: #9dc8ff;");
         mouse.setOnMouseClicked(e ->
         {
             penState = false;
@@ -33,6 +35,8 @@ public class TopBar extends CreateRoom
             distance.setVisible(false);
             infoLabel.setVisible(true);
         });
+
+        pen.setStyle("-fx-background-color: #9dc8ff;");
         pen.setOnMouseClicked(e ->{
             penState = true;
             canvas.getChildren().add(mouseLine);
@@ -135,7 +139,9 @@ public class TopBar extends CreateRoom
         edit.getItems().addAll(deleteRoom, deleteItems, deleteAll,attributes);
 
         menuBar.getMenus().addAll(file, edit, rooms);
+        menuBar.setStyle("-fx-background-color: #556cff;");
         toolbar.getItems().addAll(mouse,pen);
+        toolbar.setStyle("-fx-background-color: #77a1ff;");
         topContainer.getChildren().addAll(menuBar,toolbar);
         return topContainer;
     }

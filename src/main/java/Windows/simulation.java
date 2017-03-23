@@ -1,8 +1,11 @@
 package Windows;
 
 import energyConsumers.ElectricHeating;
+import energyConsumers.Electricity;
 import energyConsumers.GasHeating;
 import energyConsumers.Light;
+import graphs.XYLineChart_AWT;
+import org.jfree.ui.RefineryUtilities;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -13,7 +16,8 @@ import java.util.Random;
  */
 public class simulation extends Room implements Runnable {
     private int time;
-    int timeIntervals = time/5;
+    private int timeperiod =5;
+    int timeIntervals = time/timeperiod;
     ArrayList<Double> gasUsage = new ArrayList<Double>();
     double totalGas = 0;
     double gasCost = 0.16;
@@ -27,14 +31,39 @@ public class simulation extends Room implements Runnable {
     public void run() {
         timeIntervals = time/5;
         for (int i = 0; i<timeIntervals; i++) {
+            System.out.println(roomAttributes.currentRoomOccupancy);
             generateOccupants();
-            System.out.println(roomAttributes.currentTemperature);
             simulateHeating();
             simulateWeatherInfluence();
             simulateLighting();
+            sumCons();
         }
+        calcTotals();
         printUsage();
+        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage,gasUsage);
+        chart.pack( );
+        RefineryUtilities.centerFrameOnScreen( chart );
+        chart.setVisible( true );
     }
+
+    private void sumCons() {
+        double gas = 0;
+        double elec =0;
+        for (int i = 0; i<energyConsumers.size();i++){
+            if (energyConsumers.get(i) != null) {
+                if (energyConsumers.get(i) instanceof Light) {
+                    elec += ((Light) energyConsumers.get(i)).getConsumption(timeperiod);
+                } else if (energyConsumers.get(i) instanceof ElectricHeating) {
+                    elec += ((ElectricHeating) energyConsumers.get(i)).getConsumption(timeperiod);
+                } else if (energyConsumers.get(i) instanceof GasHeating) {
+                    gas += ((GasHeating) energyConsumers.get(i)).getConsumption(timeperiod);
+                }
+            }
+        }
+        electricityUsage.add(elec);
+        gasUsage.add(gas);
+    }
+
 
     private void simulateLighting() {
         if (getCurrentRoomOccupancy()==0){
@@ -46,9 +75,16 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof Light) {
                         ((Light) energyConsumers.get(x)).setState(false);
                     }
-                    else{
+                }
+            }
+        }
+        else
+        {
+            for(int x = 0; x<energyConsumers.size();x++)
+            {
+                if (energyConsumers.get(x) != null) {
+                    if (energyConsumers.get(x) instanceof Light) {
                         ((Light) energyConsumers.get(x)).setState(true);
-                        //electricityUsage.add(((Light) energyConsumers.get(x)).getConsumption(5));
                     }
                 }
             }
@@ -62,8 +98,9 @@ public class simulation extends Room implements Runnable {
     public void generateOccupants() {
 
         int temp = roomAttributes.roomCapacity / roomAttributes.activityLevel;
+        System.out.println("|" + temp+ "|");
         Random rand = new Random();
-        setCurrentRoomOccupancy(rand.nextInt(temp) + 1);
+        setCurrentRoomOccupancy(rand.nextInt(temp));
     }
 
     public void simulateHeating() {
@@ -98,11 +135,11 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof ElectricHeating)
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(true);
-                        electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getConsumption(5));
+                        //electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getConsumption(5));
                     } else if (energyConsumers.get(x) instanceof GasHeating)
                     {
                         ((GasHeating) energyConsumers.get(x)).setState(true);
-                        gasUsage.add(((GasHeating) energyConsumers.get(x)).getConsumption(5));
+                        //gasUsage.add(((GasHeating) energyConsumers.get(x)).getConsumption(5));
                     }
                 }
             }
@@ -129,7 +166,7 @@ public class simulation extends Room implements Runnable {
         System.out.printf("Gas used %f", totalGas);
         System.out.printf("Gas cost %f", totalGas*gasCost);
         System.out.printf("Electricity used %f", totalElectricity);
-        System.out.printf("Electricity Cost %f", totalElectricity*electricityCost);
+        System.out.printf("Electricity Cost %f", Electricity.calculateCost(totalElectricity,electricityCost));
         System.out.printf("Toilets flushed %f", toiletsFlushed);
         System.out.printf("Co2 Consumption %f", co2Cons);
     }

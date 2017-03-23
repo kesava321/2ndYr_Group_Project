@@ -22,8 +22,11 @@ class ElectricAccordion extends CreateRoom
     public Pane getView()
     {
         Pane p = new Pane();
+        p.setStyle("-fx-background-color: #7093ff;");
         Button button = new Button("LED Bulb"); //probs should change to image view at a later date
+        button.setStyle("-fx-background-color: #9dc8ff;");
         Button heatingButton = new Button("Heating");
+        heatingButton.setStyle("-fx-background-color: #9dc8ff;");
         heatingButton.setOnMouseClicked(event->
         {
             ImageView image = draw.drawHeater();
