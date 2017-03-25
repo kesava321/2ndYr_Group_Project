@@ -5,6 +5,10 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.apache.commons.lang3.BooleanUtils;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+import controlDB.*;
 
 /**
  * Created by daniel on 26/02/2017.
@@ -14,7 +18,19 @@ public class DrawAppliance extends CreateRoom
 
     public ImageView drawTap() {
         int id = count;
+
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            BufferedImage img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Tap")));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        //read image from resourses
         Image image = new Image("Images/sink.png", 50, 50, false, false);
+
+
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
