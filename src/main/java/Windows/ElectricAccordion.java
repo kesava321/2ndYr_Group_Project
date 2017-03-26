@@ -49,6 +49,16 @@ class ElectricAccordion extends CreateRoom
             ImageView image = draw.drawLight();
             canvas.getChildren().add(image);
             count++;
+
+            //insert the data into database
+            ControlSqlite cs = new ControlSqlite();
+            Object[] objectOfTypesTables = {-1, "Electricity"};
+            Object[] objectOfRating = {-1, 100};
+            Object[] objectOfAppliance = {"Light", "src/main/resources/Images/bulb.png"};
+            cs.InsertData("Types_Table", objectOfTypesTables);
+            cs.InsertData("Rating", objectOfRating);
+            cs.InsertData("Appliance", objectOfAppliance);
+            cs.DisplayTable();
             update();
         });
         VBox vBox = new VBox(5);

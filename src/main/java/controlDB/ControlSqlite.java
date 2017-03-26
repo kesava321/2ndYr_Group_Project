@@ -171,6 +171,18 @@ public class ControlSqlite implements DatabaseExecutable{
         }
     }
 
+    public byte[] ReadImageByColumn(String Column){
+        String sql = "SELECT * FROM Appliance where name = '" + Column + "'";
+        byte[] temp = null;
+        try (Statement stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)){
+            temp = rs.getBytes("image");
+            return temp;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return temp;
+    }
     /**
      * Read the file and returns the byte array
      * @param file
