@@ -26,11 +26,6 @@ public class WaterAccordion extends CreateRoom
         waterToilet.setStyle("-fx-background-color: #9dc8ff;");
         waterTap.setOnMouseClicked(event ->
         {
-            ImageView image = draw.drawTap();
-            canvas.getChildren().add(image);
-            energyConsumers.add(new Sink(true, 30, 2,2));
-            count++;
-
             //insert the data into database
             ControlSqlite cs = new ControlSqlite();
             Object[] objectOfTypesTables = {-1, "Water"};
@@ -40,15 +35,13 @@ public class WaterAccordion extends CreateRoom
             cs.InsertData("Rating", objectOfRating);
             cs.InsertData("Appliance", objectOfAppliance);
             cs.DisplayTable();
+
+            ImageView image = draw.drawTap();
+            canvas.getChildren().add(image);
+            energyConsumers.add(new Sink(true, 30, 2,2));
             count++;
         });
         waterToilet.setOnMouseClicked(event ->{
-
-            ImageView image = draw.drawToilet();
-            energyConsumers.add(new Toilet(true, 18, 4));
-            canvas.getChildren().add(image);
-            count++;
-
             //insert the data into database
             ControlSqlite cs = new ControlSqlite();
             Object[] objectOfTypesTables = {-1, "Water"};
@@ -58,6 +51,10 @@ public class WaterAccordion extends CreateRoom
             cs.InsertData("Rating", objectOfRating);
             cs.InsertData("Appliance", objectOfAppliance);
             cs.DisplayTable();
+
+            ImageView image = draw.drawToilet();
+            energyConsumers.add(new Toilet(true, 18, 4));
+            canvas.getChildren().add(image);
             count++;
         });
         VBox vBox = new VBox(5);

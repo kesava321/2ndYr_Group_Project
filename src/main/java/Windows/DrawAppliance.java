@@ -8,6 +8,8 @@ import org.apache.commons.lang3.BooleanUtils;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
+import javafx.embed.swing.SwingFXUtils;
+import java.awt.Graphics2D;
 import controlDB.*;
 
 /**
@@ -19,17 +21,22 @@ public class DrawAppliance extends CreateRoom
     public ImageView drawTap() {
         int id = count;
 
+        BufferedImage img = null;
         //read image from database
         ControlSqlite cs = new ControlSqlite();
         try {
-            BufferedImage img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Tap")));
+            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Sink")));
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("Sink"));
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
         }
-        //read image from resourses
-        Image image = new Image("Images/sink.png", 50, 50, false, false);
-
+        //set the image
+        img = scale(img, 50,50);
+        Image image = SwingFXUtils.toFXImage(img, null);
 
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
@@ -80,7 +87,24 @@ public class DrawAppliance extends CreateRoom
 
     public ImageView drawToilet() {
         int id = count;
-        Image image = new Image("Images/toilet.png", 50, 50, false, false);
+        //Image image = new Image("Images/toilet.png", 50, 50, false, false);
+        BufferedImage img = null;
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Toilet")));
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("Toilet"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        //set the image
+        img = scale(img, 50,50);
+        Image image = SwingFXUtils.toFXImage(img, null);
+
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -132,7 +156,24 @@ public class DrawAppliance extends CreateRoom
     public ImageView drawGasHeater()
     {
         int id = count;
-        Image image = new Image("Images/gasHeating.png",50,50,false,false);
+
+        BufferedImage img = null;
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("GasHeating")));
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("GasHeating"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        //set the image
+        img = scale(img, 50,50);
+        Image image = SwingFXUtils.toFXImage(img, null);
+
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -185,8 +226,24 @@ public class DrawAppliance extends CreateRoom
     public ImageView drawLight()
     {
         int id = count;
-        Image image = new Image("Images/bulb.png",50,50,false,false);
-        System.out.println(image);
+
+        BufferedImage img = null;
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Light")));
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("Light"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        //set the image
+        img = scale(img, 50,50);
+        Image image = SwingFXUtils.toFXImage(img, null);
+
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -241,7 +298,24 @@ public class DrawAppliance extends CreateRoom
     public ImageView drawHeater()
     {
         int id = count;
-        Image image = new Image("Images/heating.png",50,50,false,false);
+
+        BufferedImage img = null;
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("ElectricHeating")));
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("ElectricHeating"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        //set the image
+        img = scale(img, 50,50);
+        Image image = SwingFXUtils.toFXImage(img, null);
+
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -290,5 +364,16 @@ public class DrawAppliance extends CreateRoom
             }
         });
         return imageView;
+    }
+
+    public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+        BufferedImage scaledImage = null;
+        if (imageToScale != null) {
+            scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+            Graphics2D graphics2D = scaledImage.createGraphics();
+            graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+            graphics2D.dispose();
+        }
+        return scaledImage;
     }
 }
