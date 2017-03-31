@@ -3,9 +3,9 @@ package energyConsumers;
 public class Gas extends energyConsumers {
 
     private final double gasEmmisions = 0.5533827; //per KwH
-    //Usage m3
+    //Usage m3/h
     public Gas(){
-        setUsage(70.0);
+        setUsage(1.0);
         setState(false);
     }
 
