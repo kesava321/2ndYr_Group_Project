@@ -38,11 +38,7 @@ public class DrawAppliance extends CreateRoom
         }
         //set the image
         img = scale(img, 50,50);
-        //Image image = SwingFXUtils.toFXImage(img, null);
-
-        //debug
-        Image image = cs.getImageByIdFromAppliance(100);
-
+        Image image = SwingFXUtils.toFXImage(img, null);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
