@@ -139,7 +139,31 @@ public class ControlSqlite implements DatabaseExecutable{
             System.out.println(e.getMessage());
         }
         return img;
+    }
 
+    /**
+     * return the image form table Appliance by id
+     * if noting found, return null and print error message
+     * @param id the Appliance_id column in table
+     * @return string
+     */
+    public String getNameByIdFromAppliance(int id){
+        String sql = "SELECT name FROM Appliance WHERE appliance_ID = " + id;
+        String name = null;
+        try (Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            //judge whether rs has records in database
+            if (rs.next()){
+                name = rs.getString("name");
+            }
+            else{
+                System.out.printf("Error: Nothing found!\n");
+            }
+        }
+        catch (  SQLException e ) {
+            System.out.println(e.getMessage());
+        }
+        return name;
     }
 
     public void DisplayTable(){

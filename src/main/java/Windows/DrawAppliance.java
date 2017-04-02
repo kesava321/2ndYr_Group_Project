@@ -36,6 +36,7 @@ public class DrawAppliance extends CreateRoom
         catch (Exception e) {
             e.printStackTrace();
         }
+
         //set the image
         img = scale(img, 50,50);
         Image image = SwingFXUtils.toFXImage(img, null);
