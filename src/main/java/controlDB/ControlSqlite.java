@@ -186,6 +186,7 @@ public class ControlSqlite implements DatabaseExecutable{
         }
         return temp;
     }
+
     /**
      * Read the file and returns the byte array
      * @param file
