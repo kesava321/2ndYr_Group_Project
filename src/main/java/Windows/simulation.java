@@ -35,17 +35,19 @@ public class simulation extends Room implements Runnable {
             generateOccupants();
             simulateHeating();
             simulateWeatherInfluence();
-            simulateLighting();
-            sumCons();
+            simulateElectricity();
+            //sumCons();
         }
         calcTotals();
         printUsage();
+        for(int x =0;x<electricityUsage.size();x++)
+            gasUsage.add(0.0);
         XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage,gasUsage);
         chart.pack( );
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );
     }
-
+/*
     private void sumCons() {
         double gas = 0;
         double elec =0;
@@ -62,10 +64,10 @@ public class simulation extends Room implements Runnable {
         }
         electricityUsage.add(elec);
         gasUsage.add(gas);
-    }
+    }*/
 
 
-    private void simulateLighting() {
+    private void simulateElectricity() {
         if (getCurrentRoomOccupancy()==0){
             //turn lights off
             //Access heating elements and set them to on/true
@@ -77,17 +79,23 @@ public class simulation extends Room implements Runnable {
                     }
                 }
             }
+            electricityUsage.add(0.0);
         }
         else
         {
+            double temp = 0;
             for(int x = 0; x<energyConsumers.size();x++)
             {
-                if (energyConsumers.get(x) != null) {
-                    if (energyConsumers.get(x) instanceof Light) {
+                if (energyConsumers.get(x) != null)
+                {
+                    if (energyConsumers.get(x) instanceof Light)
+                    {
                         ((Light) energyConsumers.get(x)).setState(true);
+                        temp += ((Light) energyConsumers.get(x)).getUsage();
                     }
                 }
             }
+            electricityUsage.add(temp);
         }
     }
 

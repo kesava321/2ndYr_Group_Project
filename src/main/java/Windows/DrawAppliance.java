@@ -20,26 +20,7 @@ public class DrawAppliance extends CreateRoom
 
     public ImageView drawTap() {
         int id = count;
-
-        BufferedImage img = null;
-        //read image from database
-        ControlSqlite cs = new ControlSqlite();
-        try {
-            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Sink")));
-            //debug information
-            File file = new File("src/main/resources/temp.png");
-            //BufferedImage image = cs.getImageByIdFromAppliance(18);
-            //ImageIO.write(image, "png", file);
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(cs.ReadImageByColumn("Sink"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //set the image
-        img = scale(img, 50,50);
-        Image image = SwingFXUtils.toFXImage(img, null);
+        Image image = new Image("Images/sink.png", 50, 50, false, false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -86,27 +67,9 @@ public class DrawAppliance extends CreateRoom
         });
         return imageView;
     }
-
     public ImageView drawToilet() {
         int id = count;
-        //Image image = new Image("Images/toilet.png", 50, 50, false, false);
-        BufferedImage img = null;
-        //read image from database
-        ControlSqlite cs = new ControlSqlite();
-        try {
-            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Toilet")));
-            //debug information
-            File file = new File("src/main/resources/temp.png");
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(cs.ReadImageByColumn("Toilet"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        //set the image
-        img = scale(img, 50,50);
-        Image image = SwingFXUtils.toFXImage(img, null);
-
+        Image image = new Image("Images/toilet.png", 50, 50, false, false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -126,7 +89,6 @@ public class DrawAppliance extends CreateRoom
             orgSceneX = event.getSceneX();
             orgSceneY = event.getSceneY();
         });
-
         imageView.setOnMouseDragged(event ->
         {
             if ((event.getX() > 0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight())) {
@@ -154,28 +116,10 @@ public class DrawAppliance extends CreateRoom
         });
         return imageView;
     }
-
     public ImageView drawGasHeater()
     {
         int id = count;
-
-        BufferedImage img = null;
-        //read image from database
-        ControlSqlite cs = new ControlSqlite();
-        try {
-            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("GasHeating")));
-            //debug information
-            File file = new File("src/main/resources/temp.png");
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(cs.ReadImageByColumn("GasHeating"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        //set the image
-        img = scale(img, 50,50);
-        Image image = SwingFXUtils.toFXImage(img, null);
-
+        Image image = new Image("Images/gasHeating.png",50,50,false,false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -224,28 +168,11 @@ public class DrawAppliance extends CreateRoom
         });
         return imageView;
     }
-
     public ImageView drawLight()
     {
         int id = count;
-
-        BufferedImage img = null;
-        //read image from database
-        ControlSqlite cs = new ControlSqlite();
-        try {
-            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Light")));
-            //debug information
-            File file = new File("src/main/resources/temp.png");
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(cs.ReadImageByColumn("Light"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        //set the image
-        img = scale(img, 50,50);
-        Image image = SwingFXUtils.toFXImage(img, null);
-
+        Image image = new Image("Images/bulb.png",50,50,false,false);
+        System.out.println(image);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -300,24 +227,7 @@ public class DrawAppliance extends CreateRoom
     public ImageView drawHeater()
     {
         int id = count;
-
-        BufferedImage img = null;
-        //read image from database
-        ControlSqlite cs = new ControlSqlite();
-        try {
-            img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("ElectricHeating")));
-            //debug information
-            File file = new File("src/main/resources/temp.png");
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(cs.ReadImageByColumn("ElectricHeating"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        //set the image
-        img = scale(img, 50,50);
-        Image image = SwingFXUtils.toFXImage(img, null);
-
+        Image image = new Image("Images/heating.png",50,50,false,false);
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
@@ -363,6 +273,74 @@ public class DrawAppliance extends CreateRoom
                 ImageView i = (ImageView) o;
                 ((ElectricHeating) energyConsumers.get(id)).setX(i.getX() + offsetX);
                 ((ElectricHeating) energyConsumers.get(id)).setY(i.getY() + offsetY);
+            }
+        });
+        return imageView;
+    }
+
+    public ImageView drawElectic(int identifier)
+    {
+        int id = count;
+        Image image = null;
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            image = cs.getImageByIdFromAppliance(identifier);
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("Light"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        //set the image
+        ImageView imageView = new ImageView(image);
+        imageView.setCursor(Cursor.HAND);
+        imageView.setOnMousePressed(event ->
+        {
+            heatPreferences.setVisible(false);
+            lightPreferences.setVisible(true);
+            waterPreferences.setVisible(false);
+            currentSelected = id;
+            System.out.println(id);
+            Object temp = energyConsumers.get(id);
+            if(temp instanceof Light)
+            {
+                double powerRating = ((Light) temp).getUsage();
+                int lighState = BooleanUtils.toInteger(((Light) temp).getState());
+                lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
+                lightPreferences.stateCombo.getSelectionModel().select(lighState);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+            else
+                System.out.println("insert new profanity here");
+        });
+        imageView.setOnMouseDragged(event ->
+        {
+            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                i.setX(i.getX() + offsetX);
+                i.setY(i.getY() + offsetY);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+        });
+        imageView.setOnMouseReleased(event ->
+        {
+            if(energyConsumers.get(id) instanceof GenericElec)
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                ((GenericElec) energyConsumers.get(id)).setX(i.getX() + offsetX);
+                ((GenericElec) energyConsumers.get(id)).setY(i.getY() + offsetY);
             }
         });
         return imageView;
