@@ -22,14 +22,14 @@ import javax.swing.*;
 
 public class XYLineChart_AWT extends JFrame
 {
-    public XYLineChart_AWT( String applicationTitle, String chartTitle, ArrayList<Double> elec, ArrayList<Double> gas)
+    public XYLineChart_AWT(String applicationTitle, String chartTitle, ArrayList<Double> electricityUsage, ArrayList<Double> lightUsage, ArrayList<Double> heatingUsage, ArrayList<Double> gas)
     {
         super(applicationTitle);
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
                 "Time (24HR)" ,
                 "Energy Usage (%)" ,
-                createDataset(elec,gas) ,
+                createDataset(lightUsage,heatingUsage,gas,electricityUsage) ,
                 PlotOrientation.VERTICAL ,
                 true , true , false);
 
@@ -40,14 +40,16 @@ public class XYLineChart_AWT extends JFrame
         renderer.setSeriesPaint( 0 , Color.RED );
         renderer.setSeriesPaint( 1 , Color.GREEN );
         renderer.setSeriesPaint( 2 , Color.BLUE );
+        renderer.setSeriesPaint( 2 , Color.BLACK );
         renderer.setSeriesStroke( 0 , new BasicStroke( 4.0f ) );
         renderer.setSeriesStroke( 1 , new BasicStroke( 3.0f ) );
         renderer.setSeriesStroke( 2 , new BasicStroke( 2.0f ) );
+        renderer.setSeriesStroke( 2 , new BasicStroke( 1.0f ) );
         plot.setRenderer( renderer );
         setContentPane( chartPanel );
     }
 
-    public XYDataset createDataset(ArrayList<Double> elec, ArrayList<Double> gas)
+    public XYDataset createDataset(ArrayList<Double> lightUsage, ArrayList<Double> heatingUsage, ArrayList<Double> elec, ArrayList<Double> gas)
     {
         final XYSeries electricity = new XYSeries( "Electricity" );
         final XYSeries Gas = new XYSeries( "Gas" );
