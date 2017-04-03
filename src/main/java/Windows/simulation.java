@@ -42,10 +42,10 @@ public class simulation extends Room implements Runnable {
         }
         calcTotals();
         printUsage();
-        for(int x =0;x<electricityUsage.size();x++) {
+        for(int x =0;x<time/5;x++) {
             gasUsage.add(0.0);
             heatingUsage.add(0.0);
-            electricityUsage.add(0.0);
+            lightUsage.add(0.0);
         }
 
         XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage, lightUsage,heatingUsage,gasUsage);
@@ -101,7 +101,7 @@ public class simulation extends Room implements Runnable {
                     }
                 }
             }
-            lightUsage.add(temp);
+            electricityUsage.add(temp);
         }
     }
 
