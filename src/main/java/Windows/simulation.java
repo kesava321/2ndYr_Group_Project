@@ -22,7 +22,12 @@ public class simulation extends Room implements Runnable {
     double totalGas = 0;
     double gasCost = 0.16;
     ArrayList<Double> electricityUsage = new ArrayList<Double>();
+<<<<<<< HEAD
     ArrayList<Double> heating = new ArrayList<>();
+=======
+    ArrayList<Double> lightUsage = new ArrayList<Double>();
+    ArrayList<Double> heatingUsage = new ArrayList<Double>();
+>>>>>>> cc192cbbf28da7b1e5a823077b176fd7c25ce6d6
     double totalElectricity =0;
     double electricityCost = 0.13;
     double toiletsFlushed = 0;
@@ -41,9 +46,17 @@ public class simulation extends Room implements Runnable {
         }
         calcTotals();
         printUsage();
-        for(int x =0;x<electricityUsage.size();x++)
+        for(int x =0;x<electricityUsage.size();x++) {
             gasUsage.add(0.0);
+<<<<<<< HEAD
         XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage,heating);
+=======
+            heatingUsage.add(0.0);
+            electricityUsage.add(0.0);
+        }
+
+        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage, lightUsage,heatingUsage,gasUsage);
+>>>>>>> cc192cbbf28da7b1e5a823077b176fd7c25ce6d6
         chart.pack( );
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );
@@ -96,7 +109,7 @@ public class simulation extends Room implements Runnable {
                     }
                 }
             }
-            electricityUsage.add(temp);
+            lightUsage.add(temp);
         }
     }
 
