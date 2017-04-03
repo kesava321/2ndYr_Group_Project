@@ -1,5 +1,6 @@
 package main;
 
+import com.sun.javafx.applet.Splash;
 import javafx.fxml.FXML;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -29,9 +30,9 @@ public class CAB extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        splash splashScreen = new splash();
-        splashScreen.Splash();
-
+        //splash splashScreen = new splash();
+        //splashScreen.Splash();
+        
         mainMenu room = new mainMenu();
         room.start();
 

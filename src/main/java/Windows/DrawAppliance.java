@@ -5,6 +5,12 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.apache.commons.lang3.BooleanUtils;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+import javafx.embed.swing.SwingFXUtils;
+import java.awt.Graphics2D;
+import controlDB.*;
 
 /**
  * Created by daniel on 26/02/2017.
@@ -61,7 +67,6 @@ public class DrawAppliance extends CreateRoom
         });
         return imageView;
     }
-
     public ImageView drawToilet() {
         int id = count;
         Image image = new Image("Images/toilet.png", 50, 50, false, false);
@@ -84,7 +89,6 @@ public class DrawAppliance extends CreateRoom
             orgSceneX = event.getSceneX();
             orgSceneY = event.getSceneY();
         });
-
         imageView.setOnMouseDragged(event ->
         {
             if ((event.getX() > 0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight())) {
@@ -112,7 +116,6 @@ public class DrawAppliance extends CreateRoom
         });
         return imageView;
     }
-
     public ImageView drawGasHeater()
     {
         int id = count;
@@ -165,7 +168,6 @@ public class DrawAppliance extends CreateRoom
         });
         return imageView;
     }
-
     public ImageView drawLight()
     {
         int id = count;
@@ -274,5 +276,84 @@ public class DrawAppliance extends CreateRoom
             }
         });
         return imageView;
+    }
+
+    public ImageView drawElectic(int identifier)
+    {
+        int id = count;
+        Image image = null;
+        //read image from database
+        ControlSqlite cs = new ControlSqlite();
+        try {
+            image = cs.getImageByIdFromAppliance(identifier);
+            //debug information
+            File file = new File("src/main/resources/temp.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(cs.ReadImageByColumn("Light"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        //set the image
+        ImageView imageView = new ImageView(image);
+        imageView.setCursor(Cursor.HAND);
+        imageView.setOnMousePressed(event ->
+        {
+            heatPreferences.setVisible(false);
+            lightPreferences.setVisible(true);
+            waterPreferences.setVisible(false);
+            currentSelected = id;
+            System.out.println(id);
+            Object temp = energyConsumers.get(id);
+            if(temp instanceof Light)
+            {
+                double powerRating = ((Light) temp).getUsage();
+                int lighState = BooleanUtils.toInteger(((Light) temp).getState());
+                lightPreferences.powerRatingField.setText(String.valueOf(Double.parseDouble(String.valueOf(powerRating))));
+                lightPreferences.stateCombo.getSelectionModel().select(lighState);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+            else
+                System.out.println("insert new profanity here");
+        });
+        imageView.setOnMouseDragged(event ->
+        {
+            if((event.getX() >0 && event.getX() < canvas.getWidth()) && (event.getY() > 0 && event.getY() < canvas.getHeight()))
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                i.setX(i.getX() + offsetX);
+                i.setY(i.getY() + offsetY);
+                orgSceneX = event.getSceneX();
+                orgSceneY = event.getSceneY();
+            }
+        });
+        imageView.setOnMouseReleased(event ->
+        {
+            if(energyConsumers.get(id) instanceof GenericElec)
+            {
+                double offsetX = event.getSceneX() - orgSceneX;
+                double offsetY = event.getSceneY() - orgSceneY;
+                Object o = event.getSource();
+                ImageView i = (ImageView) o;
+                ((GenericElec) energyConsumers.get(id)).setX(i.getX() + offsetX);
+                ((GenericElec) energyConsumers.get(id)).setY(i.getY() + offsetY);
+            }
+        });
+        return imageView;
+    }
+
+    public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+        BufferedImage scaledImage = null;
+        if (imageToScale != null) {
+            scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+            Graphics2D graphics2D = scaledImage.createGraphics();
+            graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+            graphics2D.dispose();
+        }
+        return scaledImage;
     }
 }

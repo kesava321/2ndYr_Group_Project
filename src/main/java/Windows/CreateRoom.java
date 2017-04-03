@@ -75,6 +75,7 @@ public class CreateRoom extends Room implements Serializable
         accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas,titledPaneWater);
         accordion.setExpandedPane(tiledPaneElectric);
         borderPane.setLeft(accordion);
+
     }
 
     public void update()
@@ -196,6 +197,7 @@ public class CreateRoom extends Room implements Serializable
             }
         });
         borderPane.setBottom(infoPane);
+        borderPane.setStyle("-fx-background-color: lightblue;");
         mouseLine.setStyle("-fx-stroke: red;");
         //prefPane.getStyleClass().add("left-line");
         window.setScene(scene);

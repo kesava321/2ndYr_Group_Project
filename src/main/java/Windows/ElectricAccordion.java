@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.BooleanUtils;
 import controlDB.*;//added by Rui
 
+import java.util.ArrayList;
+
 /**
  * Created by daniel on 12/02/2017.
  */
@@ -22,8 +24,12 @@ class ElectricAccordion extends CreateRoom
     public Pane getView()
     {
         Pane p = new Pane();
+        p.setStyle("-fx-background-color: #7093ff;");
         Button button = new Button("LED Bulb"); //probs should change to image view at a later date
+        button.setStyle("-fx-background-color: #9dc8ff;");
         Button heatingButton = new Button("Heating");
+        ArrayList<Button> otherButtons = new ArrayList<>();
+        heatingButton.setStyle("-fx-background-color: #9dc8ff;");
         heatingButton.setOnMouseClicked(event->
         {
             ImageView image = draw.drawHeater();
@@ -46,6 +52,16 @@ class ElectricAccordion extends CreateRoom
             ImageView image = draw.drawLight();
             canvas.getChildren().add(image);
             count++;
+
+            //insert the data into database
+            ControlSqlite cs = new ControlSqlite();
+            Object[] objectOfTypesTables = {-1, "Electricity"};
+            Object[] objectOfRating = {-1, 100};
+            Object[] objectOfAppliance = {"Light", "src/main/resources/Images/bulb.png"};
+            cs.InsertData("Types_Table", objectOfTypesTables);
+            cs.InsertData("Rating", objectOfRating);
+            cs.InsertData("Appliance", objectOfAppliance);
+            cs.DisplayTable();
             update();
         });
         VBox vBox = new VBox(5);
