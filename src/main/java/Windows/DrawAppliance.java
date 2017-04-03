@@ -28,16 +28,18 @@ public class DrawAppliance extends CreateRoom
             img = ImageIO.read(new ByteArrayInputStream(cs.ReadImageByColumn("Sink")));
             //debug information
             File file = new File("src/main/resources/temp.png");
+            //BufferedImage image = cs.getImageByIdFromAppliance(18);
+            //ImageIO.write(image, "png", file);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(cs.ReadImageByColumn("Sink"));
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+
         //set the image
         img = scale(img, 50,50);
         Image image = SwingFXUtils.toFXImage(img, null);
-
         ImageView imageView = new ImageView(image);
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMousePressed(event ->
