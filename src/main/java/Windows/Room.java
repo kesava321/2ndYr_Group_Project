@@ -25,7 +25,7 @@ public class Room implements Serializable {
         int insulationLevel = MEDIUM;
 
         double currentTemperature = 25.0; //default
-        double optimalTemperature = 25.0; //default
+        double optimalTemperature = 30.0; //default
     }
 
     RoomAttributes roomAttributes = new RoomAttributes();

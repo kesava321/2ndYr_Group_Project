@@ -22,6 +22,7 @@ public class simulation extends Room implements Runnable {
     double totalGas = 0;
     double gasCost = 0.16;
     ArrayList<Double> electricityUsage = new ArrayList<Double>();
+    ArrayList<Double> heating = new ArrayList<>();
     double totalElectricity =0;
     double electricityCost = 0.13;
     double toiletsFlushed = 0;
@@ -42,7 +43,7 @@ public class simulation extends Room implements Runnable {
         printUsage();
         for(int x =0;x<electricityUsage.size();x++)
             gasUsage.add(0.0);
-        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage,gasUsage);
+        XYLineChart_AWT chart = new XYLineChart_AWT("Energy Usage Statistics", "Current Energy Consumption Within Building",electricityUsage,heating);
         chart.pack( );
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );
@@ -91,7 +92,7 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof Light)
                     {
                         ((Light) energyConsumers.get(x)).setState(true);
-                        temp += ((Light) energyConsumers.get(x)).getUsage();
+                        temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod);
                     }
                 }
             }
@@ -123,43 +124,56 @@ public class simulation extends Room implements Runnable {
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(false);
                     }
-                    else if(energyConsumers.get(x) instanceof GasHeating)
-                    {
-                        ((GasHeating) energyConsumers.get(x)).setState(false);
-                    }
                 }
+                heating.add(0.0);
             }
-            roomAttributes.currentTemperature = roomAttributes.currentTemperature +1;
+            //roomAttributes.currentTemperature++;
         } else if (roomAttributes.currentTemperature > roomAttributes.optimalTemperature - 2) {
             //Do Nothing - In a good range
-            roomAttributes.currentTemperature = roomAttributes.currentTemperature -1;
+            heating.add(0.0);
+            //roomAttributes.currentTemperature = roomAttributes.currentTemperature -1;
         } else {
             //Temperature is too low
             //Access heating elements and set them to on/true
             for(int x = 0; x<energyConsumers.size();x++)
             {
+                double temp = 0;
                 if (energyConsumers.get(x) != null)
                 {
                     if (energyConsumers.get(x) instanceof ElectricHeating)
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(true);
                         //electricityUsage.add(((ElectricHeating) energyConsumers.get(x)).getConsumption(5));
-                    } else if (energyConsumers.get(x) instanceof GasHeating)
-                    {
-                        ((GasHeating) energyConsumers.get(x)).setState(true);
-                        //gasUsage.add(((GasHeating) energyConsumers.get(x)).getConsumption(5));
+                        roomAttributes.currentTemperature+=2;
+                        temp+=((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod);
                     }
                 }
+                heating.add(temp);
             }
         }
     }
 
     public void simulateWeatherInfluence() {
         double differenceInCurrentAndOutside = roomAttributes.currentTemperature - outsideTemperature;
-        if (roomAttributes.currentTemperature < outsideTemperature) {
-            roomAttributes.currentTemperature = roomAttributes.currentTemperature + roomAttributes.insulationLevel;
-        } else {
-            roomAttributes.currentTemperature = roomAttributes.currentTemperature - roomAttributes.insulationLevel;
+        if(differenceInCurrentAndOutside>10)
+        {
+            if (roomAttributes.currentTemperature < outsideTemperature)
+            {
+                roomAttributes.currentTemperature = roomAttributes.currentTemperature + 2;
+            } else
+            {
+                roomAttributes.currentTemperature = roomAttributes.currentTemperature - 2;
+            }
+        }
+        else
+        {
+            if (roomAttributes.currentTemperature < outsideTemperature)
+            {
+                roomAttributes.currentTemperature = roomAttributes.currentTemperature + (roomAttributes.insulationLevel / 4);
+            } else
+            {
+                roomAttributes.currentTemperature = roomAttributes.currentTemperature - (roomAttributes.insulationLevel / 4);
+            }
         }
     }
 
