@@ -27,9 +27,9 @@ public class XYLineChart_AWT extends JFrame
         super(applicationTitle);
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
-                "Time (24HR)" ,
+                "Time (Minutes)" ,
                 "Energy Usage (%)" ,
-                createDataset(lightUsage,heatingUsage,gas,electricityUsage) ,
+                createDataset(lightUsage,heatingUsage,electricityUsage,gas) ,
                 PlotOrientation.VERTICAL ,
                 true , true , false);
 
@@ -40,27 +40,34 @@ public class XYLineChart_AWT extends JFrame
         renderer.setSeriesPaint( 0 , Color.RED );
         renderer.setSeriesPaint( 1 , Color.GREEN );
         renderer.setSeriesPaint( 2 , Color.BLUE );
-        renderer.setSeriesPaint( 2 , Color.BLACK );
+        renderer.setSeriesPaint( 3 , Color.BLACK );
         renderer.setSeriesStroke( 0 , new BasicStroke( 4.0f ) );
         renderer.setSeriesStroke( 1 , new BasicStroke( 3.0f ) );
         renderer.setSeriesStroke( 2 , new BasicStroke( 2.0f ) );
-        renderer.setSeriesStroke( 2 , new BasicStroke( 1.0f ) );
+        renderer.setSeriesStroke( 3 , new BasicStroke( 1.0f ) );
         plot.setRenderer( renderer );
         setContentPane( chartPanel );
     }
 
-    public XYDataset createDataset(ArrayList<Double> lightUsage, ArrayList<Double> heatingUsage, ArrayList<Double> elec, ArrayList<Double> gas)
+    public XYDataset createDataset(ArrayList<Double> lightUsage, ArrayList<Double> heatingUsage, ArrayList<Double> electricityUsage, ArrayList<Double> gas)
     {
         final XYSeries electricity = new XYSeries( "Electricity" );
         final XYSeries Gas = new XYSeries( "Gas" );
-        for(int x =0;x<elec.size();x++)
+        final XYSeries light = new XYSeries( "Light" );
+        final XYSeries heating = new XYSeries( "Heating" );
+        for(int x =0;x<electricityUsage.size();x++)
         {
-            electricity.add(x*5,elec.get(x));
+            electricity.add(x*5,electricityUsage.get(x));
             Gas.add(x*5, gas.get(x));
+            light.add(x*5, lightUsage.get(x));
+            heating.add(x*5, heatingUsage.get(x));
+
         }
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(electricity);
         dataset.addSeries(Gas);
+        dataset.addSeries(light);
+        dataset.addSeries(heating);
         return dataset;
     }
 }
