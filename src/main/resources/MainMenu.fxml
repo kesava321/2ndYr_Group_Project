@@ -17,13 +17,13 @@
          <children>
                   <Button fx:id="ControlSimulate" layoutX="53.0" layoutY="34.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="220.0" style="-fx-background-color: #514aff; -fx-border-color: #14e3ee; -fx-border-width: 5;" text="Control and Simulate" textFill="WHITE">
                       <font>
-                          <Font name="System Bold Italic" size="18.0" />
+                          <Font name="MRROBOT" size="14.0" />
                       </font>
             </Button>
          </children>
       </HBox>
    </left>
-   <center>
+   <center>     
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="150.0" prefWidth="210.0" BorderPane.alignment="BOTTOM_CENTER">
          <padding>
             <Insets bottom="50.0" />
@@ -31,7 +31,7 @@
          <children>
             <Button fx:id="Settings" mnemonicParsing="false" prefHeight="70.0" prefWidth="220.0" style="-fx-background-color: #514aff; -fx-border-color: #14e3ee; -fx-border-width: 5;" text="Settings" textFill="WHITE">
                <font>
-                  <Font name="System Bold Italic" size="18.0" />
+                  <Font name="MRROBOT" size="18.0" />
                </font>
             </Button>
          </children>
@@ -40,7 +40,8 @@
    <top>
       <Label text="Skyline Control    " textFill="#14e3ee" BorderPane.alignment="CENTER">
          <font>
-            <Font name="Arial Rounded MT Bold" size="40.0" />
+            <!--<Font name="Arial Rounded MT Bold" size="40.0" />-->
+            <Font name="MRROBOT" size="40.0" />
          </font>
          <effect>
             <Glow />

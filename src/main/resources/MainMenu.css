@@ -4,6 +4,13 @@
     -fx-opacity: 2;
 }
 
+@font-face {
+    font-family: 'MRROBOT';
+    src: url('resources/MRROBOT.ttf');
+}
+.ControlSimulate{
+    -fx-font-family: 'MRROBOT';
+}
 
 /*
 .menu__button{
