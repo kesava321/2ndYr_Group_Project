@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.sql.* ;
 import javax.imageio.*;
 import javafx.embed.swing.SwingFXUtils;
+import java.ArrayList;
 
 /**
  * This is the database control class based on Sqlite.
@@ -108,8 +109,23 @@ public class ControlSqlite implements DatabaseExecutable{
 
     }
 
-    public void UpdateData(String tableName){
+    public ArrayList<Object[]>() getResult(String sql) {
+        ArrayList<Object[]> al = new ArrayList<String>();
 
+        try (Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            //judge whether rs has records in database
+            if (rs.next()){
+
+            }
+            else{
+                System.out.printf("Error: Nothing found!\n");
+            }
+        }
+        catch (SQLException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return al;
     }
 
     /**
@@ -166,6 +182,13 @@ public class ControlSqlite implements DatabaseExecutable{
         return name;
     }
 
+    public void DisplayUpdatedColumn(){
+
+    }
+
+     /**
+     * Display the content of database
+     */
     public void DisplayTable(){
         //ControlSqlite cs = new ControlSqlite();
         for (int i = 0; i < 3; i++) {
@@ -290,6 +313,27 @@ public class ControlSqlite implements DatabaseExecutable{
 
         // Return the buffered image
         return bimage;
+    }
+
+    public String getWordFromString(int position, String sql){
+        String word = null;
+        int count = 0, j = 0;
+        for (int i = position; i > 0 ; i--)
+        {
+           for (; ;count++ ) {
+               if (sql[count] == ' '){
+                   count++;
+                   break;
+               }
+           }
+        }
+
+        while (sql[count] != ' '){
+            word[j] = sql[count];
+            count++;
+            j++;
+        }
+        return word;
     }
 }
 
