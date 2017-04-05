@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -40,6 +41,7 @@ public class mainMenu implements Initializable
     public void start() throws Exception
     {
         root = FXMLLoader.load(getClass().getClassLoader().getResource("MainMenu.fxml"));
+        
         window.setTitle("Building Control Systems");
         Scene scene = new Scene(root, 550, 330);
         scene.getStylesheets().add("MainMenu.css");
