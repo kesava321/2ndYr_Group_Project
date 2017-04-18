@@ -7,9 +7,16 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.FileNotFoundException;
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.File;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 import java.sql.* ;
+import javax.imageio.*;
+import javafx.embed.swing.SwingFXUtils;
+import java.util.ArrayList;
 
 /**
  * This is the database control class based on Sqlite.
@@ -102,10 +109,90 @@ public class ControlSqlite implements DatabaseExecutable{
 
     }
 
+    public ArrayList getResult(String sql) {
+        ArrayList<Integer> al = new ArrayList<Integer>();
+
+        try (Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            //judge whether rs has records in database
+            if (rs.next()){
+                al.add(rs.getInt("appliance_ID"));
+            }
+            else{
+                System.out.printf("Error: Nothing found!\n");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return al;
+    }
+
+    /**
+     * return the image form table Appliance by id
+     * if noting found, return null and print error message
+     * @param id the Appliance_id column in table
+     * @return a javafx image
+     */
+    public javafx.scene.image.Image getImageByIdFromAppliance(int id){
+
+        String sql = "SELECT image FROM Appliance WHERE appliance_ID = " + id;
+        javafx.scene.image.Image img = null;
+        try (Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            //judge whether rs has records in database
+            if (rs.next()){
+                byte[] temp = rs.getBytes("image");
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(temp));
+                image = Windows.DrawAppliance.scale(image, 50,50);
+                img = SwingFXUtils.toFXImage(image, null);
+            }
+            else{
+                System.out.printf("Error: Nothing found!\n");
+            }
+        }
+        catch (SQLException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return img;
+    }
+
+    /**
+     * return the image form table Appliance by id
+     * if noting found, return null and print error message
+     * @param id the Appliance_id column in table
+     * @return string
+     */
+    public String getNameByIdFromAppliance(int id){
+        String sql = "SELECT name FROM Appliance WHERE appliance_ID = " + id;
+        String name = null;
+        try (Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            //judge whether rs has records in database
+            if (rs.next()){
+                name = rs.getString("name");
+            }
+            else{
+                System.out.printf("Error: Nothing found!\n");
+            }
+        }
+        catch (  SQLException e ) {
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+
+    public void DisplayUpdatedColumn(){
+
+    }
+
     public void UpdateData(String tableName){
 
     }
 
+     /**
+     * Display the content of database
+     */
     public void DisplayTable(){
         //ControlSqlite cs = new ControlSqlite();
         for (int i = 0; i < 3; i++) {
@@ -183,6 +270,7 @@ public class ControlSqlite implements DatabaseExecutable{
         }
         return temp;
     }
+
     /**
      * Read the file and returns the byte array
      * @param file
@@ -206,6 +294,30 @@ public class ControlSqlite implements DatabaseExecutable{
         return bos != null ? bos.toByteArray() : null;
     }
 
+    /**
+     * Converts a given Image into a BufferedImage
+     *
+     * @param img The Image to be converted
+     * @return The converted BufferedImage
+     */
+    public static BufferedImage toBufferedImage(Image img)
+    {
+        if (img instanceof BufferedImage)
+        {
+            return (BufferedImage) img;
+        }
+
+        // Create a buffered image with transparency
+        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the image on to the buffered image
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        // Return the buffered image
+        return bimage;
+    }
 }
 
 

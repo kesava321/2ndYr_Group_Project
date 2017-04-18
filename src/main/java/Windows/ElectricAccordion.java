@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.BooleanUtils;
 import controlDB.*;//added by Rui
 
+import java.util.ArrayList;
+
 /**
  * Created by daniel on 12/02/2017.
  */
@@ -26,6 +28,7 @@ class ElectricAccordion extends CreateRoom
         Button button = new Button("LED Bulb"); //probs should change to image view at a later date
         button.setStyle("-fx-background-color: #9dc8ff;");
         Button heatingButton = new Button("Heating");
+        ArrayList<Button> otherButtons = new ArrayList<>();
         heatingButton.setStyle("-fx-background-color: #9dc8ff;");
         heatingButton.setOnMouseClicked(event->
         {

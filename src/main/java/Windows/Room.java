@@ -19,13 +19,13 @@ public class Room implements Serializable {
     public static double outsideTemperature = 25.0;
 
     static class RoomAttributes implements Serializable {
-        int roomCapacity = 100; //DEFAULT
+        int roomCapacity = 5; //DEFAULT
         int currentRoomOccupancy = 50; //DEFAULT
         int activityLevel = MEDIUM; //DEFAULT
         int insulationLevel = MEDIUM;
 
         double currentTemperature = 25.0; //default
-        double optimalTemperature = 25.0; //default
+        double optimalTemperature = 30.0; //default
     }
 
     RoomAttributes roomAttributes = new RoomAttributes();

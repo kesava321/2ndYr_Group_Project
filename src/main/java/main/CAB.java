@@ -32,10 +32,7 @@ public class CAB extends Application{
     {
         //splash splashScreen = new splash();
         //splashScreen.Splash();
-
-        splash Splash = new splash();
-        Thread t = new Thread(Splash);
-        t.start();
+        
         mainMenu room = new mainMenu();
         room.start();
 
