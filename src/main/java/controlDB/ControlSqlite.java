@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.sql.* ;
 import javax.imageio.*;
 import javafx.embed.swing.SwingFXUtils;
+import java.util.ArrayList;
 
 /**
  * This is the database control class based on Sqlite.
@@ -108,8 +109,23 @@ public class ControlSqlite implements DatabaseExecutable{
 
     }
 
-    public void UpdateData(String tableName){
+    public ArrayList getResult(String sql) {
+        ArrayList<Integer> al = new ArrayList<Integer>();
 
+        try (Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            //judge whether rs has records in database
+            if (rs.next()){
+                al.add(rs.getInt("appliance_ID"));
+            }
+            else{
+                System.out.printf("Error: Nothing found!\n");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return al;
     }
 
     /**
@@ -166,6 +182,17 @@ public class ControlSqlite implements DatabaseExecutable{
         return name;
     }
 
+    public void DisplayUpdatedColumn(){
+
+    }
+
+    public void UpdateData(String tableName){
+
+    }
+
+     /**
+     * Display the content of database
+     */
     public void DisplayTable(){
         //ControlSqlite cs = new ControlSqlite();
         for (int i = 0; i < 3; i++) {

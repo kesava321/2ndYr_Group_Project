@@ -29,4 +29,6 @@ public interface DatabaseExecutable {
      * @param tableName
      */
     public void DisplayTable();
+
+    //public ArrayList[] getResult(String sql);
 }
