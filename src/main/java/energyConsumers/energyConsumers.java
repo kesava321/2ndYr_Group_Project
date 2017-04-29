@@ -44,7 +44,7 @@ public abstract class energyConsumers implements java.io.Serializable
 
     /**
      * sets state of state
-     * @param state
+     * @param state boolean variable representing if the object is on of off
      */
     public void setState(boolean state)
     {
@@ -62,7 +62,8 @@ public abstract class energyConsumers implements java.io.Serializable
 
     /**
      * sets usage information whilst validating it is larger than 0
-     * @param usage
+     * @param usage double representing energy usage of the object.
+     *              Can be any unit (KW,m/3
      */
     public void setUsage(double usage)
     {

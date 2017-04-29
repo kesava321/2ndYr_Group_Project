@@ -13,7 +13,6 @@ public interface DatabaseExecutable {
     /**
      * Insert a new data into tableName
      * primarily used on DataInput
-     * @param tableName
      */
     public void InsertData(String tableName, Object[] dataSet);
 
@@ -26,7 +25,6 @@ public interface DatabaseExecutable {
 
     /**
      * Display all the records in tableName
-     * @param tableName
      */
     public void DisplayTable();
 

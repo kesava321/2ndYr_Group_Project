@@ -116,7 +116,7 @@ public class ControlSqlite implements DatabaseExecutable{
      *              1 for Types_Table
      *              2 for Rating
      *              3 for Aplliance
-     * @return
+     * @return An arraylist containing the results of the query
      */
     public ArrayList getResult(String sql, int table) {
         ArrayList<Integer> al = new ArrayList<Integer>();
