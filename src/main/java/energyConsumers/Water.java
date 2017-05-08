@@ -32,7 +32,7 @@ public class Water extends energyConsumers
 
     /**
      * estimates emissions of energy consumer using its power consumption and a estimate for water emmisions
-     * @param mins
+     * @param mins time for which you want the emmisions to be simulated over.
      * @return emmisions
      */
     @Override

@@ -25,7 +25,6 @@ public class simulation extends Room implements Runnable {
     ArrayList<Double> heating = new ArrayList<>();
     ArrayList<Double> lightUsage = new ArrayList<Double>();
     ArrayList<Double> heatingUsage = new ArrayList<Double>();
-
     double totalElectricity =0;
     double electricityCost = 0.13;
     double toiletsFlushed = 0;
@@ -46,7 +45,6 @@ public class simulation extends Room implements Runnable {
         printUsage();
         for(int x =0;x<time/5;x++) {
             gasUsage.add(0.0);
-
             heatingUsage.add(0.0);
             lightUsage.add(0.0);
         }

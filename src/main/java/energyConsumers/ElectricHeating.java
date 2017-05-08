@@ -34,8 +34,8 @@ public class ElectricHeating extends Electricity
 
     /**
      * Sets the temperature of the electric heater
-     * if temperature is > 40 the temp will be fixed at 40
-     * @param temperature
+     * if temperature is greater than 40 the temp will be fixed at 40
+     * @param temperature temperature that the ElectricHeating object will be set to
      */
     public void setTemperature(double temperature)
     {

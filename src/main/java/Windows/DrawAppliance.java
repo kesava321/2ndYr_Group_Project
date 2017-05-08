@@ -11,6 +11,7 @@ import javax.imageio.*;
 import javafx.embed.swing.SwingFXUtils;
 import java.awt.Graphics2D;
 import controlDB.*;
+import java.util.ArrayList;
 
 /**
  * Created by daniel on 26/02/2017.

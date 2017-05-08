@@ -35,7 +35,7 @@ public class Light extends Electricity
     /**
      * sets the current power of the bulb allowing for dimming
      * does not allow for the bulb to have a large power than powerRating
-     * @param currentPower
+     * @param currentPower set the current power usage of the bulb in Watts
      */
     public void setCurrentPower(double currentPower)
     {
@@ -44,7 +44,8 @@ public class Light extends Electricity
 
     /**
      * Sets the maximum power the bulb can ues
-     * @param maxPower
+     * @param maxPower set the maximum power that the bulb can use in Watts.
+     *                This allows for dimming bulbs.
      */
     public void setMaxPower(double maxPower)
     {

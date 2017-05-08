@@ -32,7 +32,7 @@ public class Gas extends energyConsumers {
 
     /**
      * estimates emissions of energy consumer using its power consumption and a estimate for gas emmisions
-     * @param mins
+     * @param mins int time for which you want the emmisions to be estimated
      * @return emmisions
      */
     @Override

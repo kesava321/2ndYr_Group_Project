@@ -109,23 +109,97 @@ public class ControlSqlite implements DatabaseExecutable{
 
     }
 
-    public ArrayList getResult(String sql) {
+    /**
+     *
+     * @param sql the query
+     * @param table indicate which table for excuting,
+     *              1 for Types_Table
+     *              2 for Rating
+     *              3 for Aplliance
+     * @return An arraylist containing the results of the query
+     */
+    public ArrayList getResult(String sql, int table) {
         ArrayList<Integer> al = new ArrayList<Integer>();
 
         try (Statement stmt = c.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)){
+             ResultSet rs = stmt.executeQuery(sql)) {
             //judge whether rs has records in database
-            if (rs.next()){
+            if (rs.next()) {
                 al.add(rs.getInt("appliance_ID"));
-            }
-            else{
+            } else {
                 System.out.printf("Error: Nothing found!\n");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return al;
+
+        ArrayList<Object[]> alo = new ArrayList<Object[]>();
+
+        if (table == 1) {
+            if (al.size() != 0) {
+                for (int i = 0; i < al.size(); i++) {
+                    Object[] o = new Object[2];
+                    try (Statement stmt = c.createStatement();
+                         ResultSet rs = stmt.executeQuery("SELECT * FROM Types_Table WHERE appliance_ID = " + al.get(i))) {
+                        //judge whether rs has records in database
+                        if (rs.next()) {
+                            o[0] = rs.getInt("appliance_ID");
+                            o[1] = rs.getString("power_type");
+                        } else {
+                            System.out.printf("Error: Nothing found!\n");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    alo.add(o);
+                }
+            }
+        }
+
+        if (table == 2) {
+            if (al.size() != 0) {
+                for (int i = 0; i < al.size(); i++) {
+                    Object[] o = new Object[2];
+                    try (Statement stmt = c.createStatement();
+                         ResultSet rs = stmt.executeQuery("SELECT * FROM Rating WHERE appliance_ID = " + al.get(i))) {
+                        //judge whether rs has records in database
+                        if (rs.next()) {
+                            o[0] = rs.getInt("appliance_ID");
+                            o[1] = rs.getInt("power_rating");
+                        } else {
+                            System.out.printf("Error: Nothing found!\n");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    alo.add(o);
+                }
+            }
+        }
+
+        if (table == 3) {
+            if (al.size() != 0) {
+                for (int i = 0; i < al.size(); i++) {
+                    Object[] o = new Object[2];
+                    try (Statement stmt = c.createStatement();
+                         ResultSet rs = stmt.executeQuery("SELECT * FROM Appliance WHERE appliance_ID = " + al.get(i))) {
+                        //judge whether rs has records in database
+                        if (rs.next()) {
+                            o[0] = rs.getInt("appliance_ID");
+                            o[1] = rs.getString("name");
+                            o[2] = rs.getBytes("image");
+                        } else {
+                            System.out.printf("Error: Nothing found!\n");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    alo.add(o);
+                }
+            }
+
+        }
+        return alo;
     }
 
     /**
