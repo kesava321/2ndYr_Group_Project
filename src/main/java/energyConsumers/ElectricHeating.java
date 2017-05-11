@@ -1,6 +1,7 @@
 package energyConsumers;
 
 /**
+ * Electric heating is a subclass of electricity.
  * Created by daniel on 26/01/2017.
  */
 import controlDB.ControlSqlite;
@@ -35,7 +36,9 @@ public class ElectricHeating extends Electricity
     /**
      * Sets the temperature of the electric heater
      * if temperature is greater than 40 the temp will be fixed at 40
-     * @param temperature temperature that the ElectricHeating object will be set to
+     * if temperature is less than 0 the temp will be fixed at 0
+     * otherwise the temperature will just be returned.
+     * @param temperature double temperature in celsius
      */
     public void setTemperature(double temperature)
     {

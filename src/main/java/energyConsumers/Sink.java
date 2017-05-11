@@ -1,6 +1,8 @@
 package energyConsumers;
 
 /**
+ * Sink is a subclass of water and obtains all the features related to a sink.
+ * Get and set methods are used to set and return the average time a sink is used.
  * Created by daniel on 20/02/2017.
  */
 public class Sink extends Water

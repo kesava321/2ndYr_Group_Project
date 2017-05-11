@@ -8,6 +8,11 @@ import javafx.scene.control.Button;
 import controlDB.*;
 import javafx.stage.Stage;
 
+/**
+ * This is the main class for the software. It creates the mainMenu and sets the scene
+ * and stage for screen. The GUI has been designed using JavaFX.
+ */
+
 public class CAB extends Application{
 
     @FXML
