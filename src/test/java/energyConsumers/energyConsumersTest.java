@@ -28,8 +28,8 @@ public class energyConsumersTest {
     public void calculateCost() throws Exception {
         Light lights = new Light(true, 400);
         double x = lights.getConsumption(90);
-        double y = lights.calculateCost(x, 2);
-        assertEquals(1.2,lights.calculateCost(x,2),0.0);
+        double y = energyConsumers.calculateCost(x, 2);
+        assertEquals(1.2, energyConsumers.calculateCost(x,2),0.0);
     }
 
     @Test

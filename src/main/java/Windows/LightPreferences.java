@@ -53,10 +53,10 @@ class LightPreferences extends CreateRoom
             }
         });
         stateCombo.getItems().addAll("Off","On");
-        grid.setConstraints(state,0,0);
-        grid.setConstraints(stateCombo,1,0);
-        grid.setConstraints(powerRating,0,1);
-        grid.setConstraints(powerRatingField,1,1);
+        GridPane.setConstraints(state,0,0);
+        GridPane.setConstraints(stateCombo,1,0);
+        GridPane.setConstraints(powerRating,0,1);
+        GridPane.setConstraints(powerRatingField,1,1);
         grid.getChildren().addAll(state,stateCombo,powerRating,powerRatingField);
         pane.getChildren().add(grid);
         return pane;

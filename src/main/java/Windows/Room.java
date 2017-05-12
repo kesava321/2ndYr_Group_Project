@@ -102,7 +102,7 @@ public class Room implements Serializable {
 
     public void addRoom() {
         points.add(new LinkedList[2]);
-        rooms.add((ArrayList<Object>[]) new ArrayList[2]);
+        rooms.add(new ArrayList[2]);
         roomCount++;
         saveRoom();
         savePoints();

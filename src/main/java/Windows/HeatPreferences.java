@@ -86,12 +86,12 @@ class HeatPreferences extends CreateRoom
             }
         });
         stateCombo.getItems().addAll("Off", "On");
-        grid.setConstraints(state, 0, 0);
-        grid.setConstraints(stateCombo, 1, 0);
-        grid.setConstraints(temp, 0, 1);
-        grid.setConstraints(tempField, 1, 1);
-        grid.setConstraints(powerRating, 0, 2);
-        grid.setConstraints(powerRatingField, 1, 2);
+        GridPane.setConstraints(state, 0, 0);
+        GridPane.setConstraints(stateCombo, 1, 0);
+        GridPane.setConstraints(temp, 0, 1);
+        GridPane.setConstraints(tempField, 1, 1);
+        GridPane.setConstraints(powerRating, 0, 2);
+        GridPane.setConstraints(powerRatingField, 1, 2);
         grid.getChildren().addAll(state, stateCombo, temp, tempField, powerRating, powerRatingField);
         pane.getChildren().add(grid);
         return pane;
