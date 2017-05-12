@@ -50,25 +50,25 @@ public class ElectricHeating extends Electricity
             this.temperature = temperature;
     }
 
-    /*/**
+    /**
      * get all the data about the electric heating
      * @return
      */
-    //public Object[] getAllData(){
-     //   Object[] o = {"ElectricHeating", 60, getUsage(), " ", getConsumption(60),estimatedEmissions(60),getTemperature() };
-     //   return o;
-    //}
+    public Object[] getAllData(){
+       Object[] o = {"ElectricHeating", 60, getUsage(), " ", getConsumption(60),estimatedEmissions(60),getTemperature() };
+        return o;
+    }
 
-    /*/**
+    /**
      * Insert all the data about electric heating into database using a object[]
      * @param o
      * @throws SQLException
+     *
      */
-    /*
     public void InsertElectricHeatingData( Object[] o) throws SQLException {
         ControlSqlite cs = new ControlSqlite();
         cs.InsertData("ENERGYDATA", o);
-        cs.DisplayTable("ENERGYDATA");
+        cs.DisplayTable();
         System.out.println("Insert successflly");
-    }*/
+    }
 }
