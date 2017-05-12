@@ -38,7 +38,7 @@ public class simulation extends Room implements Runnable {
     public void run() {
         timeIntervals = time/5;
         for (int i = 0; i<timeIntervals; i++) {
-            System.out.println(roomAttributes.currentRoomOccupancy);
+             System.out.println(roomAttributes.currentRoomOccupancy);
             generateOccupants();
             simulateHeating();
             simulateWeatherInfluence();
@@ -79,6 +79,9 @@ public class simulation extends Room implements Runnable {
 
 
     private void simulateElectricity() {
+        double temp = 0;
+        Random rn = new Random();
+        int tempRandom;
         if (getCurrentRoomOccupancy()==0){
             //turn lights off
             //Access heating elements and set them to on/true
@@ -86,23 +89,37 @@ public class simulation extends Room implements Runnable {
             {
                 if (energyConsumers.get(x) != null) {
                     if (energyConsumers.get(x) instanceof Light) {
-                        ((Light) energyConsumers.get(x)).setState(false);
+                        //((Light) energyConsumers.get(x)).setState(false);
+                        tempRandom =rn.nextInt(4);
+                        System.out.println(tempRandom);
+                        if(tempRandom==1)
+                            ((Light) energyConsumers.get(x)).setState(false);
+                            //temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod)*100;
                     }
+                    else if(energyConsumers.get(x) instanceof ElectricHeating)
+                        //((ElectricHeating) energyConsumers.get(x)).setState(false);
+                        temp += ((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod)*10;
                 }
             }
-            electricityUsage.add(0.0);
+            electricityUsage.add(temp);
         }
         else
         {
-            double temp = 0;
+
             for(int x = 0; x<energyConsumers.size();x++)
             {
                 if (energyConsumers.get(x) != null)
                 {
                     if (energyConsumers.get(x) instanceof Light)
                     {
+                        if(((Light) energyConsumers.get(x)).getState())
+                            temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod)*100;
                         ((Light) energyConsumers.get(x)).setState(true);
-                        temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod);
+                    }
+                    else if(energyConsumers.get(x) instanceof ElectricHeating)
+                    {
+                        ((ElectricHeating) energyConsumers.get(x)).setState(true);
+                        temp += ((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod)*10;
                     }
                 }
             }

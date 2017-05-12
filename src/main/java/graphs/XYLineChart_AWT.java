@@ -34,7 +34,7 @@ public class XYLineChart_AWT extends JFrame
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
                 "Time (Minutes)" ,
-                "Energy Usage (%)" ,
+                "Energy Usage (KwH)" ,
                 createDataset(lightUsage,heatingUsage,electricityUsage,gas) ,
                 PlotOrientation.VERTICAL ,
                 true , true , false);

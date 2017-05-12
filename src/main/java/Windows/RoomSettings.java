@@ -50,7 +50,7 @@ public class RoomSettings extends Room
             roomAttributes.insulationLevel = insulationLevelCombo.getSelectionModel().getSelectedIndex()+1;
             roomAttributes.optimalTemperature = Double.parseDouble(optimalTempField.getText());
             System.out.println(activityLevelCombo.getSelectionModel().getSelectedIndex());
-            simulate(60);
+            simulate(600);
             System.out.println("\n\n" + roomAttributes.roomCapacity + "\n\n");
         });
 
