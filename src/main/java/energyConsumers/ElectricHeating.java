@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class ElectricHeating extends Electricity
 {
     private double temperature;
-
+    private double maxPower;
     public ElectricHeating()
     {
         super(false,1000);
@@ -22,6 +22,7 @@ public class ElectricHeating extends Electricity
     {
         super(state,powerRating);
         setTemperature(temp);
+        this.maxPower=powerRating;
     }
 
     /**

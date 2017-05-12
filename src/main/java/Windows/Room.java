@@ -24,7 +24,7 @@ public class Room implements Serializable {
     public static double outsideTemperature = 25.0;
 
     static class RoomAttributes implements Serializable {
-        int roomCapacity = 5; //DEFAULT
+        int roomCapacity = 20; //DEFAULT
         int currentRoomOccupancy = 50; //DEFAULT
         int activityLevel = MEDIUM; //DEFAULT
         int insulationLevel = MEDIUM;
@@ -132,7 +132,7 @@ public class Room implements Serializable {
         points.set(currentRoom, temp);
     }
 
-    public void simulate(int time){
+    public void simulate(int time,int season){
         simulation sim = new simulation(time);
         Thread t = new Thread(sim);
         t.start();

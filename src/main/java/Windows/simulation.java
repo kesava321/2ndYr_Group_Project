@@ -10,6 +10,7 @@ import org.jfree.ui.RefineryUtilities;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This class is designed to return information based on a simulation, where the
@@ -38,7 +39,7 @@ public class simulation extends Room implements Runnable {
     public void run() {
         timeIntervals = time/5;
         for (int i = 0; i<timeIntervals; i++) {
-             System.out.println(roomAttributes.currentRoomOccupancy);
+             //System.out.println(roomAttributes.currentRoomOccupancy);
             generateOccupants();
             simulateHeating();
             simulateWeatherInfluence();
@@ -82,6 +83,8 @@ public class simulation extends Room implements Runnable {
         double temp = 0;
         Random rn = new Random();
         int tempRandom;
+        double tempPower;
+        double temp2;
         if (getCurrentRoomOccupancy()==0){
             //turn lights off
             //Access heating elements and set them to on/true
@@ -91,7 +94,6 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof Light) {
                         //((Light) energyConsumers.get(x)).setState(false);
                         tempRandom =rn.nextInt(4);
-                        System.out.println(tempRandom);
                         if(tempRandom==1)
                             ((Light) energyConsumers.get(x)).setState(false);
                             //temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod)*100;
@@ -119,7 +121,9 @@ public class simulation extends Room implements Runnable {
                     else if(energyConsumers.get(x) instanceof ElectricHeating)
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(true);
-                        temp += ((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod)*10;
+                        tempPower =((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod)*10;
+                        temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.5,tempPower);
+                        temp+= temp2;
                     }
                 }
             }
@@ -134,7 +138,6 @@ public class simulation extends Room implements Runnable {
     public void generateOccupants() {
 
         int temp = roomAttributes.roomCapacity / roomAttributes.activityLevel;
-        System.out.println("|" + temp+ "|");
         Random rand = new Random();
         setCurrentRoomOccupancy(rand.nextInt(temp));
     }
