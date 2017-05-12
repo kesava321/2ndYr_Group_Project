@@ -47,7 +47,7 @@ public class ElectricHeating extends Electricity
             this.temperature = temperature;
     }
 
-    /**
+    /*/**
      * get all the data about the electric heating
      * @return
      */
@@ -56,7 +56,7 @@ public class ElectricHeating extends Electricity
      //   return o;
     //}
 
-    /**
+    /*/**
      * Insert all the data about electric heating into database using a object[]
      * @param o
      * @throws SQLException
