@@ -1,6 +1,8 @@
 package energyConsumers;
 
 /**
+ * Electricity is a subclass of energyConsumers and inherits its methods, but it
+ * also acts as a base class for electrical objects such as lights.
  * Created by daniel on 26/01/2017.
  */
 public class Electricity extends energyConsumers
@@ -29,6 +31,12 @@ public class Electricity extends energyConsumers
     {
         return ((getUsage()/60)*mins)/1000;
     }
+
+    /**
+     * estimates emissions of energy consumer using its power consumption and a estimate for electrical emmisions
+     * @param mins int time for which you want the emmisions to be estimated
+     * @return emmisions
+     */
 
     @Override
     public double estimatedEmissions(int mins)

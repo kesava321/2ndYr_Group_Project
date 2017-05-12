@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import static Windows.CreateRoom.*;
 /**
+ * The TopBar class draws out the tool bars for the software and sets how the software
+ * GUI responds when the different buttons are clicked.
  * Created by daniel on 21/02/2017.
  */
 public class TopBar extends CreateRoom

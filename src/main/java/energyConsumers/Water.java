@@ -1,9 +1,8 @@
 package energyConsumers;
 
-/** The water constructors either allow the user to set a WaterState and
- * WaterIntake or a WaterState and WaterIntake is set itself. setWaterState
- * ensures that WaterState cannot be less than 0 by resetting any
- * WaterState made false.
+/**
+ * Water is a subclass of energyConsumers and inherits its methods, but it also acts as a base
+ * class for water related objects such as toilet and sink.
  */
 public class Water extends energyConsumers
 {

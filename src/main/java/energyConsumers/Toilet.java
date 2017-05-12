@@ -1,6 +1,7 @@
 package energyConsumers;
 
 /**
+ * Toilet is a subclass of water.
  * Created by daniel on 16/02/2017.
  */
 public class Toilet extends Water

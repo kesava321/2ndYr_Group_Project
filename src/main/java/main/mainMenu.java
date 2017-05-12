@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
+ * The mainMenu class sets the layout for the initial menu of the software.
  * Created by Matt on 24/1/2016.
  */
 public class mainMenu implements Initializable
@@ -37,6 +38,10 @@ public class mainMenu implements Initializable
     @FXML
     private Button Settings;
     private Stage window  = new Stage();
+
+    /**
+     * The start method sets features of the menu such as the title, background image and size of the scene.
+     */
 
     public void start() throws Exception
     {

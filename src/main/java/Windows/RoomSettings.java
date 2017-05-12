@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
+ * The RoomSettings class is where the settings to be made (on simulating a room)
+ * are written. Here the edit box is designed so that the user can easily understand
+ * how they can the set the parameters for a room and where they can do so.
  * Created by daniel on 15/03/2017.
  */
 public class RoomSettings extends Room

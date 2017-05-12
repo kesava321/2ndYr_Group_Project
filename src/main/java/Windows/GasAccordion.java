@@ -12,6 +12,10 @@ import org.apache.commons.lang3.BooleanUtils;
 import controlDB.*;
 
 /**
+ * This class is for the drop down list on the left hand side of the GUI where the objects
+ * are stored. this class in particular is for the Gas energyConsumers and inherits
+ * the CreateRoom class. The class draws out the drop down list and handles what is down
+ * when it is pressed.
  * Created by daniel on 12/02/2017.
  */
 public class GasAccordion extends CreateRoom

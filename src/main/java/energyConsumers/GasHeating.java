@@ -6,6 +6,7 @@ package energyConsumers;
  * temperature is set as above 40 it is automatically reset to 40 and if it is
  * above 0 but below 40, it remains as is.
  * setPower rating ensures that powerRating cannot be less than 0.
+ * Gas heating is a subclass of Gas.
  *
  * Created by daniel on 29/11/2016.
  */
@@ -35,6 +36,8 @@ public class GasHeating extends Gas
     /**
      * Sets the temperature of the electric heater
      * if temperature is greater than 40 the temp will be fixed at 40
+     * if temperature is less than 0 the temp will be fixed at 0
+     * otherwise the temperature will just be returned.
      * @param temperature double temperature in celsius
      */
     public void setTemperature(double temperature)
