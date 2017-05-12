@@ -30,7 +30,7 @@
             <Insets bottom="50.0" />
          </padding>
          <children>
-            <Button fx:id="Settings" mnemonicParsing="false" prefHeight="70.0" prefWidth="220.0" style="-fx-background-color: #514aff; -fx-border-color: #14e3ee; -fx-border-width: 5;" text="Settings" textFill="WHITE">
+            <Button fx:id="Settings" mnemonicParsing="false" prefHeight="70.0" prefWidth="220.0" style="-fx-background-color: #514aff; -fx-border-color: #14e3ee; -fx-border-width: 5;" text="User Manual" textFill="WHITE">
                <font>
                   <Font name="MRROBOT" size="18.0" />
                </font>
