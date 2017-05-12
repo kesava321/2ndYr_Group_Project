@@ -133,7 +133,7 @@ public class Room implements Serializable {
     }
 
     public void simulate(int time,int season){
-        simulation sim = new simulation(time);
+        simulation sim = new simulation(time,season);
         Thread t = new Thread(sim);
         t.start();
     }

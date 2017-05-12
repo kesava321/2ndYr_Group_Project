@@ -34,7 +34,7 @@ public class simulation extends Room implements Runnable {
     double electricityCost = 0.13;
     double toiletsFlushed = 0;
     double co2Cons = 0;
-
+    private int season;
     @Override
     public void run() {
         timeIntervals = time/5;
@@ -122,7 +122,24 @@ public class simulation extends Room implements Runnable {
                     {
                         ((ElectricHeating) energyConsumers.get(x)).setState(true);
                         tempPower =((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod)*10;
-                        temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.5,tempPower);
+                        temp2 = 0;
+                        switch(season)
+                        {
+                            case 1: //summer
+                                temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.2,tempPower*0.5);
+                                break;
+                            case 2://autumn
+                                temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.3,tempPower*0.5);
+                                break;
+                            case 3://winter
+                                temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.5,tempPower);
+                                break;
+                            case 4:
+                                temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.3,tempPower*0.5);
+                                break;
+
+                        }
+                       // temp2 = ThreadLocalRandom.current().nextDouble(tempPower*0.5,tempPower);
                         temp+= temp2;
                     }
                 }
@@ -131,8 +148,9 @@ public class simulation extends Room implements Runnable {
         }
     }
 
-    public simulation(int time) {
+    public simulation(int time,int season) {
         this.time = time;
+        this.season=season;
     }
 
     public void generateOccupants() {
