@@ -54,15 +54,15 @@ public class RoomSettings extends Room
             System.out.println("\n\n" + roomAttributes.roomCapacity + "\n\n");
         });
 
-        gridPane.setConstraints(roomCapacity,0,0);
-        gridPane.setConstraints(roomCapacityField,1,0);
-        gridPane.setConstraints(activityLevel,0,1);
-        gridPane.setConstraints(activityLevelCombo,1,1);
-        gridPane.setConstraints(insulationLevel,0,2);
-        gridPane.setConstraints(insulationLevelCombo,1,2);
-        gridPane.setConstraints(optimalTemp,0,3);
-        gridPane.setConstraints(optimalTempField,1,3);
-        gridPane.setConstraints(go,1,4);
+        GridPane.setConstraints(roomCapacity,0,0);
+        GridPane.setConstraints(roomCapacityField,1,0);
+        GridPane.setConstraints(activityLevel,0,1);
+        GridPane.setConstraints(activityLevelCombo,1,1);
+        GridPane.setConstraints(insulationLevel,0,2);
+        GridPane.setConstraints(insulationLevelCombo,1,2);
+        GridPane.setConstraints(optimalTemp,0,3);
+        GridPane.setConstraints(optimalTempField,1,3);
+        GridPane.setConstraints(go,1,4);
         gridPane.getChildren().addAll(roomCapacity,roomCapacityField,activityLevel,activityLevelCombo,
                 insulationLevel,insulationLevelCombo,optimalTemp,optimalTempField,go);
 

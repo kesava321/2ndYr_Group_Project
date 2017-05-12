@@ -14,19 +14,19 @@ public interface DatabaseExecutable {
      * Insert a new data into tableName
      * primarily used on DataInput
      */
-    public void InsertData(String tableName, Object[] dataSet);
+    void InsertData(String tableName, Object[] dataSet);
 
     /**
      * update data in tableName
      * primarily used on Light and heating
      * @param tableName
      */
-    public void UpdateData(String tableName);
+    void UpdateData(String tableName);
 
     /**
      * Display all the records in tableName
      */
-    public void DisplayTable();
+    void DisplayTable();
 
     //public ArrayList[] getResult(String sql);
 }

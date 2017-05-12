@@ -132,14 +132,14 @@ class WaterPreferences extends CreateRoom
         });
 
         stateCombo.getItems().addAll("Off", "On");
-        grid.setConstraints(state, 0, 0);
-        grid.setConstraints(stateCombo, 1, 0);
-        grid.setConstraints(usePerHour,0,1);
-        grid.setConstraints(usePerHourField,1,1);
-        grid.setConstraints(literPerUse,0,2);
-        grid.setConstraints(literPerUseField,1,2);
-        grid.setConstraints(avgUseTime,0,3);
-        grid.setConstraints(avgUseTimeField,1,3);
+        GridPane.setConstraints(state, 0, 0);
+        GridPane.setConstraints(stateCombo, 1, 0);
+        GridPane.setConstraints(usePerHour,0,1);
+        GridPane.setConstraints(usePerHourField,1,1);
+        GridPane.setConstraints(literPerUse,0,2);
+        GridPane.setConstraints(literPerUseField,1,2);
+        GridPane.setConstraints(avgUseTime,0,3);
+        GridPane.setConstraints(avgUseTimeField,1,3);
         grid.getChildren().addAll(state, stateCombo,usePerHour,usePerHourField,literPerUse,literPerUseField,avgUseTime,avgUseTimeField);
         pane.getChildren().add(grid);
         return pane;

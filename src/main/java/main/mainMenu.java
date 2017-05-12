@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +22,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.BooleanUtils;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -50,6 +54,7 @@ public class mainMenu implements Initializable
         window.setTitle("Building Control Systems");
         Scene scene = new Scene(root, 550, 330);
         scene.getStylesheets().add("MainMenu.css");
+
         window.setScene(scene);
         window.setResizable(false);
         window.show();
@@ -76,6 +81,17 @@ public class mainMenu implements Initializable
         });
 
         assert Settings != null;
-        Settings.setOnAction(event -> settingsClicked());
+        Settings.setOnAction(event -> {
+            System.out.print("Please sources");
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    File myFile = new File( "build/resources/main/UserManual.pdf");
+                    Desktop.getDesktop().open(myFile);
+                } catch (IOException ex) {
+                    // no application registered for PDFs
+                    System.out.print("Please find PDF in Resources");
+                }
+            }
+        });
     }
 }

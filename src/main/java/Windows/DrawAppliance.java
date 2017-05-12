@@ -81,7 +81,7 @@ public class DrawAppliance extends CreateRoom
             currentSelected = id;
             heatPreferences.setVisible(false);
             lightPreferences.setVisible(false);
-            waterPreferences.setVisible(true,waterPreferences.TOILET);
+            waterPreferences.setVisible(true, WaterPreferences.TOILET);
             Object temp = energyConsumers.get(id);
             if (temp instanceof Toilet)
             {
