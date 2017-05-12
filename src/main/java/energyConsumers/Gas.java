@@ -1,5 +1,10 @@
 package energyConsumers;
 
+/**
+ * The gas class manages all features that relate to a gas
+ * object (such as estimated gas emissions). Light is a subclass of energyConsumers.
+ */
+
 public class Gas extends energyConsumers {
 
     private final double gasEmmisions = 0.5533827; //per KwH
@@ -14,6 +19,10 @@ public class Gas extends energyConsumers {
         setUsage(usage);
     }
 
+    /**
+     * conversion of gas usage to kilowatt hours.
+     * @return conversion to kilowatt hours
+     */
     public double toKwH(double usage)
     {
         return usage*11.187;

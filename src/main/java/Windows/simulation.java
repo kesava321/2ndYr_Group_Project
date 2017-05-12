@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * This class is designed to return information based on a simulation, where the
+ * information given relates to each of the different types of energyConsumers
+ * (Electric, Gas, Water). It is a subclass of the Room class that simulates
+ * energy consumers within a room and represents the data as a graph (see XYLineChart_AWT class).
  * Created by Matt on 15-Mar-17.
  */
 public class simulation extends Room implements Runnable {

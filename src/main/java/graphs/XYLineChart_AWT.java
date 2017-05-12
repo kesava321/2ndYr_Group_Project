@@ -20,6 +20,12 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 import javax.swing.*;
 
+/**
+ * The XYLineChart_AWT class is used to create the graph that is displayed after a simualtion has
+ * been run. It takes into account the current energy consumption within a building/room created
+ * an represents this data with relation to Light, Gas, Heating and Electricity.
+ */
+
 public class XYLineChart_AWT extends JFrame
 {
     public XYLineChart_AWT(String applicationTitle, String chartTitle, ArrayList<Double> electricityUsage, ArrayList<Double> lightUsage, ArrayList<Double> heatingUsage, ArrayList<Double> gas)

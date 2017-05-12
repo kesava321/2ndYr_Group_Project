@@ -14,6 +14,9 @@ import controlDB.*;
 import java.util.ArrayList;
 
 /**
+ * This class simply handles the drawing of the object images for the software.
+ * Objects such as taps are drawn here and their preferences are set so that in the
+ * instance that such an object is taken to the screen, its initial parameters can be set.
  * Created by daniel on 26/02/2017.
  */
 public class DrawAppliance extends CreateRoom

@@ -7,6 +7,11 @@ import java.util.*;
 
 
 /**
+ * The Room class manages all instances that relate to a created room. The class maintains and manages
+ * an array of features which include: saving a room, loading a room, setting a room or simulating
+ * a room. When saving, loading or setting a room, a room's attributes and energyConsumers are stored
+ * so that they can later be retrieved. When simulating a room, a room is initially given a set of
+ * default parameters such as it's capacity, that can be changed.
  * Created by daniel on 22/02/2017.
  */
 public class Room implements Serializable {

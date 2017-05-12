@@ -10,6 +10,11 @@ import org.apache.commons.lang3.BooleanUtils;
 
 
 /**
+ * This class draws the preferences for a particular object. In this case the object is a light.
+ * On the right hand side of the GUI, the preferences of an energyConsumer are laid out and can be
+ * altered resulting in changes being made to the system. For example an energyConsumer can be switched
+ * On or Off. These changes will have an effect on the Power, Emissions and Kg/cO2 ratings for a room.
+ * LightPreferences inherits CreateRoom.
  * Created by daniel on 06/02/2017.
  */
 class LightPreferences extends CreateRoom

@@ -28,6 +28,20 @@ import java.util.LinkedList;
 import java.sql.*;
 
 /**
+ * The createRoom class handles the logic behind the main page. It includes
+ * the side menu that consists of the energyConsumer objects.
+ * <p>
+ * The update method is used to update and generate the Power, Emissions and Kg/co2 variables
+ * for a class. As more energyConsumers are added to a room these values are updated.
+ * </p>
+ * <p>
+ * The start function handles the possible states that the software can be in and how the
+ * software should respond when a user enters these states. For example this function
+ * (in conjunction with the drawLine function) allows the user to draw a layout for
+ * a room.
+ * </p>
+ * This class is also where the calculations for obtaining the area of a room created
+ * is done.
  * Created by daniel on 24/12/2016.
  */
 public class CreateRoom extends Room implements Serializable
