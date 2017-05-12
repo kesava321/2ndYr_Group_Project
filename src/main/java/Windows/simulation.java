@@ -85,6 +85,8 @@ public class simulation extends Room implements Runnable {
         int tempRandom;
         double tempPower;
         double temp2;
+        double light = 0;
+        double heating = 0;
         if (getCurrentRoomOccupancy()==0){
             //turn lights off
             //Access heating elements and set them to on/true
@@ -99,8 +101,10 @@ public class simulation extends Room implements Runnable {
                             //temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod)*100;
                     }
                     else if(energyConsumers.get(x) instanceof ElectricHeating)
-                        //((ElectricHeating) energyConsumers.get(x)).setState(false);
-                        temp += ((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod)*10;
+                    {
+                        temp += ((ElectricHeating) energyConsumers.get(x)).getConsumption(timeperiod) * 10;
+                    }
+
                 }
             }
             electricityUsage.add(temp);
@@ -115,7 +119,9 @@ public class simulation extends Room implements Runnable {
                     if (energyConsumers.get(x) instanceof Light)
                     {
                         if(((Light) energyConsumers.get(x)).getState())
-                            temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod)*100;
+                        {
+                            temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod) * 100;
+                        }
                         ((Light) energyConsumers.get(x)).setState(true);
                     }
                     else if(energyConsumers.get(x) instanceof ElectricHeating)
