@@ -48,7 +48,7 @@ class ElectricAccordion extends CreateRoom
             cs.InsertData("Types_Table", objectOfTypesTables);
             cs.InsertData("Rating", objectOfRating);
             cs.InsertData("Appliance", objectOfAppliance);
-            cs.DisplayTable();
+            //cs.DisplayTable();
             count++;
         });
         button.setOnMouseClicked(event ->{
@@ -65,7 +65,7 @@ class ElectricAccordion extends CreateRoom
             cs.InsertData("Types_Table", objectOfTypesTables);
             cs.InsertData("Rating", objectOfRating);
             cs.InsertData("Appliance", objectOfAppliance);
-            cs.DisplayTable();
+            //cs.DisplayTable();
             update();
         });
         VBox vBox = new VBox(5);

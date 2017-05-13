@@ -58,19 +58,13 @@ public class XYLineChart_AWT extends JFrame
     public XYDataset createDataset(ArrayList<Double> lightUsage, ArrayList<Double> heatingUsage, ArrayList<Double> electricityUsage, ArrayList<Double> gas)
     {
         final XYSeries electricity = new XYSeries( "Electricity" );
-        final XYSeries light = new XYSeries( "Light" );
-        final XYSeries heating = new XYSeries( "Heating" );
         for(int x =0;x<electricityUsage.size();x++)
         {
             electricity.add(x*5,electricityUsage.get(x));
-            light.add(x*5, lightUsage.get(x));
-            heating.add(x*5, heatingUsage.get(x));
 
         }
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(electricity);
-        dataset.addSeries(light);
-        dataset.addSeries(heating);
         return dataset;
     }
 }
