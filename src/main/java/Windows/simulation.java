@@ -120,7 +120,7 @@ public class simulation extends Room implements Runnable {
                     {
                         if(((Light) energyConsumers.get(x)).getState())
                         {
-                            temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod) * 100;
+                            temp += ((Light) energyConsumers.get(x)).getConsumption(timeperiod) * 10;
                         }
                         ((Light) energyConsumers.get(x)).setState(true);
                     }
