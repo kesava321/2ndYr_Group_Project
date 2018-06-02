@@ -1,15 +1,6 @@
 Controlling Adaptable Buildings
 
 
-Getting Started
-How It works
-How to use It
-Configuration
-Project Design
-Libraries
-
-
-
 What Is the Building Control System?
 
 
