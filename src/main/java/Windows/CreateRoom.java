@@ -79,14 +79,14 @@ public class CreateRoom extends Room implements Serializable
         TitledPane tiledPaneElectric,titledPaneGas,titledPaneWater;
         ElectricAccordion electricAccordion = new ElectricAccordion();
         electric = electricAccordion.getView();
-        GasAccordion gasAccordion = new GasAccordion();
-        gas = gasAccordion.getView();
+        //GasAccordion gasAccordion = new GasAccordion();
+        //gas = gasAccordion.getView();
         WaterAccordion waterAccordion = new WaterAccordion();
         water = waterAccordion.getView();
         tiledPaneElectric = new TitledPane("Electric", electric);
-        titledPaneGas = new TitledPane("Gas",gas);
+       // titledPaneGas = new TitledPane("Gas",gas);
         titledPaneWater = new TitledPane("Water",water);
-        accordion.getPanes().addAll(tiledPaneElectric,titledPaneGas,titledPaneWater);
+        accordion.getPanes().addAll(tiledPaneElectric/*,titledPaneGas*/,titledPaneWater);
         accordion.setExpandedPane(tiledPaneElectric);
         borderPane.setLeft(accordion);
 
